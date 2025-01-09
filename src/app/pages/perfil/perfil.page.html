@@ -1,4 +1,53 @@
-<app-header></app-header>
+
+<!-- Estructura completa -->
+
+<!-- ENCABEZADO -->
+<ion-header>
+  <ion-toolbar>
+    <!-- Botón de inicio con logo -->
+    <ion-buttons slot="start">
+      <ion-button routerLink="/index">
+        <img src="assets/starbucks.png" alt="Starbucks Logo" style="height: 30px;">
+      </ion-button>
+    </ion-buttons>
+    
+    <!-- Botón del menú -->
+    <ion-buttons slot="end">
+      <!-- Este botón abre solo el menú con menuId="menu-perfil" -->
+      <ion-menu-button menu="menu-perfil"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<!-- CONTENEDOR PRINCIPAL -->
+<!-- El contentId del menú debe coincidir con el id de este contenedor -->
+<ion-router-outlet id="main-content"></ion-router-outlet>
+
+<!-- MENÚ -->
+<ion-menu contentId="main-content" menuId="menu-perfil"> <!-- Identificador único del menú -->
+  <ion-content class="ion-padding" style="background-color: #00704a;"> <!-- Fondo verde Starbucks -->
+    <ion-list>
+      <!-- Opciones del menú -->
+      <ion-item button routerLink="/menu">
+        <ion-label>Menú</ion-label>
+      </ion-item>
+      <ion-item button routerLink="/pedido">
+        <ion-label>Pedido</ion-label>
+      </ion-item>
+      <ion-item button routerLink="/perfil">
+        <ion-label>Perfil</ion-label>
+      </ion-item>
+
+      <ion-item button routerLink="/boleta">
+        <ion-label>Boleta</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+              <!--  contenido                         s -->
+              <!--  contenido                         s -->
+              <!--  contenido                         s -->
 <ion-content>
   <ion-card style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
     <ion-text color="light" text-center>

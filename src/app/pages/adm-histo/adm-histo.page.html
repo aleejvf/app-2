@@ -1,0 +1,113 @@
+<!-- ENCABEZADO -->
+<ion-header>
+  <ion-toolbar>
+    <!-- Botón de inicio con logo -->
+    <ion-buttons slot="start">
+      <ion-button >
+        <img src="assets/starbucks.png" alt="Starbucks Logo" style="height: 30px;">
+      </ion-button>
+    </ion-buttons>
+       <!-- Título centrado -->
+       <ion-title style="text-align: center;">Admin</ion-title>
+    
+    <!-- Botón del menú -->
+    <ion-buttons slot="end">
+      <!-- Vincula este botón al menú específico "menu-boleta" -->
+      <ion-menu-button menu="menu-adm-histo"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<!-- CONTENEDOR PRINCIPAL -->
+<!-- Este contenedor es el área que el menú controla -->
+<ion-router-outlet id="main-content"></ion-router-outlet>
+
+<!-- MENÚ BOLETA -->
+<ion-menu contentId="main-content" menuId="menu-adm-histo"> <!-- Identificador único del menú -->
+  <ion-content class="ion-padding" style="background-color: #00704a;"> <!-- Fondo verde Starbucks -->
+    <ion-list>
+      <!-- Opciones del menú -->
+      <ion-item button routerLink="/adm-histo">
+        <ion-label>Historial pedidos</ion-label>
+      </ion-item>
+      <ion-item button routerLink="/adm-mesa">
+        <ion-label>Estado mesas</ion-label>
+      </ion-item>
+      <ion-item button routerLink="/adm-pedidos">
+        <ion-label>Pedidos</ion-label>
+      </ion-item>
+      <ion-item button routerLink="/adm-produc">
+        <ion-label>Productos</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+              <!--  contenido                         s -->
+              <!--  contenido                         s -->
+              <!--  contenido                         s -->
+
+<ion-content [fullscreen]="true">
+  <!-- Filtros por mesa y fecha -->
+  <ion-card style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
+    <ion-text color="light" text-center>
+      <h1>Historial de ventas</h1>
+    </ion-text>
+  </ion-card>
+
+  <!-- Filtros -->
+  <ion-item>
+    <ion-label position="stacked">Filtrar por mesa</ion-label>
+    <ion-select placeholder="Seleccione una mesa">
+      <ion-select-option value="1">Mesa 1</ion-select-option>
+      <ion-select-option value="2">Mesa 2</ion-select-option>
+      <ion-select-option value="3">Mesa 3</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Filtrar por fecha</ion-label>
+    <ion-datetime placeholder="Seleccione una fecha" display-format="DD/MM/YYYY"></ion-datetime>
+  </ion-item>
+
+  <!-- Lista del historial -->
+  <ion-list>
+    <!-- Pedido 1 -->
+    <ion-item>
+      <ion-label>
+        <h2>N° de Mesa: 1</h2>
+        <p>Fecha: 2025-01-01</p>
+        <p>Monto: $45.50</p>
+      </ion-label>
+      <!-- Botón Ver más -->
+      <ion-button fill="outline" color="primary" slot="end" href="/detalle-pedido/1">
+        Ver más
+      </ion-button>
+    </ion-item>
+
+    <!-- Pedido 2 -->
+    <ion-item>
+      <ion-label>
+        <h2>N° de Mesa: 2</h2>
+        <p>Fecha: 2025-01-02</p>
+        <p>Monto: $60.00</p>
+      </ion-label>
+      <ion-button fill="outline" color="primary" slot="end" href="/detalle-pedido/2">
+        Ver más
+      </ion-button>
+    </ion-item>
+
+    <!-- Pedido 3 -->
+    <ion-item>
+      <ion-label>
+        <h2>N° de Mesa: 3</h2>
+        <p>Fecha: 2025-01-03</p>
+        <p>Monto: $75.00</p>
+      </ion-label>
+      <ion-button fill="outline" color="primary" slot="end" href="/detalle-pedido/3">
+        Ver más
+      </ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
