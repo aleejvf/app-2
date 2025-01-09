@@ -4,21 +4,19 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { LoginPageRoutingModule } from './login-routing.module';
+import { PedidoPageRoutingModule } from './pedido-routing.module';
 
-import { LoginPage } from './login.page';
+import { PedidoPage } from './pedido.page';
 import { ComponentModule } from 'src/app/component/component.module';
-
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    LoginPageRoutingModule,
+    PedidoPageRoutingModule,
     ComponentModule
-    
   ],
-  declarations: [LoginPage]
+  declarations: [PedidoPage]
 })
-export class LoginPageModule {}
+export class PedidoPageModule {}

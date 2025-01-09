@@ -35,3 +35,25 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
+
+ion-footer {
+    ion-toolbar {
+      background-color: #00704a; /* Verde Starbucks */
+      color: white;
+      text-align: center;
+    }
+  }
+  
+  ion-button {
+    --background: #00704a; /* Verde Starbucks */
+    --color: white;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+  ion-item {
+    margin-bottom: 15px;
+  }
+  

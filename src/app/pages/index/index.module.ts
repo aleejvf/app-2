@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { LoginPageRoutingModule } from './login-routing.module';
+import { IndexPageRoutingModule } from './index-routing.module';
 
-import { LoginPage } from './login.page';
+import { IndexPage } from './index.page';
 import { ComponentModule } from 'src/app/component/component.module';
 
 
@@ -15,10 +15,9 @@ import { ComponentModule } from 'src/app/component/component.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    LoginPageRoutingModule,
+    IndexPageRoutingModule,
     ComponentModule
-    
   ],
-  declarations: [LoginPage]
+  declarations: [IndexPage]
 })
-export class LoginPageModule {}
+export class IndexPageModule {}

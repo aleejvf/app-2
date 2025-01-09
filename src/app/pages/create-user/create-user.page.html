@@ -1,0 +1,45 @@
+
+
+<ion-content [fullscreen]="true" style="--background: #f7f7f7;">
+  <ion-card style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
+    <ion-text color="light" text-center style="display: flex; align-items: center;">
+      <!-- Ícono de flecha -->
+      <ion-icon name="arrow-back" style="margin-right: 20px;" routerLink="/login"></ion-icon>
+      <!-- Título -->
+      <h1>Creación de usuario</h1>
+    </ion-text>
+  </ion-card>
+  
+  <!-- Contenedor principal para el formulario de creación de cuenta -->
+  <div style="display: flex; justify-content: center; align-items: center; height: 70%; ">
+    <div style="background-color: #f0f0f0; padding: 30px; border-radius: 10px; width: 90%; max-width: 400px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+
+      <!-- Campo de correo electrónico -->
+      <ion-item>
+        <ion-label position="floating">Correo electrónico</ion-label>
+        <ion-input type="email" placeholder="Ingresa tu correo electrónico" required></ion-input>
+      </ion-item>
+      
+      <!-- Campo de nombre -->
+      <ion-item>
+        <ion-label position="floating">Nombre completo</ion-label>
+        <ion-input type="text" placeholder="Ingresa tu nombre completo" required></ion-input>
+      </ion-item>
+
+      <!-- Campo de contraseña -->
+      <ion-item>
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input type="password" placeholder="Ingresa tu contraseña" required></ion-input>
+      </ion-item>
+
+      <!-- Campo de confirmar contraseña -->
+      <ion-item>
+        <ion-label position="floating">Confirmar contraseña</ion-label>
+        <ion-input type="password" placeholder="Confirma tu contraseña" required></ion-input>
+      </ion-item>
+
+      <!-- Botón de crear cuenta -->
+      <ion-button expand="block" style="background-color: #00704a; margin-top: 20px;">Crear cuenta</ion-button>
+    </div>
+  </div>
+</ion-content>

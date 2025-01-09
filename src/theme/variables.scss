@@ -1,2 +1,24 @@
 // For information on how to create your own theme, please see:
 // http://ionicframework.com/docs/theming/
+:root {
+    --ion-color-primary: #00704a; /* Verde Starbucks */
+    --ion-color-secondary: #f0f0f0; /* Color de fondo */
+    --ion-color-tertiary: #1d1d1b; /* Color del texto */
+  }
+  
+  ion-toolbar {
+    --background: #ffffff; /* Blanco para las barras de herramientas */
+    --color: #00704a; /* Verde para el texto */
+  }
+  
+  ion-button {
+    --background: #00704a;
+    --color: white;
+    --border-radius: 5px;
+  }
+  
+  ion-footer {
+    --background: #00704a;
+    --color: white;
+  }
+  

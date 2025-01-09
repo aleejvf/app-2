@@ -1,0 +1,46 @@
+
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <!-- Asegurándote que el routerLink esté en el botón -->
+        <ion-button routerLink="/index">
+          <img src="assets/starbucks.png" alt="Starbucks Logo" style="height: 30px;">
+        </ion-button>
+      </ion-buttons>
+      
+      <ion-buttons slot="end">
+        <ion-menu-button id="index"></ion-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-menu contentId="index">
+    <!-- Menú con fondo verde Starbucks -->
+    <ion-header style="background-color: #00704a;">
+      <ion-toolbar>
+        <!-- Título o contenido del menú -->
+      </ion-toolbar>
+    </ion-header>
+  
+    <ion-content class="ion-padding" style="background-color: #00704a;"> <!-- Fondo verde Starbucks -->
+      <!-- Botones en el menú -->
+      <ion-list>
+        <ion-item button routerLink="pages/menu">
+          <ion-label>Menú</ion-label>
+        </ion-item>
+        <ion-item button routerLink="/pedido">
+          <ion-label>Pedido</ion-label>
+        </ion-item>
+        <ion-item button routerLink="/perfil">
+          <ion-label>Perfil</ion-label>
+        </ion-item>
+        <ion-item button routerLink="/menu">
+          <ion-label>Solicitar ayuda</ion-label>
+        </ion-item>
+        <ion-item button routerLink="/boleta">
+          <ion-label>Boleta</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+

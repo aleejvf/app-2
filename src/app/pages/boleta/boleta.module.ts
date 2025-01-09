@@ -4,21 +4,19 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { LoginPageRoutingModule } from './login-routing.module';
+import { BoletaPageRoutingModule } from './boleta-routing.module';
 
-import { LoginPage } from './login.page';
+import { BoletaPage } from './boleta.page';
 import { ComponentModule } from 'src/app/component/component.module';
-
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    LoginPageRoutingModule,
+    BoletaPageRoutingModule,
     ComponentModule
-    
   ],
-  declarations: [LoginPage]
+  declarations: [BoletaPage]
 })
-export class LoginPageModule {}
+export class BoletaPageModule {}

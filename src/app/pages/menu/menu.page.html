@@ -1,0 +1,64 @@
+<app-header></app-header>
+<ion-content>
+  <ion-card style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
+    <ion-text color="light" text-center>
+      <h1>MENU</h1>
+    </ion-text>
+  </ion-card>
+
+  <!-- Línea y mini título: Bebidas -->
+  <div style="margin: 10px 0;">
+    <div style="border-top: 1px solid #ccc; margin-bottom: 5px;"></div>
+    <ion-text color="dark" style="display: block; margin-left: 0;">
+      <h4 style="margin: 0; padding-left: 10px;">Bebidas</h4>
+    </ion-text>
+    <div style="border-top: 1px solid #ccc; margin-top: 5px;"></div>
+  </div>
+
+  <!-- Categorías de Bebidas -->
+  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 20px;">
+    <a routerLink="/cafes-calientes" style="text-decoration: none;">
+      <div style="background-color: hsl(159, 100%, 14%); width: 100%; height: 120px; border-radius: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white;">
+        <img src="assets/cafe caliente.png" alt="Cafés Calientes" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
+        <h5 style="margin: 8px 0 0 0; font-size: 12px;">Cafés Calientes</h5>
+      </div>
+    </a>
+    <a routerLink="/cafes-frios" style="text-decoration: none;">
+      <div style="background-color: hsl(159, 100%, 14%); width: 100%; height: 120px; border-radius: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white;">
+        <img src="assets/cafe frio.png" alt="Cafés Fríos" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
+        <h5 style="margin: 8px 0 0 0; font-size: 12px;">Cafés Fríos</h5>
+      </div>
+    </a>
+    <a routerLink="/te" style="text-decoration: none;">
+      <div style="background-color: hsl(159, 100%, 14%); width: 100%; height: 120px; border-radius: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white;">
+        <img src="assets/te.png" alt="Té" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
+        <h5 style="margin: 8px 0 0 0; font-size: 12px;">Té</h5>
+      </div>
+    </a>
+  </div>
+
+  <!-- Línea y mini título: Comida -->
+  <div style="margin: 10px 0;">
+    <div style="border-top: 1px solid #ccc; margin-bottom: 5px;"></div>
+    <ion-text color="dark" style="display: block; margin-left: 0;">
+      <h4 style="margin: 0; padding-left: 10px;">Comida</h4>
+    </ion-text>
+    <div style="border-top: 1px solid #ccc; margin-top: 5px;"></div>
+  </div>
+
+  <!-- Categorías de Comida -->
+  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 20px;">
+    <a routerLink="/dulces" style="text-decoration: none;">
+      <div style="background-color: hsl(159, 100%, 14%); width: 100%; height: 120px; border-radius: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white;">
+        <img src="assets/dulce.png" alt="Dulces" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
+        <h5 style="margin: 8px 0 0 0; font-size: 12px;">Dulces</h5>
+      </div>
+    </a>
+    <a routerLink="/sandwichs" style="text-decoration: none;">
+      <div style="background-color: hsl(159, 100%, 14%); width: 100%; height: 120px; border-radius: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white;">
+        <img src="assets/preparados.png" alt="Sandwichs y Preparados" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
+        <h5 style="margin: 8px 0 0 0; font-size: 12px;">Sandwichs y Preparados</h5>
+      </div>
+    </a>
+  </div>
+</ion-content>
