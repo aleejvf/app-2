@@ -1,0 +1,112 @@
+<!-- ENCABEZADO -->
+<ion-header>
+  <ion-toolbar>
+    <!-- Botón de inicio con logo -->
+    <ion-buttons slot="start">
+      <ion-button routerLink="/index">
+        <img src="assets/starbucks.png" alt="Starbucks Logo" style="height: 30px;">
+      </ion-button>
+    </ion-buttons>
+    
+    <!-- Botón del menú -->
+    <ion-buttons slot="end">
+      <!-- Vincula este botón al menú específico "menu-boleta" -->
+      <ion-menu-button menu="menu-detalle-prod"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<!-- CONTENEDOR PRINCIPAL -->
+<!-- Este contenedor es el área que el menú controla -->
+<ion-router-outlet id="main-content"></ion-router-outlet>
+
+<!-- MENÚ BOLETA -->
+<ion-menu contentId="main-content" menuId="menu-detalle-prod"> <!-- Identificador único del menú -->
+  <ion-content class="ion-padding" style="background-color: #00704a;"> <!-- Fondo verde Starbucks -->
+    <ion-list>
+      <!-- Opciones del menú -->
+      <ion-item button routerLink="/menu">
+        <ion-label>Menú</ion-label>
+      </ion-item>
+      <ion-item button routerLink="/pedido">
+        <ion-label>Pedido</ion-label>
+      </ion-item>
+      <ion-item button routerLink="/perfil">
+        <ion-label>Perfil</ion-label>
+      </ion-item>
+
+      <ion-item button routerLink="/boleta">
+        <ion-label>Boleta</ion-label>
+      </ion-item>
+      
+      <ion-item >
+        <ion-label (click)="setOpen(true)">Solicitar mesero</ion-label>
+
+        <ion-alert
+          [isOpen]="isAlertOpen"
+          header="Se a solicitado al mesero"
+      
+          message="Dentro de unos instantes se le atendera ."
+          [buttons]="alertButtons"
+          (didDismiss)="setOpen(false)"
+        ></ion-alert>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+              <!--  contenido                         s -->
+              <!--  contenido                         s -->
+              <!--  contenido                         s -->
+<ion-content>
+  <!-- Card verde -->
+  <ion-card style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
+    <ion-icon 
+  name="arrow-back" 
+  style="background-color: #00704a; color: white; margin-right: 20px;" 
+  routerLink="/productos">
+</ion-icon>
+    <ion-text color="light" text-center>
+      <h1>Detalle</h1>
+    </ion-text>
+  </ion-card>
+
+  <!-- Recuadro gris -->
+  <ion-card style="background-color: #f0f0f0; padding: 20px; margin: 20px;">
+    <div style="text-align: center;">
+      <!-- Nombre del producto -->
+      <h2 style="margin-bottom: 20px;">Expresso</h2>
+
+      <!-- Imagen del producto -->
+      <img src="assets/cafe caliente.png" alt="Producto" style="width: 150px; height: 150px; object-fit: cover; margin-bottom: 20px; border-radius: 10px;">
+
+      <!-- Descripción del producto -->
+      <p style="font-size: 14px; color: #555; margin-bottom: 20px;">
+        Descripción detallada del producto. Aquí puedes incluir información sobre sus características o beneficios.
+      </p>
+
+      <!-- Precio del producto -->
+      <h3 style="color: #00704a; margin-bottom: 20px;">Precio: $7.000</h3>
+
+      <!-- Botones e inputs -->
+      <div style="display: flex; flex-direction: column; gap: 20px; align-items: center;">
+        <!-- Seleccionar cantidad -->
+        <ion-item style="width: 100%; max-width: 300px;">
+          <ion-label position="stacked">Cantidad</ion-label>
+          <ion-input type="number" min="1" value="1"></ion-input>
+        </ion-item>
+
+        <!-- Nota del cliente -->
+        <ion-item style="width: 100%; max-width: 300px;">
+          <ion-label position="stacked">Nota</ion-label>
+          <ion-textarea placeholder="Ejemplo: Sin azúcar, con hielo..." auto-grow="true"></ion-textarea>
+        </ion-item>
+
+        <!-- Botón agregar -->
+        <ion-button expand="block" style="background-color: #00704a; width: 100%; max-width: 300px;" routerLink="/menu">
+          Agregar
+        </ion-button>
+      </div>
+    </div>
+  </ion-card>
+</ion-content>
+              

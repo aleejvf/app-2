@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-index',
-  templateUrl: './index.page.html',
-  styleUrls: ['./index.page.scss'],
+  selector: 'app-detalle-prod',
+  templateUrl: './detalle-prod.page.html',
+  styleUrls: ['./detalle-prod.page.scss'],
   standalone : false
 })
-export class IndexPage implements OnInit {
+export class DetalleProdPage implements OnInit {
   isAlertOpen = false;
   alertButtons = ['Listo'];
 

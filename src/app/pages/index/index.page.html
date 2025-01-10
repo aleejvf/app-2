@@ -38,6 +38,19 @@
       <ion-item button routerLink="/boleta">
         <ion-label>Boleta</ion-label>
       </ion-item>
+      
+      <ion-item >
+        <ion-label (click)="setOpen(true)">Solicitar mesero</ion-label>
+
+        <ion-alert
+          [isOpen]="isAlertOpen"
+          header="Se a solicitado al mesero"
+      
+          message="Dentro de unos instantes se le atendera ."
+          [buttons]="alertButtons"
+          (didDismiss)="setOpen(false)"
+        ></ion-alert>
+      </ion-item>
     </ion-list>
   </ion-content>
 </ion-menu>

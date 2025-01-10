@@ -57,6 +57,14 @@ const routes: Routes = [
     path: 'adm-pedidos',
     loadChildren: () => import('./pages/adm-pedidos/adm-pedidos.module').then( m => m.AdmPedidosPageModule)
   },
+  {
+    path: 'productos',
+    loadChildren: () => import('./pages/productos/productos.module').then( m => m.ProductosPageModule)
+  },
+  {
+    path: 'detalle-prod',
+    loadChildren: () => import('./pages/detalle-prod/detalle-prod.module').then( m => m.DetalleProdPageModule)
+  },
  
  
 ];
