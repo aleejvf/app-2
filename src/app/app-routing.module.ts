@@ -86,6 +86,10 @@ const routes: Routes = [
     path: 'adm-deta-prod',
     loadChildren: () => import('./pages/adm-deta-prod/adm-deta-prod.module').then( m => m.AdmDetaProdPageModule)
   },
+  {
+    path: 'pago',
+    loadChildren: () => import('./pages/pago/pago.module').then( m => m.PagoPageModule)
+  },
  
  
 ];

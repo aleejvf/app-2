@@ -29,7 +29,7 @@
         <ion-label>Menú</ion-label>
       </ion-item>
       <ion-item button routerLink="/pedido">
-        <ion-label>Pedido</ion-label>
+        <ion-label>Mis pedidos</ion-label>
       </ion-item>
       <ion-item button routerLink="/perfil">
         <ion-label>Perfil</ion-label>
@@ -89,27 +89,28 @@
 
       <!-- Botones e inputs -->
       <div style="display: flex; flex-direction: column; gap: 20px; align-items: center;">
-        <!-- Seleccionar cantidad -->
-        <ion-item style="width: 100%; max-width: 300px;">
-          <ion-label position="stacked">Cantidad</ion-label>
-          <ion-input type="number" min="1" value="1"></ion-input>
-        </ion-item>
+
 
         <!-- Nota del cliente -->
         <ion-item style="width: 100%; max-width: 300px;">
           <ion-label position="stacked">Nota</ion-label>
           <ion-textarea placeholder="Ejemplo: Sin azúcar, con hielo..." auto-grow="true"></ion-textarea>
         </ion-item>
-        <p style="font-size: 14px; color: #555; margin-bottom: 20px;">
-          Si seleccionas más de un producto, especifica en la nota cómo deseas cada uno. Por ejemplo, si pides 3 cafés: 1- Sin azúcar, 2- Sin leche, 3- Con leche extra.
-        </p>
-
         <!-- Botón agregar -->
         <ion-button 
           expand="block" 
-          style="background-color: #00704a; width: 100%; max-width: 300px;" 
-          (click)="showAddToOrderAlert()">
+          style="background-color: #00704a; width: 100%; max-width: 300px;" id="open-toast">
           Agregar
+          
+        </ion-button>
+        <ion-toast trigger="open-toast" message="Se a agrega un producto al carrito con su nota" [duration]="5000"></ion-toast>
+          <!-- Botón agregar -->
+          <ion-button 
+          expand="block" 
+          routerLink="/menu"
+          style="background-color: #871111; width: 100%; max-width: 300px;" id="open-toast">
+          Voler al menu
+          
         </ion-button>
       </div>
     </div>

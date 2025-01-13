@@ -1,0 +1,106 @@
+<!-- ENCABEZADO -->
+<ion-header>
+  <ion-toolbar>
+    <!-- Botón de inicio con logo -->
+    <ion-buttons slot="start">
+      <ion-button routerLink="/index">
+        <img src="assets/starbucks.png" alt="Starbucks Logo" style="height: 30px;">
+      </ion-button>
+    </ion-buttons>
+    
+    <!-- Botón del menú -->
+    <ion-buttons slot="end">
+      <!-- Vincula este botón al menú específico "menu-boleta" -->
+      <ion-menu-button menu="menu-pago"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<!-- CONTENEDOR PRINCIPAL -->
+<!-- Este contenedor es el área que el menú controla -->
+<ion-router-outlet id="main-content"></ion-router-outlet>
+
+<!-- MENÚ BOLETA -->
+<ion-menu contentId="main-content" menuId="menu-pago"> <!-- Identificador único del menú -->
+  <ion-content class="ion-padding"> <!-- Fondo verde Starbucks -->
+    <ion-list>
+      <!-- Opciones del menú -->
+      <ion-item button routerLink="/menu">
+        <ion-label>Menú</ion-label>
+      </ion-item>
+      <ion-item button routerLink="/pedido">
+        <ion-label>Mi pedido</ion-label>
+      </ion-item>
+      <ion-item button routerLink="/boleta">
+        <ion-label>Pagar</ion-label>
+      </ion-item>
+      <ion-item >
+        <ion-label (click)="setOpen(true)">Solicitar mesero</ion-label>
+
+        <ion-alert
+          [isOpen]="isAlertOpen"
+          header="Se a solicitado al mesero"
+      
+          message="Dentro de unos instantes se le atendera ."
+          [buttons]="alertButtons"
+          (didDismiss)="setOpen(false)"
+        ></ion-alert>
+      </ion-item>
+      <ion-item button routerLink="/perfil">
+        <ion-label>Perfil</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-content class="ion-padding">
+  <ion-card style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
+    <ion-text color="light" text-center>
+      <h1>Pagar cuentas</h1>
+    </ion-text>
+  </ion-card>
+  <form>
+    <!-- Nombre del titular -->
+    <ion-item>
+      <ion-label position="floating">Nombre del titular</ion-label>
+      <ion-input type="text" placeholder="Juan Pérez"></ion-input>
+    </ion-item>
+
+    <!-- Número de tarjeta -->
+    <ion-item>
+      <ion-label position="floating">Número de tarjeta</ion-label>
+      <ion-input type="number" placeholder="1234 5678 9012 3456" maxlength="16"></ion-input>
+    </ion-item>
+
+    <!-- Fecha de vencimiento -->
+    <ion-item>
+      <ion-label position="floating">Fecha de vencimiento</ion-label>
+      <ion-input type="text" placeholder="MM/AA"></ion-input>
+    </ion-item>
+
+    <!-- CVV -->
+    <ion-item>
+      <ion-label position="floating">CVV</ion-label>
+      <ion-input type="number" placeholder="123" maxlength="3"></ion-input>
+    </ion-item>
+
+    <!-- Dirección de facturación -->
+    <ion-item>
+      <ion-label position="floating">Dirección de facturación</ion-label>
+      <ion-input type="text" placeholder="Calle, Número, Ciudad"></ion-input>
+    </ion-item>
+
+    <!-- Código postal -->
+    <ion-item>
+      <ion-label position="floating">Código postal</ion-label>
+      <ion-input type="number" placeholder="12345"></ion-input>
+    </ion-item>
+
+    <!-- Botón para confirmar -->
+    <ion-button expand="block" color="primary" type="submit"routerLink="/login">
+      Confirmar pago
+    </ion-button>
+    
+  </form>
+  
+</ion-content>
