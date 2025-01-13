@@ -3,17 +3,17 @@
   <ion-toolbar>
     <!-- Botón de inicio con logo -->
     <ion-buttons slot="start">
-      <ion-button>
+      <ion-button >
         <img src="assets/starbucks.png" alt="Starbucks Logo" style="height: 30px;">
       </ion-button>
     </ion-buttons>
-   <!-- Título centrado -->
-   <ion-title style="text-align: center;">Admin</ion-title>
+       <!-- Título centrado -->
+       <ion-title style="text-align: center;">Admin</ion-title>
     
     <!-- Botón del menú -->
     <ion-buttons slot="end">
       <!-- Vincula este botón al menú específico "menu-boleta" -->
-      <ion-menu-button menu="menu-adm-mesa"></ion-menu-button>
+      <ion-menu-button menu="menu-adm-deta-pedido"></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -23,7 +23,7 @@
 <ion-router-outlet id="main-content"></ion-router-outlet>
 
 <!-- MENÚ BOLETA -->
-<ion-menu contentId="main-content" menuId="menu-adm-mesa"> <!-- Identificador único del menú -->
+<ion-menu contentId="main-content" menuId="menu-adm-deta-pedido"> <!-- Identificador único del menú -->
   <ion-content class="ion-padding" style="background-color: #00704a;"> <!-- Fondo verde Starbucks -->
     <ion-list>
       <!-- Opciones del menú -->
@@ -48,38 +48,56 @@
 </ion-menu>
 
 <!--  contenido -->
-<ion-content [fullscreen]="true">
-  <!-- Encabezado de la sección -->
+<ion-content>
+  
   <ion-card style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
+    <ion-icon 
+  name="arrow-back" 
+  style="background-color: #00704a; color: white; margin-right: 20px;" 
+  routerLink="/adm-pedidos">
+</ion-icon>
     <ion-text color="light" text-center>
-      <h1>Solicitud de mesero</h1>
+      <h1>Pedidos</h1>
     </ion-text>
   </ion-card>
-
-  <!-- Lista de solicitudes -->
-  <ion-list>
-    <!-- Solicitud de mesero para la mesa 1 -->
-    <ion-item style="margin-bottom: 20px;">
+  <!-- Encabezado de la boleta -->
+  <div style="text-align: center; margin-bottom: 20px;">
+    <p><strong>Mesa:</strong> 1</p>
+    <p><strong>Hora:</strong> 14:30</p>
+  </div>
+  
+  <!-- Pedido 1 -->
+  <div style="margin-bottom: 20px;">
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="assets/cafe caliente.png" alt="Producto 1" />
+      </ion-avatar>
       <ion-label>
-        <h2>Mesa N° 1</h2>
-        <p><strong>Hora de la solicitud:</strong> 14:30</p>
+        <h2>Latte caliente</h2>
+        <p>Precio: $10.00</p>
+        <p>Nota: Que no sea caliente</p>
+        <p>Cantidad: 1</p>
       </ion-label>
-      <!-- Botón para eliminar la solicitud -->
-      <ion-button fill="outline" color="danger" slot="end">
-        Eliminar Solicitud
-      </ion-button>
+      <!-- Checkbox -->
+      <ion-checkbox slot="end"></ion-checkbox>
     </ion-item>
+  </div>
 
-    <!-- Solicitud de mesero para la mesa 2 -->
-    <ion-item style="margin-bottom: 20px;">
+  <!-- Pedido 2 -->
+  <div style="margin-bottom: 20px;">
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="assets/dulce.png" alt="Producto 2" />
+      </ion-avatar>
       <ion-label>
-        <h2>Mesa N° 2</h2>
-        <p><strong>Hora de la solicitud:</strong> 15:00</p>
+        <h2>Estrudel</h2>
+        <p>Precio: $15.00</p>
+        <p>Nota: --</p>
+        <p>Cantidad: 2</p>
       </ion-label>
-      <!-- Botón para eliminar la solicitud -->
-      <ion-button fill="outline" color="danger" slot="end">
-        Eliminar Solicitud
-      </ion-button>
+      <!-- Checkbox -->
+      <ion-checkbox slot="end"></ion-checkbox>
     </ion-item>
-  </ion-list>
+  </div>
+
 </ion-content>

@@ -65,6 +65,27 @@ const routes: Routes = [
     path: 'detalle-prod',
     loadChildren: () => import('./pages/detalle-prod/detalle-prod.module').then( m => m.DetalleProdPageModule)
   },
+
+  {
+    path: 'adm-deta-vent',
+    loadChildren: () => import('./pages/adm-deta-vent/adm-deta-vent.module').then( m => m.AdmDetaVentPageModule)
+  },
+  {
+    path: 'adm-deta-pedido',
+    loadChildren: () => import('./pages/adm-deta-pedido/adm-deta-pedido.module').then( m => m.AdmDetaPedidoPageModule)
+  },
+  {
+    path: 'adm-agregar-prod',
+    loadChildren: () => import('./pages/adm-agregar-prod/adm-agregar-prod.module').then( m => m.AdmAgregarProdPageModule)
+  },
+  {
+    path: 'adm-edit-prod',
+    loadChildren: () => import('./pages/adm-edit-prod/adm-edit-prod.module').then( m => m.AdmEditProdPageModule)
+  },
+  {
+    path: 'adm-deta-prod',
+    loadChildren: () => import('./pages/adm-deta-prod/adm-deta-prod.module').then( m => m.AdmDetaProdPageModule)
+  },
  
  
 ];

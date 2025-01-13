@@ -31,7 +31,7 @@
         <ion-label>Historial pedidos</ion-label>
       </ion-item>
       <ion-item button routerLink="/adm-mesa">
-        <ion-label>Estado mesas</ion-label>
+        <ion-label>Solicitud de mesero</ion-label>
       </ion-item>
       <ion-item button routerLink="/adm-pedidos">
         <ion-label>Pedidos</ion-label>
@@ -39,6 +39,10 @@
       <ion-item button routerLink="/adm-produc">
         <ion-label>Productos</ion-label>
       </ion-item>
+      <ion-item button routerLink="/login" style="--ion-item-background: #ff4d4d; color: white; border-radius: 8px; margin-top: 20px;">
+        <ion-label style="text-align: center; font-weight: bold;">Cerrar sesión</ion-label>
+      </ion-item>
+      
     </ion-list>
   </ion-content>
 </ion-menu>
@@ -46,72 +50,72 @@
               <!--  contenido                         s -->
               <!--  contenido                         s -->
               <!--  contenido                         s -->
-              <ion-content [fullscreen]="true">
-                <!-- Encabezado de la sección -->
-                <ion-card style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
-                  <ion-text color="light" text-center>
-                    <h1>Pedidos</h1>
-                  </ion-text>
-                </ion-card>
-              
-                <!-- Lista de pedidos -->
-                <ion-list>
-                  <!-- Pedido 1 de la mesa 1 -->
-                  <ion-item style="margin-bottom: 20px;">
-                    <ion-label>
-                      <h2>Mesa N° 1</h2>
-                      <p><strong>Hora del pedido:</strong> 14:30</p>
-                    </ion-label>
-                    <!-- Selector de estado del pedido, con valor predeterminado en 'espera' -->
-                    <ion-select value="espera" placeholder="Cambiar estado" slot="end">
-                      <ion-select-option value="espera">Espera</ion-select-option>
-                      <ion-select-option value="preparacion">Preparación</ion-select-option>
-                      <ion-select-option value="entregando">Entregando</ion-select-option>
-                      <ion-select-option value="finalizado">Finalizado</ion-select-option>
-                    </ion-select>
-                    <ion-button fill="outline" color="success" slot="end" [routerLink]="['/detalles-pedido']">
-                      Ver Detalles
-                    </ion-button>
-                  </ion-item>
-              
-                  <!-- Pedido 2 de la mesa 1 -->
-                  <ion-item style="margin-bottom: 20px;">
-                    <ion-label>
-                      <h2>Mesa N° 1</h2>
-                      <p><strong>Hora del pedido:</strong> 14:45</p>
-                    </ion-label>
-                    <!-- Selector de estado del pedido, con valor predeterminado en 'espera' -->
-                    <ion-select value="espera" placeholder="Cambiar estado" slot="end">
-                      <ion-select-option value="espera">Espera</ion-select-option>
-                      <ion-select-option value="preparacion">Preparación</ion-select-option>
-                      <ion-select-option value="entregando">Entregando</ion-select-option>
-                      <ion-select-option value="finalizado">Finalizado</ion-select-option>
-                    </ion-select>
-                    <ion-button fill="outline" color="success" slot="end" [routerLink]="['/detalles-pedido']">
-                      Ver Detalles
-                    </ion-button>
-                  </ion-item>
-              
-                  <!-- Pedido 1 de la mesa 2 -->
-                  <ion-item style="margin-bottom: 20px;">
-                    <ion-label>
-                      <h2>Mesa N° 2</h2>
-                      <p><strong>Hora del pedido:</strong> 15:00</p>
-                    </ion-label>
-                    <!-- Selector de estado del pedido, con valor predeterminado en 'espera' -->
-                    <ion-select value="espera" placeholder="Cambiar estado" slot="end">
-                      <ion-select-option value="espera">Espera</ion-select-option>
-                      <ion-select-option value="preparacion">Preparación</ion-select-option>
-                      <ion-select-option value="entregando">Entregando</ion-select-option>
-                      <ion-select-option value="finalizado">Finalizado</ion-select-option>
-                    </ion-select>
-                    <ion-button fill="outline" color="success" slot="end" [routerLink]="['/detalles-pedido']">
-                      Ver Detalles
-                    </ion-button>
-                  </ion-item>
-                </ion-list>
-              </ion-content>
-              
-              
-              
+<ion-content [fullscreen]="true">
+  <!-- Encabezado de la sección -->
+  <ion-card style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
+    <ion-text color="light" text-center>
+      <h1>Pedidos</h1>
+    </ion-text>
+  </ion-card>
+
+  <!-- Lista de pedidos -->
+  <ion-list>
+    <!-- Pedido 1 de la mesa 1 -->
+    <ion-item style="margin-bottom: 20px;">
+      <ion-label>
+        <h2>Mesa N° 1</h2>
+        <p><strong>Hora del pedido:</strong> 14:30</p>
+      </ion-label>
+      <!-- Selector de estado del pedido, con valor predeterminado en 'espera' -->
+      <ion-select value="espera" placeholder="Cambiar estado" slot="end">
+        <ion-select-option value="espera">Espera</ion-select-option>
+        <ion-select-option value="preparacion">Preparación</ion-select-option>
+        <ion-select-option value="entregando">Entregando</ion-select-option>
+        <ion-select-option value="finalizado">Finalizado</ion-select-option>
+      </ion-select>
+      <ion-button fill="outline" color="success" slot="end" [routerLink]="['/adm-deta-pedido']">
+        Ver Detalles
+      </ion-button>
+    </ion-item>
+
+    <!-- Pedido 2 de la mesa 1 -->
+    <ion-item style="margin-bottom: 20px;">
+      <ion-label>
+        <h2>Mesa N° 1</h2>
+        <p><strong>Hora del pedido:</strong> 14:45</p>
+      </ion-label>
+      <!-- Selector de estado del pedido, con valor predeterminado en 'espera' -->
+      <ion-select value="espera" placeholder="Cambiar estado" slot="end">
+        <ion-select-option value="espera">Espera</ion-select-option>
+        <ion-select-option value="preparacion">Preparación</ion-select-option>
+        <ion-select-option value="entregando">Entregando</ion-select-option>
+        <ion-select-option value="finalizado">Finalizado</ion-select-option>
+      </ion-select>
+      <ion-button fill="outline" color="success" slot="end" [routerLink]="['/adm-deta-pedido']">
+        Ver Detalles
+      </ion-button>
+    </ion-item>
+
+    <!-- Pedido 1 de la mesa 2 -->
+    <ion-item style="margin-bottom: 20px;">
+      <ion-label>
+        <h2>Mesa N° 2</h2>
+        <p><strong>Hora del pedido:</strong> 15:00</p>
+      </ion-label>
+      <!-- Selector de estado del pedido, con valor predeterminado en 'espera' -->
+      <ion-select value="espera" placeholder="Cambiar estado" slot="end">
+        <ion-select-option value="espera">Espera</ion-select-option>
+        <ion-select-option value="preparacion">Preparación</ion-select-option>
+        <ion-select-option value="entregando">Entregando</ion-select-option>
+        <ion-select-option value="finalizado">Finalizado</ion-select-option>
+      </ion-select>
+      <ion-button fill="outline" color="success" slot="end" [routerLink]="['/adm-deta-pedido']">
+        Ver Detalles
+      </ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+
+
               

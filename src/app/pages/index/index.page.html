@@ -29,16 +29,13 @@
         <ion-label>Menú</ion-label>
       </ion-item>
       <ion-item button routerLink="/pedido">
-        <ion-label>Pedido</ion-label>
-      </ion-item>
-      <ion-item button routerLink="/perfil">
-        <ion-label>Perfil</ion-label>
+        <ion-label>Mis pedido</ion-label>
       </ion-item>
 
+
       <ion-item button routerLink="/boleta">
-        <ion-label>Boleta</ion-label>
+        <ion-label>Pagar</ion-label>
       </ion-item>
-      
       <ion-item >
         <ion-label (click)="setOpen(true)">Solicitar mesero</ion-label>
 
@@ -50,6 +47,9 @@
           [buttons]="alertButtons"
           (didDismiss)="setOpen(false)"
         ></ion-alert>
+      </ion-item>
+            <ion-item button routerLink="/perfil">
+        <ion-label>Perfil</ion-label>
       </ion-item>
     </ion-list>
   </ion-content>

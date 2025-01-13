@@ -1,0 +1,79 @@
+<!-- ENCABEZADO -->
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button>
+        <img src="assets/starbucks.png" alt="Starbucks Logo" style="height: 30px;">
+      </ion-button>
+    </ion-buttons>
+    <ion-title style="text-align: center;">Agregar Producto</ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button menu="menu-adm-agregar"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<!-- CONTENEDOR PRINCIPAL -->
+<ion-router-outlet id="main-content"></ion-router-outlet>
+
+<!-- MENÚ BOLETA -->
+<ion-menu contentId="main-content" menuId="menu-adm-agregar">
+  <ion-content class="ion-padding" style="background-color: #00704a;">
+    <ion-list>
+      <ion-item button routerLink="/adm-histo">
+        <ion-label>Historial pedidos</ion-label>
+      </ion-item>
+      <ion-item button routerLink="/adm-mesa">
+        <ion-label>Solicitud de mesero</ion-label>
+      </ion-item>
+      <ion-item button routerLink="/adm-pedidos">
+        <ion-label>Pedidos</ion-label>
+      </ion-item>
+      <ion-item button routerLink="/adm-produc">
+        <ion-label>Productos</ion-label>
+      </ion-item>
+      <ion-item button routerLink="/login" style="--ion-item-background: #ff4d4d; color: white; border-radius: 8px; margin-top: 20px;">
+        <ion-label style="text-align: center; font-weight: bold;">Cerrar sesión</ion-label>
+      </ion-item>
+      
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<!-- CONTENIDO DE LA PÁGINA DE AGREGAR PRODUCTO -->
+<ion-content [fullscreen]="true">
+  <ion-card style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
+    <ion-icon 
+    name="arrow-back" 
+    style="background-color: #00704a; color: white; margin-right: 20px;" 
+    routerLink="/adm-produc">
+  </ion-icon>
+    <ion-text color="light" text-center>
+      <h1>Agregar Producto</h1>
+    </ion-text>
+  </ion-card>
+
+  <ion-item>
+    <ion-label position="stacked">Imagen del Producto</ion-label>
+    <ion-input type="file" [(ngModel)]="productImage"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Título</ion-label>
+    <ion-input type="text" [(ngModel)]="productTitle"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Descripción</ion-label>
+    <ion-textarea [(ngModel)]="productDescription"></ion-textarea>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Precio</ion-label>
+    <ion-input type="number" [(ngModel)]="productPrice"></ion-input>
+  </ion-item>
+
+  <ion-button expand="block" color="success"routerLink="/adm-produc" >Agregar Producto</ion-button>
+</ion-content>
+
+

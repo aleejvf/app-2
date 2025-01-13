@@ -4,92 +4,101 @@
     <!-- Botón de inicio con logo -->
     <ion-buttons slot="start">
       <ion-button routerLink="/index">
-        <img src="assets/starbucks.png" alt="Starbucks Logo" style="height: 30px;">
+        <img src="assets/starbucks.png" alt="Starbucks Logo" style="height: 30px;" />
       </ion-button>
     </ion-buttons>
-    
+
     <!-- Botón del menú -->
     <ion-buttons slot="end">
-      <!-- Vincula este botón al menú específico "menu-boleta" -->
       <ion-menu-button menu="menu-pedido"></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <!-- CONTENEDOR PRINCIPAL -->
-<!-- Este contenedor es el área que el menú controla -->
 <ion-router-outlet id="main-content"></ion-router-outlet>
 
-<!-- MENÚ BOLETA -->
-<ion-menu contentId="main-content" menuId="menu-pedido"> <!-- Identificador único del menú -->
-  <ion-content class="ion-padding" style="background-color: #00704a;"> <!-- Fondo verde Starbucks -->
+<!-- MENÚ -->
+<ion-menu contentId="main-content" menuId="menu-pedido">
+  <ion-content class="ion-padding" style="background-color: #00704a;">
     <ion-list>
-      <!-- Opciones del menú -->
       <ion-item button routerLink="/menu">
         <ion-label>Menú</ion-label>
       </ion-item>
       <ion-item button routerLink="/pedido">
-        <ion-label>Pedido</ion-label>
+        <ion-label>Mis pedido</ion-label>
+      </ion-item>
+
+      <ion-item button routerLink="/boleta">
+        <ion-label>Pagar</ion-label>
+      </ion-item>
+      <ion-item button (click)="setOpen(true)">
+        <ion-label>Solicitar mesero</ion-label>
       </ion-item>
       <ion-item button routerLink="/perfil">
         <ion-label>Perfil</ion-label>
       </ion-item>
-      <ion-item button routerLink="/boleta">
-        <ion-label>Boleta</ion-label>
-      </ion-item>
     </ion-list>
   </ion-content>
 </ion-menu>
-              <!--  contenido                         s -->
-              <!--  contenido                         s -->
-              <!--  contenido                         s -->
-              <ion-content>
-                <ion-card style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
-                  <ion-text color="light" text-center>
-                    <h1>Pedidos</h1>
-                  </ion-text>
-                </ion-card>
-              
-                <!-- Pedido 1 -->
-                <div style="margin-bottom: 20px;">
-                  <ion-item>
-                    <ion-avatar slot="start">
-                      <img src="assets/cafe caliente.png" alt="Producto 1">
-                    </ion-avatar>
-                    <ion-label>
-                      <h2>Latte caliente</h2>
-                      <p>Precio: $10.00</p>
-                      <p>Nota: Que no sea caliente</p>
-                      <!-- Mostrar la cantidad aquí -->
-                      <p>Cantidad: 1</p>
-                    </ion-label>
-                    <!-- Icono de basura roja al final -->
-                    <ion-icon name="trash" color="danger" style="margin-left: 10px; cursor: pointer;"></ion-icon>
-                  </ion-item>
-                </div>
-                
-              
-                <!-- Pedido 2 -->
-                <div style="margin-bottom: 20px;">
-                  <ion-item>
-                    <ion-avatar slot="start">
-                      <img src="assets/dulce.png" alt="Producto 2">
-                    </ion-avatar>
-                    <ion-label>
-                      <h2>Estrudel</h2>
-                      <p>Precio: $15.00</p>
-                      <p>Nota: --</p>
-                      <!-- Mostrar la cantidad aquí -->
-                      <p>Cantidad: 2</p>
-                    </ion-label>
-                    <!-- Icono de basura roja al final -->
-                    <ion-icon name="trash" color="danger" style="margin-left: 10px; cursor: pointer;"></ion-icon>
-                  </ion-item>
-                </div>
-              
-                <!-- Botón para confirmar el pedido -->
-                <ion-button expand="full" color="primary" style="margin-top: 20px;">
-                  Confirmar pedido
-                </ion-button>
-              </ion-content>
-              
+
+<!-- CONTENIDO PRINCIPAL -->
+<ion-content>
+  <ion-card style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
+    <ion-text color="light" text-center>
+      <h1>Pedidos</h1>
+    </ion-text>
+  </ion-card>
+
+  <!-- Pedido 1 -->
+  <div style="margin-bottom: 20px;">
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="assets/cafe caliente.png" alt="Producto 1" />
+      </ion-avatar>
+      <ion-label>
+        <h2>Latte caliente</h2>
+        <p>Precio: $10.00</p>
+        <p>Nota: Que no sea caliente</p>
+        <p>Cantidad: 1</p>
+      </ion-label>
+      <ion-icon
+        name="trash"
+        color="danger"
+        style="margin-left: 10px; cursor: pointer;"
+        (click)="presentDeleteModal()"
+      ></ion-icon>
+    </ion-item>
+  </div>
+
+  <!-- Pedido 2 -->
+  <div style="margin-bottom: 20px;">
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="assets/dulce.png" alt="Producto 2" />
+      </ion-avatar>
+      <ion-label>
+        <h2>Estrudel</h2>
+        <p>Precio: $15.00</p>
+        <p>Nota: --</p>
+        <p>Cantidad: 2</p>
+      </ion-label>
+      <ion-icon
+        name="trash"
+        color="danger"
+        style="margin-left: 10px; cursor: pointer;"
+        (click)="presentDeleteModal()"
+      ></ion-icon>
+    </ion-item>
+  </div>
+
+<!-- Botón para confirmar el pedido -->
+<ion-button 
+  expand="full" 
+  color="primary" 
+  style="margin-top: 20px;" 
+  (click)="confirmOrder()">
+  Confirmar pedido
+</ion-button>
+
+</ion-content>

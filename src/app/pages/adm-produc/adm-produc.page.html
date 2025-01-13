@@ -31,7 +31,7 @@
         <ion-label>Historial pedidos</ion-label>
       </ion-item>
       <ion-item button routerLink="/adm-mesa">
-        <ion-label>Estado mesas</ion-label>
+        <ion-label>Solicitud de mesero</ion-label>
       </ion-item>
       <ion-item button routerLink="/adm-pedidos">
         <ion-label>Pedidos</ion-label>
@@ -39,6 +39,10 @@
       <ion-item button routerLink="/adm-produc">
         <ion-label>Productos</ion-label>
       </ion-item>
+      <ion-item button routerLink="/login" style="--ion-item-background: #ff4d4d; color: white; border-radius: 8px; margin-top: 20px;">
+        <ion-label style="text-align: center; font-weight: bold;">Cerrar sesión</ion-label>
+      </ion-item>
+      
     </ion-list>
   </ion-content>
 </ion-menu>
@@ -56,7 +60,7 @@
   </ion-card>
 
   <!-- Botón "Agregar Producto" debajo del ion-card -->
-  <ion-button [routerLink]="['/agregar-producto']" expand="block" style="background-color: #6cf3c6; margin-top: 20px;">
+  <ion-button [routerLink]="['/adm-agregar-prod']" expand="block" style="background-color: #6cf3c6; margin-top: 20px;">
     Agregar Producto
   </ion-button>
 
@@ -100,8 +104,8 @@
       <!-- Botones debajo de los datos -->
       <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 5px;">
         <ion-button fill="outline" color="danger" style="width: 100%;">Agotado</ion-button>
-        <ion-button fill="outline" color="primary" [routerLink]="['/editar-producto', 1]" style="width: 100%;">Editar</ion-button>
-        <ion-button fill="outline" color="primary" [routerLink]="['/ver-producto', 1]" style="width: 100%; background-color: #007bff;">Ver más</ion-button>
+        <ion-button fill="outline" color="primary" routerLink="/adm-edit-prod" style="width: 100%;">Editar</ion-button>
+        <ion-button fill="outline" color="primary" routerLink="/adm-deta-prod" style="width: 100%; background-color: #007bff;">Ver más</ion-button>
       </div>
     </ion-item>
 
@@ -114,8 +118,8 @@
       </ion-label>
       <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 5px;">
         <ion-button fill="outline" color="danger" style="width: 100%;">Agotado</ion-button>
-        <ion-button fill="outline" color="primary" [routerLink]="['/editar-producto', 2]" style="width: 100%;">Editar</ion-button>
-        <ion-button fill="outline" color="primary" [routerLink]="['/ver-producto', 2]" style="width: 100%; background-color: #007bff;">Ver más</ion-button>
+        <ion-button fill="outline" color="primary" routerLink="/adm-edit-prod" style="width: 100%;">Editar</ion-button>
+        <ion-button fill="outline" color="primary" routerLink="/adm-deta-prod" style="width: 100%; background-color: #007bff;">Ver más</ion-button>
       </div>
     </ion-item>
 
@@ -128,8 +132,8 @@
       </ion-label>
       <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 5px;">
         <ion-button fill="outline" color="danger" style="width: 100%;">Agotado</ion-button>
-        <ion-button fill="outline" color="primary" [routerLink]="['/editar-producto', 3]" style="width: 100%;">Editar</ion-button>
-        <ion-button fill="outline" color="primary" [routerLink]="['/ver-producto', 3]" style="width: 100%; background-color: #007bff;">Ver más</ion-button>
+        <ion-button fill="outline" color="primary" routerLink="/adm-edit-prod" style="width: 100%;">Editar</ion-button>
+        <ion-button fill="outline" color="primary"  routerLink="/adm-deta-prod" style="width: 100%; background-color: #007bff;">Ver más</ion-button>
       </div>
     </ion-item>
   </ion-list>

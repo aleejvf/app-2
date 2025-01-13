@@ -7,7 +7,12 @@ import { Component, OnInit } from '@angular/core';
   standalone : false
 })
 export class ProductosPage implements OnInit {
+  isAlertOpen = false;
+  alertButtons = ['Listo'];
 
+  setOpen(isOpen: boolean) {
+    this.isAlertOpen = isOpen;
+  }
   constructor() { }
 
   ngOnInit() {

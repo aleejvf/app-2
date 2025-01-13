@@ -100,9 +100,15 @@
           <ion-label position="stacked">Nota</ion-label>
           <ion-textarea placeholder="Ejemplo: Sin azúcar, con hielo..." auto-grow="true"></ion-textarea>
         </ion-item>
+        <p style="font-size: 14px; color: #555; margin-bottom: 20px;">
+          Si seleccionas más de un producto, especifica en la nota cómo deseas cada uno. Por ejemplo, si pides 3 cafés: 1- Sin azúcar, 2- Sin leche, 3- Con leche extra.
+        </p>
 
         <!-- Botón agregar -->
-        <ion-button expand="block" style="background-color: #00704a; width: 100%; max-width: 300px;" routerLink="/menu">
+        <ion-button 
+          expand="block" 
+          style="background-color: #00704a; width: 100%; max-width: 300px;" 
+          (click)="showAddToOrderAlert()">
           Agregar
         </ion-button>
       </div>

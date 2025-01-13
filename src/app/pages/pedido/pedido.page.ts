@@ -1,38 +1,68 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router'; // Importa Router
 
 @Component({
   selector: 'app-pedido',
   templateUrl: './pedido.page.html',
   styleUrls: ['./pedido.page.scss'],
-  standalone: false
+  standalone: false,
 })
 export class PedidoPage implements OnInit {
+  constructor(private alertController: AlertController, private router: Router) {}
 
-  // Almacenar las cantidades de los productos
-  quantity1: number = 1;  // Producto 1
-  quantity2: number = 2;  // Producto 2
+  ngOnInit() {}
 
-  constructor() { }
-
-  ngOnInit() {
+  // Muestra una alerta para solicitar un mesero
+  async setOpen(isOpen: boolean) {
+    const alert = await this.alertController.create({
+      header: 'Solicitud enviada',
+      message: 'El mesero le atenderá en unos instantes.',
+      buttons: ['OK'],
+      backdropDismiss: false, // Evita que se cierre al presionar fuera de la alerta
+    });
+    await alert.present();
   }
 
-  // Función para incrementar la cantidad
-  increaseQuantity(productId: number) {
-    if (productId === 1) {
-      this.quantity1++;  // Aumentar cantidad de Producto 1
-    } else if (productId === 2) {
-      this.quantity2++;  // Aumentar cantidad de Producto 2
-    }
+  // Muestra un modal para confirmar la eliminación
+  async presentDeleteModal() {
+    const alert = await this.alertController.create({
+      header: '¿Eliminar producto?',
+      message: '¿Estás seguro de que quieres eliminar este producto?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            console.log('Producto eliminado');
+          },
+        },
+      ],
+      backdropDismiss: false, // Evita que se cierre al presionar fuera de la alerta
+    });
+    await alert.present();
   }
 
-  // Función para decrementar la cantidad
-  decreaseQuantity(productId: number) {
-    if (productId === 1 && this.quantity1 > 1) {
-      this.quantity1--;  // Disminuir cantidad de Producto 1 si es mayor que 1
-    } else if (productId === 2 && this.quantity2 > 1) {
-      this.quantity2--;  // Disminuir cantidad de Producto 2 si es mayor que 1
-    }
+  // Muestra un mensaje de confirmación del pedido
+  async confirmOrder() {
+    console.log('Botón presionado');
+    const alert = await this.alertController.create({
+      header: 'Pedido confirmado',
+      message: 'Tus pedidos se llevaron a la cocina. Gracias por tu paciencia.',
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            // Redirige a la página del menú
+            this.router.navigateByUrl('/menu');
+          },
+        },
+      ],
+      backdropDismiss: false, // Evita que se cierre al presionar fuera de la alerta
+    });
+    await alert.present();
   }
-
 }

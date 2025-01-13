@@ -1,0 +1,85 @@
+<!-- ENCABEZADO -->
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button>
+        <img src="assets/starbucks.png" alt="Starbucks Logo" style="height: 30px;">
+      </ion-button>
+    </ion-buttons>
+    <ion-title style="text-align: center;">Admin</ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button menu="menu-adm-edit"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-router-outlet id="main-content"></ion-router-outlet>
+
+<ion-menu contentId="main-content" menuId="menu-adm-edit">
+  <ion-content class="ion-padding" style="background-color: #00704a;">
+    <ion-list>
+      <ion-item button routerLink="/adm-histo">
+        <ion-label>Historial pedidos</ion-label>
+      </ion-item>
+      <ion-item button routerLink="/adm-mesa">
+        <ion-label>Solicitud de mesero</ion-label>
+      </ion-item>
+      <ion-item button routerLink="/adm-pedidos">
+        <ion-label>Pedidos</ion-label>
+      </ion-item>
+      <ion-item button routerLink="/adm-produc">
+        <ion-label>Productos</ion-label>
+      </ion-item>
+      <ion-item button routerLink="/login" style="--ion-item-background: #ff4d4d; color: white; border-radius: 8px; margin-top: 20px;">
+        <ion-label style="text-align: center; font-weight: bold;">Cerrar sesión</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-content>
+  <ion-card style="background-color: #00704a; height: 150px; display: flex; align-items: center; padding: 0 20px;">
+    <ion-icon 
+      name="arrow-back" 
+      style="color: white; margin-right: 20px;" 
+      routerLink="/adm-produc">
+    </ion-icon>
+    <ion-text color="light" text-center>
+      <h1>Editar producto</h1>
+    </ion-text>
+  </ion-card>
+
+  <ion-card style="background-color: #f0f0f0; padding: 20px; margin: 20px;">
+    <form>
+      <ion-item>
+        <ion-label position="stacked">Nombre del producto</ion-label>
+        <ion-input placeholder="Expresso" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Imagen del producto</ion-label>
+        <ion-input type="file"></ion-input>
+        <img src="assets/cafe caliente.png" alt="Producto" style="width: 150px; height: 150px; object-fit: cover; margin-top: 10px; border-radius: 10px;">
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Descripción</ion-label>
+        <ion-textarea placeholder="Descripción detallada del producto..." required></ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Precio</ion-label>
+        <ion-input type="number" placeholder="7000" required></ion-input>
+      </ion-item>
+
+      <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+        <ion-button color="danger" expand="block" style="flex: 1; margin-right: 10px;" routerLink="/adm-produc">
+          Cancelar
+        </ion-button>
+        <ion-button color="success" expand="block" style="flex: 1;" (click)="guardarProducto()">
+          Guardar
+        </ion-button>
+      </div>
+    </form>
+  </ion-card>
+</ion-content>

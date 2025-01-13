@@ -3,17 +3,17 @@
   <ion-toolbar>
     <!-- Botón de inicio con logo -->
     <ion-buttons slot="start">
-      <ion-button>
+      <ion-button >
         <img src="assets/starbucks.png" alt="Starbucks Logo" style="height: 30px;">
       </ion-button>
     </ion-buttons>
-   <!-- Título centrado -->
-   <ion-title style="text-align: center;">Admin</ion-title>
+       <!-- Título centrado -->
+       <ion-title style="text-align: center;">Admin</ion-title>
     
     <!-- Botón del menú -->
     <ion-buttons slot="end">
       <!-- Vincula este botón al menú específico "menu-boleta" -->
-      <ion-menu-button menu="menu-adm-mesa"></ion-menu-button>
+      <ion-menu-button menu="menu-adm-deta-pedido"></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -23,7 +23,7 @@
 <ion-router-outlet id="main-content"></ion-router-outlet>
 
 <!-- MENÚ BOLETA -->
-<ion-menu contentId="main-content" menuId="menu-adm-mesa"> <!-- Identificador único del menú -->
+<ion-menu contentId="main-content" menuId="menu-adm-deta-pedido"> <!-- Identificador único del menú -->
   <ion-content class="ion-padding" style="background-color: #00704a;"> <!-- Fondo verde Starbucks -->
     <ion-list>
       <!-- Opciones del menú -->
@@ -46,40 +46,39 @@
     </ion-list>
   </ion-content>
 </ion-menu>
-
-<!--  contenido -->
-<ion-content [fullscreen]="true">
-  <!-- Encabezado de la sección -->
+<ion-content>
+  <!-- Card verde -->
   <ion-card style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
+    <ion-icon 
+  name="arrow-back" 
+  style="background-color: #00704a; color: white; margin-right: 20px;" 
+  routerLink="/adm-produc">
+</ion-icon>
     <ion-text color="light" text-center>
-      <h1>Solicitud de mesero</h1>
+      <h1>Detalle</h1>
     </ion-text>
   </ion-card>
 
-  <!-- Lista de solicitudes -->
-  <ion-list>
-    <!-- Solicitud de mesero para la mesa 1 -->
-    <ion-item style="margin-bottom: 20px;">
-      <ion-label>
-        <h2>Mesa N° 1</h2>
-        <p><strong>Hora de la solicitud:</strong> 14:30</p>
-      </ion-label>
-      <!-- Botón para eliminar la solicitud -->
-      <ion-button fill="outline" color="danger" slot="end">
-        Eliminar Solicitud
-      </ion-button>
-    </ion-item>
+  <!-- Recuadro gris -->
+  <ion-card style="background-color: #f0f0f0; padding: 20px; margin: 20px;">
+    <div style="text-align: center;">
+      <!-- Nombre del producto -->
+      <h2 style="margin-bottom: 20px;">Expresso</h2>
 
-    <!-- Solicitud de mesero para la mesa 2 -->
-    <ion-item style="margin-bottom: 20px;">
-      <ion-label>
-        <h2>Mesa N° 2</h2>
-        <p><strong>Hora de la solicitud:</strong> 15:00</p>
-      </ion-label>
-      <!-- Botón para eliminar la solicitud -->
-      <ion-button fill="outline" color="danger" slot="end">
-        Eliminar Solicitud
-      </ion-button>
-    </ion-item>
-  </ion-list>
+      <!-- Imagen del producto -->
+      <img src="assets/cafe caliente.png" alt="Producto" style="width: 150px; height: 150px; object-fit: cover; margin-bottom: 20px; border-radius: 10px;">
+
+      <!-- Descripción del producto -->
+      <p style="font-size: 14px; color: #555; margin-bottom: 20px;">
+        Descripción detallada del producto. Aquí puedes incluir información sobre sus características o beneficios.
+      </p>
+
+      <!-- Precio del producto -->
+      <h3 style="color: #00704a; margin-bottom: 20px;">Precio: $7.000</h3>
+
+
+    </div>
+  </ion-card>
 </ion-content>
+              
+
