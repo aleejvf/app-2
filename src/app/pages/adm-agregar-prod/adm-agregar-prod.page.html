@@ -6,7 +6,7 @@
         <img src="assets/starbucks.png" alt="Starbucks Logo" style="height: 30px;">
       </ion-button>
     </ion-buttons>
-    <ion-title style="text-align: center;">Administracion</ion-title>
+    <ion-title style="text-align: center;">Administración</ion-title>
     <ion-buttons slot="end">
       <ion-menu-button menu="menu-adm-agregar"></ion-menu-button>
     </ion-buttons>
@@ -35,7 +35,6 @@
       <ion-item button routerLink="/login" style="--ion-item-background: #ff4d4d; color: white; border-radius: 8px; margin-top: 20px;">
         <ion-label style="text-align: center; font-weight: bold;">Cerrar sesión</ion-label>
       </ion-item>
-      
     </ion-list>
   </ion-content>
 </ion-menu>
@@ -44,10 +43,10 @@
 <ion-content [fullscreen]="true">
   <ion-card style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
     <ion-icon 
-    name="arrow-back" 
-    style="background-color: #00704a; color: white; margin-right: 20px;" 
-    routerLink="/adm-produc">
-  </ion-icon>
+      name="arrow-back" 
+      style="background-color: #00704a; color: white; margin-right: 20px;" 
+      routerLink="/adm-produc">
+    </ion-icon>
     <ion-text color="light" text-center>
       <h1>Agregar Producto</h1>
     </ion-text>
@@ -73,7 +72,32 @@
     <ion-input type="number" [(ngModel)]="productPrice"></ion-input>
   </ion-item>
 
-  <ion-button expand="block" color="success"routerLink="/adm-produc" >Agregar Producto</ion-button>
+  <!-- Selector principal: Bebida o Comida -->
+  <ion-item>
+    <ion-label position="stacked">Categoría</ion-label>
+    <ion-select [(ngModel)]="productCategory" (ionChange)="onCategoryChange($event)">
+      <ion-select-option value="bebida">Bebida</ion-select-option>
+      <ion-select-option value="comida">Comida</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <!-- Selector dependiente -->
+  <ion-item *ngIf="productCategory === 'bebida'">
+    <ion-label position="stacked">Tipo de Bebida</ion-label>
+    <ion-select [(ngModel)]="productSubCategory">
+      <ion-select-option value="cafe-frio">Café Frío</ion-select-option>
+      <ion-select-option value="cafe-caliente">Café Caliente</ion-select-option>
+      <ion-select-option value="te">Té</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item *ngIf="productCategory === 'comida'">
+    <ion-label position="stacked">Tipo de Comida</ion-label>
+    <ion-select [(ngModel)]="productSubCategory">
+      <ion-select-option value="dulce">Dulce</ion-select-option>
+      <ion-select-option value="preparados">Preparados</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-button expand="block" color="success" (click)="addProduct()">Agregar Producto</ion-button>
 </ion-content>
-
-

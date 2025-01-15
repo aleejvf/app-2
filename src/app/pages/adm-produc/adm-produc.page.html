@@ -3,30 +3,26 @@
   <ion-toolbar>
     <!-- Botón de inicio con logo -->
     <ion-buttons slot="start">
-      <ion-button >
+      <ion-button>
         <img src="assets/starbucks.png" alt="Starbucks Logo" style="height: 30px;">
       </ion-button>
     </ion-buttons>
-       <!-- Título centrado -->
-       <ion-title style="text-align: center;">Administracion</ion-title>
-    
+    <!-- Título centrado -->
+    <ion-title style="text-align: center;">Administración</ion-title>
     <!-- Botón del menú -->
     <ion-buttons slot="end">
-      <!-- Vincula este botón al menú específico "menu-boleta" -->
       <ion-menu-button menu="menu-adm-produc"></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <!-- CONTENEDOR PRINCIPAL -->
-<!-- Este contenedor es el área que el menú controla -->
 <ion-router-outlet id="main-content"></ion-router-outlet>
 
-<!-- MENÚ BOLETA -->
-<ion-menu contentId="main-content" menuId="menu-adm-produc"> <!-- Identificador único del menú -->
-  <ion-content class="ion-padding" style="background-color: #00704a;"> <!-- Fondo verde Starbucks -->
+<!-- MENÚ -->
+<ion-menu contentId="main-content" menuId="menu-adm-produc">
+  <ion-content class="ion-padding" style="background-color: #00704a;">
     <ion-list>
-      <!-- Opciones del menú -->
       <ion-item button routerLink="/adm-histo">
         <ion-label>Historial pedidos</ion-label>
       </ion-item>
@@ -42,24 +38,20 @@
       <ion-item button routerLink="/login" style="--ion-item-background: #ff4d4d; color: white; border-radius: 8px; margin-top: 20px;">
         <ion-label style="text-align: center; font-weight: bold;">Cerrar sesión</ion-label>
       </ion-item>
-      
     </ion-list>
   </ion-content>
 </ion-menu>
 
-              <!--  contenido                         s -->
-              <!--  contenido                         s -->
-              <!--  contenido                         s -->
-
+<!-- CONTENIDO DE LA PÁGINA -->
 <ion-content [fullscreen]="true">
-  <!-- Encabezado de la sección -->
+  <!-- Encabezado -->
   <ion-card style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
     <ion-text color="light" text-center>
       <h1>Productos</h1>
     </ion-text>
   </ion-card>
 
-  <!-- Botón "Agregar Producto" debajo del ion-card -->
+  <!-- Botón "Agregar Producto" -->
   <ion-button [routerLink]="['/adm-agregar-prod']" expand="block" style="background-color: #6cf3c6; margin-top: 20px;">
     Agregar Producto
   </ion-button>
@@ -67,74 +59,51 @@
   <!-- Filtros por tipo de producto -->
   <ion-item>
     <ion-label position="stacked">Filtrar por tipo</ion-label>
-    <ion-select placeholder="Seleccione tipo de producto">
+    <ion-select [(ngModel)]="selectedCategory" (ionChange)="onCategoryChange()" placeholder="Seleccione tipo de producto">
+      <ion-select-option value="todos">Todos</ion-select-option>
       <ion-select-option value="bebida">Bebida</ion-select-option>
       <ion-select-option value="comida">Comida</ion-select-option>
     </ion-select>
   </ion-item>
 
-  <!-- Filtro para bebidas -->
-  <ion-item>
+  <!-- Filtro para bebida -->
+  <ion-item *ngIf="selectedCategory === 'bebida' || selectedCategory === 'todos'">
     <ion-label position="stacked">Filtrar por bebida</ion-label>
-    <ion-select placeholder="Seleccione tipo de bebida">
-      <ion-select-option value="cafe-caliente">Café Caliente</ion-select-option>
-      <ion-select-option value="cafe-frio">Café Frío</ion-select-option>
-      <ion-select-option value="te">Té</ion-select-option>
+    <ion-select [(ngModel)]="selectedSubCategory" placeholder="Seleccione tipo de bebida">
+      <ion-select-option *ngFor="let option of subCategoryOptions" [value]="option">{{ option | titlecase }}</ion-select-option>
     </ion-select>
   </ion-item>
 
   <!-- Filtro para comida -->
-  <ion-item>
+  <ion-item *ngIf="selectedCategory === 'comida' || selectedCategory === 'todos'">
     <ion-label position="stacked">Filtrar por comida</ion-label>
-    <ion-select placeholder="Seleccione tipo de comida">
-      <ion-select-option value="dulce">Dulce</ion-select-option>
-      <ion-select-option value="preparados">Preparados</ion-select-option>
+    <ion-select [(ngModel)]="selectedSubCategory" placeholder="Seleccione tipo de comida">
+      <ion-select-option *ngFor="let option of subCategoryOptions" [value]="option">{{ option | titlecase }}</ion-select-option>
     </ion-select>
   </ion-item>
 
-  <!-- Lista de productos -->
-  <ion-list style="border-bottom: 2px solid #00704a;">
-    <ion-item lines="full" style="margin-bottom: 20px;">
+  <!-- Lista de productos dinámicos -->
+  <ion-list *ngIf="filteredProducts && filteredProducts.length > 0; else emptyList" style="border-bottom: 2px solid #00704a;">
+    <ion-item *ngFor="let product of filteredProducts" lines="full" style="margin-bottom: 20px;">
       <ion-thumbnail slot="start">
-        <img src="assets/cafe frio.png" alt="Café Latte" style="border-radius: 50%; width: 50px; height: 50px;">
+        <img [src]="product.image || 'assets/default-product.png'" alt="{{ product.title }}" style="border-radius: 50%; width: 50px; height: 50px;">
       </ion-thumbnail>
       <ion-label>
-        <h2>Café Latte</h2>
+        <h2>{{ product.title }}</h2>
       </ion-label>
       <!-- Botones debajo de los datos -->
       <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 5px;">
         <ion-button fill="outline" color="danger" style="width: 100%;">Agotado</ion-button>
         <ion-button fill="outline" color="primary" routerLink="/adm-edit-prod" style="width: 100%;">Editar</ion-button>
-        <ion-button fill="outline" color="primary" routerLink="/adm-deta-prod" style="width: 100%; background-color: #67adf8;">Ver más</ion-button>
-      </div>
-    </ion-item>
-
-    <ion-item lines="full" style="margin-bottom: 20px;">
-      <ion-thumbnail slot="start">
-        <img src="assets/te.png" alt="Té Verde" style="border-radius: 50%; width: 50px; height: 50px;">
-      </ion-thumbnail>
-      <ion-label>
-        <h2>Té Verde</h2>
-      </ion-label>
-      <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 5px;">
-        <ion-button fill="outline" color="danger" style="width: 100%;">Agotado</ion-button>
-        <ion-button fill="outline" color="primary" routerLink="/adm-edit-prod" style="width: 100%;">Editar</ion-button>
-        <ion-button fill="outline" color="primary" routerLink="/adm-deta-prod" style="width: 100%; background-color: #67adf8;">Ver más</ion-button>
-      </div>
-    </ion-item>
-
-    <ion-item lines="full" style="margin-bottom: 20px;">
-      <ion-thumbnail slot="start">
-        <img src="assets/dulce.png" alt="Pastel de Chocolate" style="border-radius: 50%; width: 50px; height: 50px;">
-      </ion-thumbnail>
-      <ion-label>
-        <h2>Pastel de Chocolate</h2>
-      </ion-label>
-      <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 5px;">
-        <ion-button fill="outline" color="danger" style="width: 100%;">Agotado</ion-button>
-        <ion-button fill="outline" color="primary" routerLink="/adm-edit-prod" style="width: 100%;">Editar</ion-button>
-        <ion-button fill="outline" color="primary"  routerLink="/adm-deta-prod" style="width: 100%; background-color: #67adf8;">Ver más</ion-button>
+        <ion-button fill="outline" color="primary" (click)="viewProductDetails(product)" style="width: 100%; background-color: #67adf8;">Ver más</ion-button>
       </div>
     </ion-item>
   </ion-list>
+
+  <!-- Mensaje si no hay productos -->
+  <ng-template #emptyList>
+    <ion-text color="medium" text-center>
+      <p style="margin-top: 20px;">No hay productos disponibles.</p>
+    </ion-text>
+  </ng-template>
 </ion-content>

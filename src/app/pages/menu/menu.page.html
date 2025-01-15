@@ -35,8 +35,6 @@
          <!-- Punto rojo en la esquina superior derecha -->
       <span style="position: absolute; top: 5px; right: 5px; width: 10px; height: 10px; background-color: red; border-radius: 50%;"></span>
       </ion-item>
-
-
       <ion-item button routerLink="/boleta">
         <ion-label>Pagar</ion-label>
       </ion-item>
@@ -58,11 +56,7 @@
     </ion-list>
   </ion-content>
 </ion-menu>
-              <!--  contenido                         s -->
-              <!--  contenido                         s -->
-              <!--  contenido                         s -->
-<!-- CONTENEDOR PRINCIPAL -->
-<!-- CONTENEDOR PRINCIPAL -->
+
 <!-- CONTENEDOR PRINCIPAL -->
 <ion-content>
   <ion-card style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
@@ -94,7 +88,7 @@
         <h5 style="margin: 8px 0 0 0; font-size: 12px; color: black;">Cafés Calientes</h5>
       </div>
       <!-- Botón de "Ver más" a la derecha -->
-      <ion-button fill="solid" routerLink="/productos" color="success" style="border-radius: 8px;">Ver más</ion-button>
+      <ion-button fill="solid" color="success" routerLink="/productos"style="border-radius: 8px;" (click)="setCategoriaYSubcategoria('Bebidas', 'Cafés Calientes')">Ver más</ion-button>
     </ion-item>
     
     <ion-item style="display: flex; align-items: center; justify-content: space-between;">
@@ -109,7 +103,7 @@
         <h5 style="margin: 8px 0 0 0; font-size: 12px; color: black;">Cafés Fríos</h5>
       </div>
       <!-- Botón de "Ver más" a la derecha -->
-      <ion-button fill="solid" routerLink="/cafes-frios" color="success" style="border-radius: 8px;">Ver más</ion-button>
+      <ion-button fill="solid" color="success" style="border-radius: 8px;" (click)="setCategoriaYSubcategoria('Bebidas', 'Cafés Fríos')">Ver más</ion-button>
     </ion-item>
 
     <ion-item style="display: flex; align-items: center; justify-content: space-between;">
@@ -124,7 +118,7 @@
         <h5 style="margin: 8px 0 0 0; font-size: 12px; color: black;">Té</h5>
       </div>
       <!-- Botón de "Ver más" a la derecha -->
-      <ion-button fill="solid" routerLink="/te" color="success" style="border-radius: 8px;">Ver más</ion-button>
+      <ion-button fill="solid" color="success" style="border-radius: 8px;" (click)="setCategoriaYSubcategoria('Bebidas', 'Té')">Ver más</ion-button>
     </ion-item>
   </ion-list>
 
@@ -151,14 +145,14 @@
         <h5 style="margin: 8px 0 0 0; font-size: 12px; color: black;">Dulces</h5>
       </div>
       <!-- Botón de "Ver más" a la derecha -->
-      <ion-button fill="solid" routerLink="/dulces" color="success" style="border-radius: 8px;">Ver más</ion-button>
+      <ion-button fill="solid" color="success" routerLink="/productos"style="border-radius: 8px;" (click)="setCategoriaYSubcategoria('Comida', 'Dulces')">Ver más</ion-button>
     </ion-item>
 
     <ion-item style="display: flex; align-items: center; justify-content: space-between;">
       <!-- Foto a la izquierda -->
       <div style="display: flex; align-items: center; color: black;">
         <div style="background-color: hsl(159, 100%, 14%); width: 100px; height: 100px; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
-          <img src="assets/preparados.png" alt="Sandwichs y Preparados" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
+          <img src="assets/preparados.png" alt="Preparados" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
         </div>
       </div>
       <!-- Título en el centro -->
@@ -166,13 +160,7 @@
         <h5 style="margin: 8px 0 0 0; font-size: 12px; color: black;">Preparados</h5>
       </div>
       <!-- Botón de "Ver más" a la derecha -->
-      <ion-button fill="solid" routerLink="/sandwichs" color="success" style="border-radius: 8px;">Ver más</ion-button>
+      <ion-button fill="solid" color="success" style="border-radius: 8px;" (click)="setCategoriaYSubcategoria('Comida', 'Preparados')">Ver más</ion-button>
     </ion-item>
   </ion-list>
-
-  <ion-item button routerLink="/pedido" style="--ion-item-background: #00704a; color: white; border-radius: 8px; margin-top: 20px;">
-    <ion-label style="text-align: center; font-weight: bold; position: relative;">
-      Mis pedidos </ion-label>
-  </ion-item>
-  
 </ion-content>

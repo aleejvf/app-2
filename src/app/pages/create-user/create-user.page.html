@@ -8,32 +8,30 @@
     </ion-text>
   </ion-card>
   
-  <!-- Contenedor principal para el formulario de creación de cuenta -->
   <div style="display: flex; justify-content: center; align-items: center; height: 70%;">
     <div style="background-color: #f0f0f0; padding: 30px; border-radius: 10px; width: 90%; max-width: 400px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
-
       <!-- Campo de correo electrónico -->
       <ion-item>
         <ion-label position="floating">Correo electrónico</ion-label>
-        <ion-input type="email" placeholder="Ingresa tu correo electrónico" required></ion-input>
+        <ion-input [(ngModel)]="email" type="email" placeholder="Ingresa tu correo electrónico" required></ion-input>
       </ion-item>
       
-      <!-- Campo de nombre -->
+      <!-- Campo de nombre completo -->
       <ion-item>
         <ion-label position="floating">Nombre completo</ion-label>
-        <ion-input type="text" placeholder="Ingresa tu nombre completo" required></ion-input>
+        <ion-input [(ngModel)]="fullName" type="text" placeholder="Ingresa tu nombre completo" required></ion-input>
       </ion-item>
 
       <!-- Campo de contraseña -->
       <ion-item>
         <ion-label position="floating">Contraseña</ion-label>
-        <ion-input type="password" placeholder="Ingresa tu contraseña" required></ion-input>
+        <ion-input [(ngModel)]="password" type="password" placeholder="Ingresa tu contraseña" required></ion-input>
       </ion-item>
 
       <!-- Campo de confirmar contraseña -->
       <ion-item>
         <ion-label position="floating">Confirmar contraseña</ion-label>
-        <ion-input type="password" placeholder="Confirma tu contraseña" required></ion-input>
+        <ion-input [(ngModel)]="confirmPassword" type="password" placeholder="Confirma tu contraseña" required></ion-input>
       </ion-item>
 
       <!-- Botón de crear cuenta -->

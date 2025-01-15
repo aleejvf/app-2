@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service';  // Importar el servicio
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
@@ -10,27 +11,33 @@ import { Router } from '@angular/router';
 })
 export class CreateUserPage implements OnInit {
 
-  constructor(private alertController: AlertController, private router: Router) { }
+  email: string = '';
+  fullName: string = '';
+  password: string = '';
+  confirmPassword: string = '';
 
-  ngOnInit() { }
+  constructor(
+    private authService: AuthService,  // Inyectar el servicio
+    private alertController: AlertController,
+    private router: Router
+  ) {}
+
+  ngOnInit() {}
 
   async crearCuenta() {
-    // Muestra la alerta de confirmación
-    const alert = await this.alertController.create({
-      header: 'Éxito',
-      message: 'Se ha creado tu cuenta correctamente.',
-      buttons: [
-        {
-          text: 'OK',
-          handler: () => {
-            // Redirige a la página de login
-            this.router.navigate(['/login']);
-          }
-        }
-      ],
-      backdropDismiss: false // Evita cerrar tocando fuera de la alerta
-    });
+    if (this.password !== this.confirmPassword) {
+      const alert = await this.alertController.create({
+        header: 'Error',
+        message: 'Las contraseñas no coinciden.',
+        buttons: ['OK']
+      });
+      await alert.present();
+      return;
+    }
 
-    await alert.present();
+    this.authService.crearUsuario(this.email, this.password)
+      .subscribe(() => {
+        // Redirigir si es exitoso, ya se maneja en el servicio
+      });
   }
 }

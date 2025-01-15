@@ -1,39 +1,62 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { ProdDatosService } from 'src/app/services/prod-datos.service';
 
 @Component({
   selector: 'app-adm-agregar-prod',
   templateUrl: './adm-agregar-prod.page.html',
   styleUrls: ['./adm-agregar-prod.page.scss'],
-  standalone: false
+  standalone : false
 })
-export class AdmAgregarProdPage implements OnInit {
-
-  isModalOpen = false;
-  productImage: any;
+export class AdmAgregarProdPage {
+  productImage: string = '';
   productTitle: string = '';
   productDescription: string = '';
-  productPrice: number = 0;
+  productPrice: number | null = null;
+  productCategory: string = ''; // Almacena si es bebida o comida
+  productSubCategory: string = ''; // Almacena subcategoría (café, té, etc.)
 
-  constructor(private router: Router) { }
+  constructor(private prodDatosService: ProdDatosService) {}
 
-  ngOnInit() {
+  // Evento para actualizar la categoría
+  onCategoryChange(event: any) {
+    this.productSubCategory = ''; // Reinicia la subcategoría al cambiar de categoría
   }
 
-  // Confirmar la acción y redirigir a la página de productos
-  confirm() {
-    // Aquí puedes agregar la lógica para guardar el producto
-    // Ejemplo:
-    console.log('Producto Agregado:', {
-      image: this.productImage,
-      title: this.productTitle,
-      description: this.productDescription,
-      price: this.productPrice,
-    });
+  // Método para agregar el producto
+  addProduct() {
+    if (
+      this.productTitle &&
+      this.productDescription &&
+      this.productPrice !== null &&
+      this.productCategory &&
+      this.productSubCategory
+    ) {
+      const newProduct = {
+        image: this.productImage || '',
+        title: this.productTitle,
+        description: this.productDescription,
+        price: this.productPrice,
+        category: this.productCategory,
+        subCategory: this.productSubCategory,
+      };
 
-    // Redirigir a la página de productos
-    this.router.navigate(['/adm-produc']);
-    this.isModalOpen = false;
+      this.prodDatosService
+        .addProduct(newProduct)
+        .then(() => {
+          alert('Producto agregado correctamente.');
+          // Limpia el formulario
+          this.productImage = '';
+          this.productTitle = '';
+          this.productDescription = '';
+          this.productPrice = null;
+          this.productCategory = '';
+          this.productSubCategory = '';
+        })
+        .catch((error) => {
+          console.error('Error al agregar el producto:', error);
+        });
+    } else {
+      alert('Por favor, completa todos los campos.');
+    }
   }
-
 }
