@@ -53,21 +53,6 @@ export class ProductosPage implements OnInit {
     );
   }
 
-  // Método para cambiar la categoría seleccionada
-  onCategoryChange() {
-    // Configura las opciones de subcategoría según la categoría seleccionada
-    if (this.selectedCategory === 'bebida') {
-      this.subCategoryOptions = ['cafe-caliente', 'cafe-frio', 'te'];
-    } else if (this.selectedCategory === 'comida') {
-      this.subCategoryOptions = ['dulce', 'preparados'];
-    } else {
-      this.subCategoryOptions = []; // No mostrar subcategorías si es "todos"
-    }
-
-    this.selectedSubCategory = ''; // Restablece la subcategoría seleccionada
-    this.filterProducts(); // Filtra productos al cambiar la categoría
-  }
-
   // Método para filtrar productos basados en la categoría y subcategoría
   filterProducts() {
     this.filteredProducts = this.products.filter(product => {

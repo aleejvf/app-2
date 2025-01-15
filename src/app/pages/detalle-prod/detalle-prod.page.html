@@ -84,13 +84,8 @@
       <!-- Precio del producto -->
       <h3 style="color: #00704a; margin-bottom: 20px;">Precio: {{ product.price | currency }}</h3>
 
-      <!-- Botones e inputs -->
+      <!-- Botones -->
       <div style="display: flex; flex-direction: column; gap: 20px; align-items: center;">
-        <!-- Nota del cliente -->
-        <ion-item style="width: 100%; max-width: 300px;">
-          <ion-label position="stacked">Nota</ion-label>
-          <ion-textarea [(ngModel)]="note" placeholder="Ejemplo: Sin azúcar, con hielo..." auto-grow="true"></ion-textarea>
-        </ion-item>
 
         <!-- Botón agregar -->
         <ion-button 

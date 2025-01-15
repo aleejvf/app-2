@@ -43,6 +43,7 @@
 </ion-menu>
 
 <!-- CONTENIDO PRINCIPAL -->
+<!-- src/app/pages/pedido/pedido.page.html -->
 <ion-content>
   <ion-card style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
     <ion-text color="light" text-center>
@@ -50,55 +51,26 @@
     </ion-text>
   </ion-card>
 
-  <!-- Pedido 1 -->
-  <div style="margin-bottom: 20px;">
+  <!-- Itera sobre los productos del pedido -->
+  <div *ngFor="let item of order; let i = index" style="margin-bottom: 20px;">
     <ion-item>
       <ion-avatar slot="start">
-        <img src="assets/cafe caliente.png" alt="Producto 1" />
+        <img [src]="item.product.image || 'assets/placeholder.png'" alt="Producto" />
       </ion-avatar>
       <ion-label>
-        <h2>Latte caliente</h2>
-        <p>Precio: $10.00</p>
-        <p>Nota: Que no sea caliente</p>
-        <p>Cantidad: 1</p>
+        <h2>{{ item.product.title }}</h2>
+        <p>Precio: {{ item.product.price | currency }}</p>
       </ion-label>
       <ion-icon
         name="trash"
         color="danger"
         style="margin-left: 10px; cursor: pointer;"
-        (click)="presentDeleteModal()"
+        (click)="presentDeleteModal(i)"
       ></ion-icon>
     </ion-item>
   </div>
 
-  <!-- Pedido 2 -->
-  <div style="margin-bottom: 20px;">
-    <ion-item>
-      <ion-avatar slot="start">
-        <img src="assets/dulce.png" alt="Producto 2" />
-      </ion-avatar>
-      <ion-label>
-        <h2>Estrudel</h2>
-        <p>Precio: $15.00</p>
-        <p>Nota: --</p>
-        <p>Cantidad: 2</p>
-      </ion-label>
-      <ion-icon
-        name="trash"
-        color="danger"
-        style="margin-left: 10px; cursor: pointer;"
-        (click)="presentDeleteModal()"
-      ></ion-icon>
-    </ion-item>
-  </div>
-
-<!-- Botón para confirmar el pedido -->
-<ion-button 
-  expand="full" 
-  color="primary" 
-  style="margin-top: 20px;" 
-  (click)="confirmOrder()">
-  Confirmar pedido
-</ion-button>
-
+  <ion-button expand="full" color="primary" style="margin-top: 20px;" (click)="confirmOrder()">
+    Confirmar pedido
+  </ion-button>
 </ion-content>

@@ -1,6 +1,8 @@
+// src/app/pages/pedido/pedido.page.ts
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import { Router } from '@angular/router'; // Importa Router
+import { Router } from '@angular/router';
+import { OrderService } from '../../services/order.service'; // Importa el servicio OrderService
 
 @Component({
   selector: 'app-pedido',
@@ -9,9 +11,17 @@ import { Router } from '@angular/router'; // Importa Router
   standalone: false,
 })
 export class PedidoPage implements OnInit {
-  constructor(private alertController: AlertController, private router: Router) {}
+  order: any[] = [];  // Almacena los productos del pedido
 
-  ngOnInit() {}
+  constructor(
+    private alertController: AlertController,
+    private router: Router,
+    private orderService: OrderService // Inyecta OrderService
+  ) {}
+
+  ngOnInit() {
+    this.order = this.orderService.getOrder(); // Obtiene los productos del pedido
+  }
 
   // Muestra una alerta para solicitar un mesero
   async setOpen(isOpen: boolean) {
@@ -19,13 +29,13 @@ export class PedidoPage implements OnInit {
       header: 'Solicitud enviada',
       message: 'El mesero le atenderá en unos instantes.',
       buttons: ['OK'],
-      backdropDismiss: false, // Evita que se cierre al presionar fuera de la alerta
+      backdropDismiss: false,
     });
     await alert.present();
   }
 
   // Muestra un modal para confirmar la eliminación
-  async presentDeleteModal() {
+  async presentDeleteModal(index: number) {
     const alert = await this.alertController.create({
       header: '¿Eliminar producto?',
       message: '¿Estás seguro de que quieres eliminar este producto?',
@@ -37,18 +47,18 @@ export class PedidoPage implements OnInit {
         {
           text: 'Aceptar',
           handler: () => {
-            console.log('Producto eliminado');
+            this.orderService.removeProductFromOrder(index); // Elimina el producto
+            this.order = this.orderService.getOrder(); // Actualiza la lista de productos
           },
         },
       ],
-      backdropDismiss: false, // Evita que se cierre al presionar fuera de la alerta
+      backdropDismiss: false,
     });
     await alert.present();
   }
 
   // Muestra un mensaje de confirmación del pedido
   async confirmOrder() {
-    console.log('Botón presionado');
     const alert = await this.alertController.create({
       header: 'Pedido confirmado',
       message: 'Tus pedidos se llevaron a la cocina. Gracias por tu paciencia.',
@@ -56,12 +66,11 @@ export class PedidoPage implements OnInit {
         {
           text: 'OK',
           handler: () => {
-            // Redirige a la página del menú
-            this.router.navigateByUrl('/menu');
+            this.router.navigateByUrl('/menu'); // Redirige al menú
           },
         },
       ],
-      backdropDismiss: false, // Evita que se cierre al presionar fuera de la alerta
+      backdropDismiss: false,
     });
     await alert.present();
   }
