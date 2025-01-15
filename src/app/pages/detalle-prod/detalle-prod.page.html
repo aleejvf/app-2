@@ -10,14 +10,13 @@
     
     <!-- Botón del menú -->
     <ion-buttons slot="end">
-      <!-- Vincula este botón al menú específico "menu-boleta" -->
+      <!-- Vincula este botón al menú específico "menu-detalle-prod" -->
       <ion-menu-button menu="menu-detalle-prod"></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <!-- CONTENEDOR PRINCIPAL -->
-<!-- Este contenedor es el área que el menú controla -->
 <ion-router-outlet id="main-content"></ion-router-outlet>
 
 <!-- MENÚ BOLETA -->
@@ -39,14 +38,13 @@
         <ion-label>Boleta</ion-label>
       </ion-item>
       
-      <ion-item >
+      <ion-item>
         <ion-label (click)="setOpen(true)">Solicitar mesero</ion-label>
 
         <ion-alert
           [isOpen]="isAlertOpen"
-          header="Se a solicitado al mesero"
-      
-          message="Dentro de unos instantes se le atendera ."
+          header="Se ha solicitado al mesero"
+          message="Dentro de unos instantes se le atenderá."
           [buttons]="alertButtons"
           (didDismiss)="setOpen(false)"
         ></ion-alert>
@@ -54,66 +52,68 @@
     </ion-list>
   </ion-content>
 </ion-menu>
-              <!--  contenido                         s -->
-              <!--  contenido                         s -->
-              <!--  contenido                         s -->
+
+<!-- CONTENIDO PRINCIPAL DE LA PÁGINA -->
 <ion-content>
   <!-- Card verde -->
   <ion-card style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
     <ion-icon 
-  name="arrow-back" 
-  style="background-color: #00704a; color: white; margin-right: 20px;" 
-  routerLink="/productos">
-</ion-icon>
+      name="arrow-back" 
+      style="background-color: #00704a; color: white; margin-right: 20px;" 
+      routerLink="/productos">
+    </ion-icon>
     <ion-text color="light" text-center>
       <h1>Detalle</h1>
     </ion-text>
   </ion-card>
 
-  <!-- Recuadro gris -->
+  <!-- Recuadro gris con detalles del producto -->
   <ion-card style="background-color: #f0f0f0; padding: 20px; margin: 20px;">
     <div style="text-align: center;">
       <!-- Nombre del producto -->
-      <h2 style="margin-bottom: 20px;">Expresso</h2>
+      <h2 style="margin-bottom: 20px;">{{ product?.title || 'Producto' }}</h2>
 
       <!-- Imagen del producto -->
-      <img src="assets/cafe caliente.png" alt="Producto" style="width: 150px; height: 150px; object-fit: cover; margin-bottom: 20px; border-radius: 10px;">
+      <img [src]="product.image || 'assets/placeholder.png'" alt="Producto" style="width: 150px; height: 150px; object-fit: cover; margin-bottom: 20px; border-radius: 10px;">
 
       <!-- Descripción del producto -->
       <p style="font-size: 14px; color: #555; margin-bottom: 20px;">
-        Descripción detallada del producto. Aquí puedes incluir información sobre sus características o beneficios.
+        {{ product.description || 'Descripción detallada del producto.' }}
       </p>
 
       <!-- Precio del producto -->
-      <h3 style="color: #00704a; margin-bottom: 20px;">Precio: $7.000</h3>
+      <h3 style="color: #00704a; margin-bottom: 20px;">Precio: {{ product.price | currency }}</h3>
 
       <!-- Botones e inputs -->
       <div style="display: flex; flex-direction: column; gap: 20px; align-items: center;">
-
-
         <!-- Nota del cliente -->
         <ion-item style="width: 100%; max-width: 300px;">
           <ion-label position="stacked">Nota</ion-label>
-          <ion-textarea placeholder="Ejemplo: Sin azúcar, con hielo..." auto-grow="true"></ion-textarea>
+          <ion-textarea [(ngModel)]="note" placeholder="Ejemplo: Sin azúcar, con hielo..." auto-grow="true"></ion-textarea>
         </ion-item>
+
         <!-- Botón agregar -->
         <ion-button 
           expand="block" 
-          style="background-color: #00704a; width: 100%; max-width: 300px;" id="open-toast">
+          style="background-color: #00704a; width: 100%; max-width: 300px;" 
+          (click)="addToOrder()">
           Agregar
-          
         </ion-button>
-        <ion-toast trigger="open-toast" message="Se a agrega un producto al carrito con su nota" [duration]="5000"></ion-toast>
-          <!-- Botón agregar -->
-          <ion-button 
+
+        <ion-toast 
+          *ngIf="toastMessage"
+          message="{{ toastMessage }}"
+          [duration]="5000">
+        </ion-toast>
+
+        <!-- Botón volver al menú -->
+        <ion-button 
           expand="block" 
           routerLink="/menu"
-          style="background-color: #871111; width: 100%; max-width: 300px;" id="open-toast">
-          Voler al menu
-          
+          style="background-color: #871111; width: 100%; max-width: 300px;">
+          Volver al menú
         </ion-button>
       </div>
     </div>
   </ion-card>
 </ion-content>
-              
