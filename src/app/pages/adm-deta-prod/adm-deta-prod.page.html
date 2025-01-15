@@ -6,22 +6,43 @@
         <img src="assets/starbucks.png" alt="Starbucks Logo" style="height: 30px;">
       </ion-button>
     </ion-buttons>
-    <ion-title style="text-align: center;">Detalles del Producto</ion-title>
+    <ion-title style="text-align: center;">Administración</ion-title>
     <ion-buttons slot="end">
-      <ion-menu-button menu="menu-adm-produc"></ion-menu-button>
+      <!-- Menú para la administración -->
+      <ion-menu-button menu="menu-adm-agr"></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <!-- CONTENIDO DE LA PÁGINA -->
 <ion-content [fullscreen]="true">
+
+
+  <!-- Card con flecha para regresar -->
   <ion-card style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
-    <ion-text color="light" text-center>
+    <ion-row style="width: 100%; align-items: center;">
+      <!-- Columna para la flecha alineada al inicio (start) -->
+      <ion-col size="auto" style="display: flex; justify-content: flex-start;">
+        <ion-button fill="clear" routerLink="/adm-produc">
+          <ion-icon slot="icon-only" name="arrow-back" color="light"></ion-icon>
+        </ion-button>
+      </ion-col>
+  
+      <!-- Columna para el título centrado -->
+      <ion-col size="auto" style="display: flex; justify-content: center; text-align: center;">
+        <ion-text color="light">
+          <h1>Detalle Producto</h1>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+ 
+  <!-- Detalles del producto fuera del card -->
+  <ion-card *ngIf="product">
+    <!-- Título del producto fuera del card -->
+    <ion-text color="black" class="ion-text-center">
       <h1>{{ product?.title }}</h1>
     </ion-text>
-  </ion-card>
-
-  <ion-card *ngIf="product">
     <ion-item>
       <ion-label>Descripción:</ion-label>
       <ion-text>{{ product.description }}</ion-text>
@@ -48,3 +69,26 @@
     </ion-item>
   </ion-card>
 </ion-content>
+
+<!-- MENÚ DE ADMINISTRACIÓN -->
+<ion-menu contentId="main-content" menuId="menu-adm-agr">
+  <ion-content class="ion-padding" style="background-color: #00704a;">
+    <ion-list>
+      <ion-item button routerLink="/adm-histo">
+        <ion-label>Historial pedidos</ion-label>
+      </ion-item>
+      <ion-item button routerLink="/adm-mesa">
+        <ion-label>Solicitud de mesero</ion-label>
+      </ion-item>
+      <ion-item button routerLink="/adm-pedidos">
+        <ion-label>Pedidos</ion-label>
+      </ion-item>
+      <ion-item button routerLink="/adm-produc">
+        <ion-label>Productos</ion-label>
+      </ion-item>
+      <ion-item button routerLink="/login" style="--ion-item-background: #ff4d4d; color: white; border-radius: 8px; margin-top: 20px;">
+        <ion-label style="text-align: center; font-weight: bold;">Cerrar sesión</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>

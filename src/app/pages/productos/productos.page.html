@@ -55,66 +55,44 @@
 <!--  contenido                         s -->
 <!--  contenido                         s -->
 <!--  contenido                         s -->
-<ion-content>
+<ion-content [fullscreen]="true">
   <ion-card style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
-    <!-- Ícono de flecha -->
     <ion-icon 
       name="arrow-back" 
       style="background-color: #00704a; color: white; margin-right: 20px;" 
       routerLink="/menu">
     </ion-icon>
-
+  
     <ion-text color="light" text-center>
-      <h1>Café caliente</h1>
+      <h1>{{tituloCard}}</h1> <!-- Mostrar el título de la subcategoría -->
     </ion-text>
   </ion-card>
+  <!-- Card que contiene la lista de productos -->
+  <ion-card style="background-color: #ffffff; padding: 15px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+    <!-- Lista de productos dinámicos -->
+    <ion-list *ngIf="productosFiltrados && productosFiltrados.length > 0; else emptyList" style="border-bottom: 2px solid #00704a;">
+      <ion-item *ngFor="let product of productosFiltrados" lines="full" style="margin-bottom: 20px;">
+        <ion-thumbnail slot="start">
+          <img [src]="product.imagen || 'assets/default-product.png'" alt="{{ product.title }}" style="border-radius: 50%; width: 50px; height: 50px;">
+        </ion-thumbnail>
+        <ion-label>
+          <h2>{{ product.title }}</h2>
+        </ion-label>
+        <!-- Botones debajo de los datos -->
+        <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 5px;">
+          <ion-button fill="outline" color="danger" style="width: 100%;">Agotado</ion-button>
+          <ion-button fill="outline" color="primary" routerLink="/adm-edit-prod" style="width: 100%;">Editar</ion-button>
+          <ion-button fill="outline" color="primary" (click)="viewProductDetails(product)" style="width: 100%; background-color: #67adf8;">Ver más</ion-button>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-card>
 
-  <!-- Lista de Categorías de Bebidas -->
-   <!-- Categorías de Bebidas -->
-   <ion-list style="margin: 20px;">
-    <ion-item style="display: flex; align-items: center; justify-content: space-between;">
-      <!-- Foto a la izquierda -->
-      <div style="display: flex; align-items: center; color: black;">
-        <div style="background-color: hsl(159, 100%, 14%); width: 100px; height: 100px; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
-          <img src="assets/cafe caliente.png" alt="Cafés Calientes" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
-        </div>
-      </div>
-      <!-- Título en el centro -->
-      <div style="flex: 1; text-align: center;">
-        <h5 style="margin: 8px 0 0 0; font-size: 12px; color: black;">Expresso</h5>
-      </div>
-      <!-- Botón de "Ver más" a la derecha -->
-      <ion-button fill="solid" routerLink="/detalle-prod" color="success" style="border-radius: 8px;">Ver más</ion-button>
-    </ion-item>
-    
-    <ion-item style="display: flex; align-items: center; justify-content: space-between;">
-      <!-- Foto a la izquierda -->
-      <div style="display: flex; align-items: center; color: black;">
-        <div style="background-color: hsl(159, 100%, 14%); width: 100px; height: 100px; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
-          <img src="assets/cafe frio.png" alt="Cafés Fríos" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
-        </div>
-      </div>
-      <!-- Título en el centro -->
-      <div style="flex: 1; text-align: center;">
-        <h5 style="margin: 8px 0 0 0; font-size: 12px; color: black;">Latte</h5>
-      </div>
-      <!-- Botón de "Ver más" a la derecha -->
-      <ion-button fill="solid" routerLink="/cafes-frios" color="success" style="border-radius: 8px;">Ver más</ion-button>
-    </ion-item>
-
-    <ion-item style="display: flex; align-items: center; justify-content: space-between;">
-      <!-- Foto a la izquierda -->
-      <div style="display: flex; align-items: center; color: black;">
-        <div style="background-color: hsl(159, 100%, 14%); width: 100px; height: 100px; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
-          <img src="assets/te.png" alt="Té" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
-        </div>
-      </div>
-      <!-- Título en el centro -->
-      <div style="flex: 1; text-align: center;">
-        <h5 style="margin: 8px 0 0 0; font-size: 12px; color: black;">Mocha</h5>
-      </div>
-      <!-- Botón de "Ver más" a la derecha -->
-      <ion-button fill="solid" routerLink="/te" color="success" style="border-radius: 8px;">Ver más</ion-button>
-    </ion-item>
-  </ion-list>
+  <!-- Mensaje si no hay productos -->
+  <ng-template #emptyList>
+    <ion-text color="medium" text-center>
+      <p style="margin-top: 20px;">No hay productos disponibles.</p>
+    </ion-text>
+  </ng-template>
 </ion-content>
+
