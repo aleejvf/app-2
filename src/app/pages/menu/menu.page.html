@@ -73,54 +73,49 @@
     </ion-text>
     <div style="border-top: 1px solid #ccc; margin-top: 5px;"></div>
   </div>
+<!-- Categorías de Bebidas -->
+<ion-list style="margin: 20px;">
+  <!-- Cafés Calientes -->
+  <ion-item style="display: flex; align-items: center; justify-content: space-between;">
+    <div style="display: flex; align-items: center; color: black;">
+      <div style="background-color: hsl(159, 100%, 14%); width: 100px; height: 100px; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
+        <img src="assets/cafe caliente.png" alt="Cafés Calientes" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
+      </div>
+    </div>
+    <div style="flex: 1; text-align: center;">
+      <h5 style="margin: 8px 0 0 0; font-size: 12px; color: black;">Cafés Calientes</h5>
+    </div>
+    <ion-button fill="solid" color="success" [routerLink]="['/productos']" [queryParams]="{ subCategory: 'cafe-caliente', category: 'bebidas' }" style="border-radius: 8px;">Ver más</ion-button>
+  </ion-item>
 
-  <!-- Categorías de Bebidas -->
-  <ion-list style="margin: 20px;">
-    <ion-item style="display: flex; align-items: center; justify-content: space-between;">
-      <!-- Foto a la izquierda -->
-      <div style="display: flex; align-items: center; color: black;">
-        <div style="background-color: hsl(159, 100%, 14%); width: 100px; height: 100px; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
-          <img src="assets/cafe caliente.png" alt="Cafés Calientes" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
-        </div>
+  <!-- Cafés Fríos -->
+  <ion-item style="display: flex; align-items: center; justify-content: space-between;">
+    <div style="display: flex; align-items: center; color: black;">
+      <div style="background-color: hsl(159, 100%, 14%); width: 100px; height: 100px; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
+        <img src="assets/cafe frio.png" alt="Cafés Fríos" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
       </div>
-      <!-- Título en el centro -->
-      <div style="flex: 1; text-align: center;">
-        <h5 style="margin: 8px 0 0 0; font-size: 12px; color: black;">Cafés Calientes</h5>
-      </div>
-      <!-- Botón de "Ver más" a la derecha -->
-      <ion-button fill="solid" color="success" routerLink="/productos"style="border-radius: 8px;" (click)="setCategoriaYSubcategoria('Bebidas', 'Cafés Calientes')">Ver más</ion-button>
-    </ion-item>
-    
-    <ion-item style="display: flex; align-items: center; justify-content: space-between;">
-      <!-- Foto a la izquierda -->
-      <div style="display: flex; align-items: center; color: black;">
-        <div style="background-color: hsl(159, 100%, 14%); width: 100px; height: 100px; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
-          <img src="assets/cafe frio.png" alt="Cafés Fríos" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
-        </div>
-      </div>
-      <!-- Título en el centro -->
-      <div style="flex: 1; text-align: center;">
-        <h5 style="margin: 8px 0 0 0; font-size: 12px; color: black;">Cafés Fríos</h5>
-      </div>
-      <!-- Botón de "Ver más" a la derecha -->
-      <ion-button fill="solid" color="success" routerLink="/productos"style="border-radius: 8px;" (click)="setCategoriaYSubcategoria('Bebidas', 'Cafés Fríos')">Ver más</ion-button>
-    </ion-item>
+    </div>
+    <div style="flex: 1; text-align: center;">
+      <h5 style="margin: 8px 0 0 0; font-size: 12px; color: black;">Cafés Fríos</h5>
+    </div>
+    <ion-button fill="solid" color="success" [routerLink]="['/productos']" [queryParams]="{ subCategory: 'cafe-frio', category: 'bebidas' }" style="border-radius: 8px;">Ver más</ion-button>
+  </ion-item>
 
-    <ion-item style="display: flex; align-items: center; justify-content: space-between;">
-      <!-- Foto a la izquierda -->
-      <div style="display: flex; align-items: center; color: black;">
-        <div style="background-color: hsl(159, 100%, 14%); width: 100px; height: 100px; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
-          <img src="assets/te.png" alt="Té" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
-        </div>
+  <!-- Té -->
+  <ion-item style="display: flex; align-items: center; justify-content: space-between;">
+    <div style="display: flex; align-items: center; color: black;">
+      <div style="background-color: hsl(159, 100%, 14%); width: 100px; height: 100px; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
+        <img src="assets/te.png" alt="Té" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
       </div>
-      <!-- Título en el centro -->
-      <div style="flex: 1; text-align: center;">
-        <h5 style="margin: 8px 0 0 0; font-size: 12px; color: black;">Té</h5>
-      </div>
-      <!-- Botón de "Ver más" a la derecha -->
-      <ion-button fill="solid" color="success" routerLink="/productos"style="border-radius: 8px;" (click)="setCategoriaYSubcategoria('Bebidas', 'Té')">Ver más</ion-button>
-    </ion-item>
-  </ion-list>
+    </div>
+    <div style="flex: 1; text-align: center;">
+      <h5 style="margin: 8px 0 0 0; font-size: 12px; color: black;">Té</h5>
+    </div>
+    <ion-button fill="solid" color="success" [routerLink]="['/productos']" [queryParams]="{ subCategory: 'te', category: 'bebidas' }" style="border-radius: 8px;">Ver más</ion-button>
+  </ion-item>
+</ion-list>
+
+
 
   <!-- Línea y mini título: Comida -->
   <div style="margin: 10px 0;">
@@ -131,36 +126,31 @@
     <div style="border-top: 1px solid #ccc; margin-top: 5px;"></div>
   </div>
 
-  <!-- Categorías de Comida -->
-  <ion-list style="margin: 20px;">
-    <ion-item style="display: flex; align-items: center; justify-content: space-between;">
-      <!-- Foto a la izquierda -->
-      <div style="display: flex; align-items: center; color: black;">
-        <div style="background-color: hsl(159, 100%, 14%); width: 100px; height: 100px; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
-          <img src="assets/dulce.png" alt="Dulces" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
-        </div>
+<!-- Categorías de Comida -->
+<ion-list style="margin: 20px;">
+  <!-- Dulces -->
+  <ion-item style="display: flex; align-items: center; justify-content: space-between;">
+    <div style="display: flex; align-items: center; color: black;">
+      <div style="background-color: hsl(159, 100%, 14%); width: 100px; height: 100px; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
+        <img src="assets/dulce.png" alt="Dulces" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
       </div>
-      <!-- Título en el centro -->
-      <div style="flex: 1; text-align: center;">
-        <h5 style="margin: 8px 0 0 0; font-size: 12px; color: black;">Dulces</h5>
-      </div>
-      <!-- Botón de "Ver más" a la derecha -->
-      <ion-button fill="solid" color="success" routerLink="/productos"style="border-radius: 8px;" (click)="setCategoriaYSubcategoria('Comida', 'Dulces')">Ver más</ion-button>
-    </ion-item>
+    </div>
+    <div style="flex: 1; text-align: center;">
+      <h5 style="margin: 8px 0 0 0; font-size: 12px; color: black;">Dulces</h5>
+    </div>
+    <ion-button fill="solid" color="success" [routerLink]="['/productos']" [queryParams]="{ subCategory: 'dulce', category: 'comida' }" style="border-radius: 8px;">Ver más</ion-button>
+  </ion-item>
 
-    <ion-item style="display: flex; align-items: center; justify-content: space-between;">
-      <!-- Foto a la izquierda -->
-      <div style="display: flex; align-items: center; color: black;">
-        <div style="background-color: hsl(159, 100%, 14%); width: 100px; height: 100px; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
-          <img src="assets/preparados.png" alt="Preparados" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
-        </div>
+  <!-- Preparados -->
+  <ion-item style="display: flex; align-items: center; justify-content: space-between;">
+    <div style="display: flex; align-items: center; color: black;">
+      <div style="background-color: hsl(159, 100%, 14%); width: 100px; height: 100px; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
+        <img src="assets/preparados.png" alt="Preparados" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
       </div>
-      <!-- Título en el centro -->
-      <div style="flex: 1; text-align: center;">
-        <h5 style="margin: 8px 0 0 0; font-size: 12px; color: black;">Preparados</h5>
-      </div>
-      <!-- Botón de "Ver más" a la derecha -->
-      <ion-button fill="solid" color="success" routerLink="/productos"style="border-radius: 8px;" (click)="setCategoriaYSubcategoria('Comida', 'Preparados')">Ver más</ion-button>
-    </ion-item>
-  </ion-list>
-</ion-content>
+    </div>
+    <div style="flex: 1; text-align: center;">
+      <h5 style="margin: 8px 0 0 0; font-size: 12px; color: black;">Preparados</h5>
+    </div>
+    <ion-button fill="solid" color="success" [routerLink]="['/productos']" [queryParams]="{ subCategory: 'preparados', category: 'comida' }" style="border-radius: 8px;">Ver más</ion-button>
+  </ion-item>
+</ion-list>

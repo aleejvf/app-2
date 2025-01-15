@@ -15,6 +15,7 @@ export class DetalleProdPage implements OnInit {
   constructor(private alertController: AlertController, private router: Router) {}
 
   ngOnInit() {}
+  
 
   // Muestra una alerta que indica que el producto fue agregado pero falta confirmar
   async showAddToOrderAlert() {

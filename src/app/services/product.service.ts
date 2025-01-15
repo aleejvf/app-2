@@ -5,6 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class ProductService {
   private selectedProduct: any;
+  private selectedCategory: string = '';
+  private selectedSubCategory: string = '';
 
   setProduct(product: any) {
     this.selectedProduct = product;
@@ -12,5 +14,14 @@ export class ProductService {
 
   getProduct() {
     return this.selectedProduct;
+  }
+
+  setCategoryAndSubcategory(category: string, subcategory: string) {
+    this.selectedCategory = category;
+    this.selectedSubCategory = subcategory;
+  }
+
+  getCategoryAndSubcategory() {
+    return { category: this.selectedCategory, subCategory: this.selectedSubCategory };
   }
 }

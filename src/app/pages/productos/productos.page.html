@@ -7,41 +7,36 @@
         <img src="assets/starbucks.png" alt="Starbucks Logo" style="height: 30px;">
       </ion-button>
     </ion-buttons>
-    
+
     <!-- Botón del menú -->
     <ion-buttons slot="end">
-      <!-- Vincula este botón al menú específico "menu-boleta" -->
       <ion-menu-button menu="menu-productos"></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <!-- CONTENEDOR PRINCIPAL -->
-<!-- Este contenedor es el área que el menú controla -->
 <ion-router-outlet id="main-content"></ion-router-outlet>
 
 <!-- MENÚ BOLETA -->
-<ion-menu contentId="main-content" menuId="menu-productos"> <!-- Identificador único del menú -->
-  <ion-content class="ion-padding" style="background-color: #00704a;"> <!-- Fondo verde Starbucks -->
+<ion-menu contentId="main-content" menuId="menu-productos">
+  <ion-content class="ion-padding" style="background-color: #00704a;">
     <ion-list>
-      <!-- Opciones del menú -->
       <ion-item button routerLink="/menu">
         <ion-label>Menú</ion-label>
       </ion-item>
       <ion-item button routerLink="/pedido">
-        <ion-label>Mis pedido</ion-label>
+        <ion-label>Mis pedidos</ion-label>
       </ion-item>
       <ion-item button routerLink="/boleta">
         <ion-label>Pagar</ion-label>
       </ion-item>
-      <ion-item >
+      <ion-item>
         <ion-label (click)="setOpen(true)">Solicitar mesero</ion-label>
-
         <ion-alert
           [isOpen]="isAlertOpen"
-          header="Se a solicitado al mesero"
-      
-          message="Dentro de unos instantes se le atendera ."
+          header="Se ha solicitado al mesero"
+          message="Dentro de unos instantes se le atenderá."
           [buttons]="alertButtons"
           (didDismiss)="setOpen(false)"
         ></ion-alert>
@@ -52,47 +47,48 @@
     </ion-list>
   </ion-content>
 </ion-menu>
-<!--  contenido                         s -->
-<!--  contenido                         s -->
-<!--  contenido                         s -->
-<ion-content [fullscreen]="true">
+
+<!-- CONTENIDO DE LA PÁGINA -->
+<ion-content>
   <ion-card style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
     <ion-icon 
-      name="arrow-back" 
-      style="background-color: #00704a; color: white; margin-right: 20px;" 
-      routerLink="/menu">
-    </ion-icon>
-  
+  name="arrow-back" 
+  style="background-color: #00704a; color: white; margin-right: 20px;" 
+  routerLink="/menu">
+</ion-icon>
     <ion-text color="light" text-center>
-      <h1>{{tituloCard}}</h1> <!-- Mostrar el título de la subcategoría -->
+      <h1>Productos</h1>
     </ion-text>
   </ion-card>
-  <!-- Card que contiene la lista de productos -->
-  <ion-card style="background-color: #ffffff; padding: 15px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-    <!-- Lista de productos dinámicos -->
-    <ion-list *ngIf="productosFiltrados && productosFiltrados.length > 0; else emptyList" style="border-bottom: 2px solid #00704a;">
-      <ion-item *ngFor="let product of productosFiltrados" lines="full" style="margin-bottom: 20px;">
-        <ion-thumbnail slot="start">
-          <img [src]="product.imagen || 'assets/default-product.png'" alt="{{ product.title }}" style="border-radius: 50%; width: 50px; height: 50px;">
-        </ion-thumbnail>
-        <ion-label>
-          <h2>{{ product.title }}</h2>
-        </ion-label>
-        <!-- Botones debajo de los datos -->
-        <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 5px;">
-          <ion-button fill="outline" color="danger" style="width: 100%;">Agotado</ion-button>
-          <ion-button fill="outline" color="primary" routerLink="/adm-edit-prod" style="width: 100%;">Editar</ion-button>
-          <ion-button fill="outline" color="primary" (click)="viewProductDetails(product)" style="width: 100%; background-color: #67adf8;">Ver más</ion-button>
-        </div>
-      </ion-item>
-    </ion-list>
-  </ion-card>
+  <ion-text color="black" text-center>
+    <div style="margin: 10px 0; text-align: center;">
+      <div style="border-top: 1px solid #ccc; margin-bottom: 5px;"></div>
+      <!-- Título dinámico con subcategoría -->
+      <h1 style="margin: 0;">{{ selectedSubCategory | uppercase }}</h1>
+      <div style="border-top: 1px solid #ccc; margin-top: 5px;"></div>
+    </div>
+  </ion-text>
+  
+  
+  
 
-  <!-- Mensaje si no hay productos -->
-  <ng-template #emptyList>
-    <ion-text color="medium" text-center>
-      <p style="margin-top: 20px;">No hay productos disponibles.</p>
-    </ion-text>
-  </ng-template>
+  <!-- Lista de Productos -->
+  <ion-list>
+    <ion-item *ngFor="let product of filteredProducts">
+      <ion-thumbnail slot="start">
+        <img [src]="product.image || 'assets/placeholder.png'" alt="Imagen del producto" />
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{ product.title }}</h2>
+      </ion-label>
+      <ion-button slot="end" (click)="viewProductDetails(product)">
+        Detalles
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <!-- Mensaje si no hay productos filtrados -->
+  <ion-text *ngIf="filteredProducts.length === 0">
+    <p class="ion-text-center">No se encontraron productos con los filtros seleccionados.</p>
+  </ion-text>
 </ion-content>
-

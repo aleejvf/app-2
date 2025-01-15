@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProdDatosService } from '../../services/prod-datos.service';
 import { Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
-import { CategoriaSubcategoriaService } from 'src/app/services/categoria-subcategoria.service'; // Asegúrate de que la ruta sea correcta
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-productos',
@@ -13,60 +13,31 @@ import { CategoriaSubcategoriaService } from 'src/app/services/categoria-subcate
 export class ProductosPage implements OnInit {
 
   products: any[] = []; // Lista de productos
-  productosFiltrados: any[] = []; // Productos filtrados
-  tituloCard: string = ''; // Variable para el título del card
-  isAlertOpen = false;
-  alertButtons = ['Listo'];
-
-  // Función para abrir o cerrar la alerta
-  setOpen(isOpen: boolean) {
-    this.isAlertOpen = isOpen;
-  }
+  filteredProducts: any[] = []; // Productos filtrados
+  selectedCategory: string = 'todos'; // Categoría seleccionada
+  selectedSubCategory: string = ''; // Subcategoría seleccionada
+  subCategoryOptions: string[] = []; // Opciones de subcategorías
+  isAlertOpen = false; // Control de alerta
+  alertButtons = ['Listo']; // Botones de alerta
 
   constructor(
     private prodDatosService: ProdDatosService,
     private router: Router,
     private productService: ProductService,
-    private categoriaSubcategoriaService: CategoriaSubcategoriaService
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.loadProducts(); // Cargar los productos desde Firebase al iniciar la página
+    this.loadProducts(); // Cargar los productos al iniciar la página
 
-    // Obtener la categoría y subcategoría seleccionada
-    const categoriaSeleccionada = this.categoriaSubcategoriaService.getCategoria();
-    const subCategoriaSeleccionada = this.categoriaSubcategoriaService.getSubCategoria();
-
-    // Verifica los valores de categoría y subcategoría
-    console.log('Categoria seleccionada:', categoriaSeleccionada);
-    console.log('Subcategoria seleccionada:', subCategoriaSeleccionada);
-
-    // Asignar el título del card
-    if (subCategoriaSeleccionada) {
-      this.tituloCard = subCategoriaSeleccionada; // Asigna el título solo si subCategoría está definida
-    } else if (categoriaSeleccionada) {
-      this.tituloCard = categoriaSeleccionada; // Si solo la categoría está seleccionada
-    } else {
-      this.tituloCard = 'No hay categoría o subcategoría seleccionada'; // Mensaje de respaldo
-    }
-
-    // Filtrar los productos según la categoría y subcategoría seleccionada
-    if (categoriaSeleccionada && subCategoriaSeleccionada) {
-      this.productosFiltrados = this.products.filter(producto =>
-        producto.categoria === categoriaSeleccionada && producto.subCategoria === subCategoriaSeleccionada
-      );
-    } else if (categoriaSeleccionada) {
-      // Si solo se seleccionó categoría, filtrar solo por categoría
-      this.productosFiltrados = this.products.filter(producto =>
-        producto.categoria === categoriaSeleccionada
-      );
-    } else {
-      // Si no hay categoría o subcategoría seleccionada, mostrar todos los productos
-      this.productosFiltrados = this.products;
-    }
-
-    // Verifica los productos filtrados
-    console.log('Productos filtrados:', this.productosFiltrados);
+    // Obtener parámetros de URL, si se desea agregar filtrado por subcategoría desde la URL
+    this.route.queryParams.subscribe(params => {
+      const subCategoriaSeleccionada = params['subCategory'];
+      if (subCategoriaSeleccionada) {
+        this.selectedSubCategory = subCategoriaSeleccionada;
+        this.filterProducts(); // Filtrar productos al cargar la subcategoría
+      }
+    });
   }
 
   // Método para cargar los productos desde Firebase
@@ -74,7 +45,7 @@ export class ProductosPage implements OnInit {
     this.prodDatosService.getProducts().subscribe(
       (data: any[]) => {
         this.products = data; // Asigna los datos a la lista de productos
-        this.productosFiltrados = data; // Inicializa los productos filtrados con todos los productos
+        this.filteredProducts = data; // Inicializa los productos filtrados
       },
       (error) => {
         console.error('Error al cargar los productos:', error);
@@ -82,9 +53,45 @@ export class ProductosPage implements OnInit {
     );
   }
 
+  // Método para cambiar la categoría seleccionada
+  onCategoryChange() {
+    // Configura las opciones de subcategoría según la categoría seleccionada
+    if (this.selectedCategory === 'bebida') {
+      this.subCategoryOptions = ['cafe-caliente', 'cafe-frio', 'te'];
+    } else if (this.selectedCategory === 'comida') {
+      this.subCategoryOptions = ['dulce', 'preparados'];
+    } else {
+      this.subCategoryOptions = []; // No mostrar subcategorías si es "todos"
+    }
+
+    this.selectedSubCategory = ''; // Restablece la subcategoría seleccionada
+    this.filterProducts(); // Filtra productos al cambiar la categoría
+  }
+
+  // Método para filtrar productos basados en la categoría y subcategoría
+  filterProducts() {
+    this.filteredProducts = this.products.filter(product => {
+      const matchesCategory =
+        this.selectedCategory === 'todos' ||
+        product.category === this.selectedCategory;
+
+      const matchesSubCategory =
+        this.selectedSubCategory === '' ||
+        product.subCategory === this.selectedSubCategory;
+
+      return matchesCategory && matchesSubCategory;
+    });
+  }
+
   // Método para navegar a la página de detalles de un producto
   viewProductDetails(product: any) {
     this.productService.setProduct(product);  // Guardamos el producto seleccionado en el servicio
-    this.router.navigate(['/deralle-prod']); // Navegamos a la página de detalles
+    this.router.navigate(['/detalle-prod']); // Navegamos a la página de detalles
   }
+
+  // Función para abrir o cerrar la alerta
+  setOpen(isOpen: boolean) {
+    this.isAlertOpen = isOpen;
+  }
+
 }
