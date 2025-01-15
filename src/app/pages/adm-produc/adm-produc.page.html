@@ -43,67 +43,75 @@
 </ion-menu>
 
 <!-- CONTENIDO DE LA PÁGINA -->
-<ion-content [fullscreen]="true">
-  <!-- Encabezado -->
+<ion-content>
   <ion-card style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
     <ion-text color="light" text-center>
       <h1>Productos</h1>
     </ion-text>
   </ion-card>
-
-  <!-- Botón "Agregar Producto" -->
-  <ion-button [routerLink]="['/adm-agregar-prod']" expand="block" style="background-color: #6cf3c6; margin-top: 20px;">
+<!-- Botón de agregar producto con diseño redondeado -->
+<!-- Botón centrado, más redondeado y con márgenes ajustados -->
+<div style="display: flex; justify-content: center; margin-top: 20px;">
+  <ion-button 
+    routerLink="/adm-agregar-prod" 
+    style="
+      background-color: #00704a; 
+      border-radius: 50px; /* Botón más redondeado */
+      font-size: 16px; 
+      font-weight: bold; 
+      padding: 12px 24px; /* Ajusta el tamaño interno */
+      width: auto; /* Botón se adapta al contenido */
+    ">
     Agregar Producto
   </ion-button>
+</div>
 
-  <!-- Filtros por tipo de producto -->
-  <ion-item>
-    <ion-label position="stacked">Filtrar por tipo</ion-label>
-    <ion-select [(ngModel)]="selectedCategory" (ionChange)="onCategoryChange()" placeholder="Seleccione tipo de producto">
-      <ion-select-option value="todos">Todos</ion-select-option>
-      <ion-select-option value="bebida">Bebida</ion-select-option>
-      <ion-select-option value="comida">Comida</ion-select-option>
-    </ion-select>
-  </ion-item>
+ <!-- Filtros -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Filtros</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <!-- Selección de Categoría -->
+      <ion-item>
+        <ion-label>Categoría</ion-label>
+        <ion-select [(ngModel)]="selectedCategory" (ionChange)="onCategoryChange()">
+          <ion-select-option value="todos">Todos</ion-select-option>
+          <ion-select-option value="bebida">Bebida</ion-select-option>
+          <ion-select-option value="comida">Comida</ion-select-option>
+        </ion-select>
+      </ion-item>
 
-  <!-- Filtro para bebida -->
-  <ion-item *ngIf="selectedCategory === 'bebida' || selectedCategory === 'todos'">
-    <ion-label position="stacked">Filtrar por bebida</ion-label>
-    <ion-select [(ngModel)]="selectedSubCategory" placeholder="Seleccione tipo de bebida">
-      <ion-select-option *ngFor="let option of subCategoryOptions" [value]="option">{{ option | titlecase }}</ion-select-option>
-    </ion-select>
-  </ion-item>
+      <!-- Selección de Subcategoría -->
+      <ion-item *ngIf="subCategoryOptions.length > 0">
+        <ion-label>Subcategoría</ion-label>
+        <ion-select [(ngModel)]="selectedSubCategory" (ionChange)="filterProducts()">
+          <ion-select-option value="">Todas</ion-select-option>
+          <ion-select-option *ngFor="let subCategory of subCategoryOptions" [value]="subCategory">
+            {{ subCategory }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
 
-  <!-- Filtro para comida -->
-  <ion-item *ngIf="selectedCategory === 'comida' || selectedCategory === 'todos'">
-    <ion-label position="stacked">Filtrar por comida</ion-label>
-    <ion-select [(ngModel)]="selectedSubCategory" placeholder="Seleccione tipo de comida">
-      <ion-select-option *ngFor="let option of subCategoryOptions" [value]="option">{{ option | titlecase }}</ion-select-option>
-    </ion-select>
-  </ion-item>
-
-  <!-- Lista de productos dinámicos -->
-  <ion-list *ngIf="filteredProducts && filteredProducts.length > 0; else emptyList" style="border-bottom: 2px solid #00704a;">
-    <ion-item *ngFor="let product of filteredProducts" lines="full" style="margin-bottom: 20px;">
+  <!-- Lista de Productos -->
+  <ion-list>
+    <ion-item *ngFor="let product of filteredProducts">
       <ion-thumbnail slot="start">
-        <img [src]="product.image || 'assets/default-product.png'" alt="{{ product.title }}" style="border-radius: 50%; width: 50px; height: 50px;">
+        <img [src]="product.image || 'assets/placeholder.png'" alt="Imagen del producto" />
       </ion-thumbnail>
       <ion-label>
         <h2>{{ product.title }}</h2>
       </ion-label>
-      <!-- Botones debajo de los datos -->
-      <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 5px;">
-        <ion-button fill="outline" color="danger" style="width: 100%;">Agotado</ion-button>
-        <ion-button fill="outline" color="primary" routerLink="/adm-edit-prod" style="width: 100%;">Editar</ion-button>
-        <ion-button fill="outline" color="primary" (click)="viewProductDetails(product)" style="width: 100%; background-color: #67adf8;">Ver más</ion-button>
-      </div>
+      <ion-button slot="end" (click)="viewProductDetails(product)">
+        Detalles
+      </ion-button>
     </ion-item>
   </ion-list>
 
-  <!-- Mensaje si no hay productos -->
-  <ng-template #emptyList>
-    <ion-text color="medium" text-center>
-      <p style="margin-top: 20px;">No hay productos disponibles.</p>
-    </ion-text>
-  </ng-template>
+  <!-- Mensaje si no hay productos filtrados -->
+  <ion-text *ngIf="filteredProducts.length === 0">
+    <p class="ion-text-center">No se encontraron productos con los filtros seleccionados.</p>
+  </ion-text>
 </ion-content>

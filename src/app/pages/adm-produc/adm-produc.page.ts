@@ -42,7 +42,7 @@ export class AdmProducPage implements OnInit {
 
   // Método que se ejecuta cuando cambia la categoría seleccionada
   onCategoryChange() {
-    // Establecemos las opciones de subcategoría según la categoría seleccionada
+    // Configura las opciones de subcategoría según la categoría seleccionada
     if (this.selectedCategory === 'bebida') {
       this.subCategoryOptions = ['cafe-caliente', 'cafe-frio', 'te'];
     } else if (this.selectedCategory === 'comida') {
@@ -51,25 +51,28 @@ export class AdmProducPage implements OnInit {
       this.subCategoryOptions = []; // No mostrar subcategorías si es "todos"
     }
 
-    this.selectedSubCategory = ''; // Restablecer subcategoría seleccionada
-    this.filterProducts(); // Filtrar productos cada vez que se cambia la categoría
+    this.selectedSubCategory = ''; // Restablece la subcategoría seleccionada
+    this.filterProducts(); // Filtra productos al cambiar la categoría
   }
 
   // Método para filtrar productos basados en la categoría y subcategoría
   filterProducts() {
-    if (this.selectedCategory === 'todos') {
-      this.filteredProducts = this.products; // Si se selecciona 'todos', no se filtra
-    } else {
-      this.filteredProducts = this.products.filter(product =>
-        product.category === this.selectedCategory &&
-        (this.selectedSubCategory === '' || product.subCategory === this.selectedSubCategory)
-      );
-    }
+    this.filteredProducts = this.products.filter(product => {
+      const matchesCategory =
+        this.selectedCategory === 'todos' ||
+        product.category === this.selectedCategory;
+
+      const matchesSubCategory =
+        this.selectedSubCategory === '' ||
+        product.subCategory === this.selectedSubCategory;
+
+      return matchesCategory && matchesSubCategory;
+    });
   }
 
   // Método para navegar a la página de detalles de un producto
   viewProductDetails(product: any) {
-    this.productService.setProduct(product);  // Guardamos el producto seleccionado en el servicio
+    this.productService.setProduct(product); // Guardamos el producto seleccionado en el servicio
     this.router.navigate(['/adm-deta-prod']); // Navegamos a la página de detalles
   }
 }
