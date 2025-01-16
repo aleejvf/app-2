@@ -43,9 +43,8 @@
 
         <ion-alert
           [isOpen]="isAlertOpen"
-          header="Se a solicitado al mesero"
-      
-          message="Dentro de unos instantes se le atendera ."
+          header="Se ha solicitado al mesero"
+          message="Dentro de unos instantes se le atenderá."
           [buttons]="alertButtons"
           (didDismiss)="setOpen(false)"
         ></ion-alert>
@@ -85,7 +84,7 @@
     <div style="flex: 1; text-align: center;">
       <h5 style="margin: 8px 0 0 0; font-size: 12px; color: black;">Cafés Calientes</h5>
     </div>
-    <ion-button fill="solid" color="success" [routerLink]="['/productos']" [queryParams]="{ subCategory: 'cafe-caliente', category: 'bebidas' }" style="border-radius: 8px;">Ver más</ion-button>
+    <ion-button fill="solid" color="success" (click)="filtro('hola')" [routerLink]="['/productos']" [queryParams]="{ subCategory: 'cafe-caliente', category: 'bebidas' }" style="border-radius: 8px;">Ver más</ion-button>
   </ion-item>
 
   <!-- Cafés Fríos -->
@@ -98,7 +97,7 @@
     <div style="flex: 1; text-align: center;">
       <h5 style="margin: 8px 0 0 0; font-size: 12px; color: black;">Cafés Fríos</h5>
     </div>
-    <ion-button fill="solid" color="success" [routerLink]="['/productos']" [queryParams]="{ subCategory: 'cafe-frio', category: 'bebidas' }" style="border-radius: 8px;">Ver más</ion-button>
+    <ion-button fill="solid" color="success" (click)="filtro('chao')" [routerLink]="['/productos']" [queryParams]="{ subCategory: 'cafe-frio', category: 'bebidas' }" style="border-radius: 8px;">Ver más</ion-button>
   </ion-item>
 
   <!-- Té -->

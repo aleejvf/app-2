@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { OrderService } from '../../services/order.service'; // Importa el servicio OrderService
-import { ActivatedRoute } from '@angular/router'; // Para obtener el número de la mesa
 
 @Component({
   selector: 'app-pedido',
@@ -11,24 +10,17 @@ import { ActivatedRoute } from '@angular/router'; // Para obtener el número de 
   standalone: false,
 })
 export class PedidoPage implements OnInit {
-  order: any[] = [];  // Almacena los productos del pedido
-  mesaSeleccionada: number | null = null; // Almacena el número de la mesa
+  order: any[] = []; // Almacena los productos del pedido
 
   constructor(
     private alertController: AlertController,
     private router: Router,
-    private orderService: OrderService, // Inyecta OrderService
-    private route: ActivatedRoute // Para acceder a los parámetros de la URL
+    private orderService: OrderService // Inyecta OrderService
   ) {}
 
   ngOnInit() {
-    this.order = this.orderService.getOrder(); // Obtiene los productos del pedido
-
-    // Obtener el número de la mesa de los parámetros de la URL
-    this.route.queryParams.subscribe((params) => {
-      this.mesaSeleccionada = params['mesa']; // Obtener el número de la mesa
-      console.log('Mesa seleccionada: ', this.mesaSeleccionada); // Ver el número de la mesa
-    });
+    // Obtiene los productos del pedido
+    this.order = this.orderService.getOrder();
   }
 
   // Muestra una alerta para solicitar un mesero
@@ -71,21 +63,20 @@ export class PedidoPage implements OnInit {
       window.alert('No hay productos en la orden');
       return;
     }
-  
+
     // Obtén la fecha y hora actuales
     const currentDate = new Date();
     const hour = currentDate.getHours();
     const minute = currentDate.getMinutes();
-  
-    // Guarda los productos con el número de la mesa y la hora en la que se realizó el pedido
+
+    // Guarda los productos con la hora en la que se realizó el pedido
     const orderData = {
-      mesa: this.mesaSeleccionada,
       productos: this.order,
       fechaHora: `${currentDate.toLocaleDateString()} ${hour}:${minute}`, // Fecha y hora en formato legible
     };
-  
+
     console.log('Datos del pedido guardado:', orderData); // Incluye la hora y la fecha en la consola
-  
+
     const alert = await this.alertController.create({
       header: 'Pedido confirmado',
       message: 'Tus pedidos se llevaron a la cocina. Gracias por tu paciencia.',
@@ -103,5 +94,5 @@ export class PedidoPage implements OnInit {
       backdropDismiss: false,
     });
     await alert.present();
-  }  
+  }
 }

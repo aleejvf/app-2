@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class MesaService {
   private collectionName = 'mesas'; // Nombre de la colección en Firestore
+  private selectedMesa: number | null = null; // Almacena la mesa seleccionada en memoria
 
   constructor(private firestore: AngularFirestore) {}
 
@@ -15,10 +16,20 @@ export class MesaService {
     return this.firestore.collection(this.collectionName).valueChanges({ idField: 'id' });
   }
 
-  // Método para obtener mesas filtradas por el campo 'n.mesas' si lo necesitas
+  // Método para obtener mesas filtradas por el campo 'n.mesas'
   getMesasPorNumero(nMesas: number): Observable<any[]> {
     return this.firestore
       .collection(this.collectionName, ref => ref.where('n.mesas', '==', nMesas))
       .valueChanges({ idField: 'id' });
+  }
+
+  // Nuevo: Establece la mesa seleccionada
+  setSelectedMesa(mesa: number): void {
+    this.selectedMesa = mesa;
+  }
+
+  // Nuevo: Obtiene la mesa seleccionada
+  getSelectedMesa(): number | null {
+    return this.selectedMesa;
   }
 }
