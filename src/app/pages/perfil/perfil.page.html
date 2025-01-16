@@ -59,23 +59,23 @@
               <!--  contenido                         s -->
               <!--  contenido                         s -->
               <!--  contenido                         s -->
-<ion-content>
-  <ion-card style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
-    <ion-text color="light" text-center>
-      <h1>Perfil</h1>
-    </ion-text>
-  </ion-card>
-
-  <!-- Recuadro gris con el nombre del usuario y el email -->
-  <div style="background-color: #f0f0f0; padding: 20px; margin: 20px 0; border-radius: 8px;">
-    <ion-text color="dark">
-      <h3>Usuario: Alejandro villanueva </h3>
-      <p>Email: alej.villanuev.com</p>
-    </ion-text>
-  </div>
-
-  <!-- Botón rojo de Cerrar sesión -->
-  <ion-button expand="full" color="danger" routerLink="/login" style="margin-top: 20px;">
-    Cerrar sesión
-  </ion-button>
-</ion-content>
+              <ion-content>
+                <ion-card style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
+                  <ion-text color="light" text-center>
+                    <h1>Perfil</h1>
+                  </ion-text>
+                </ion-card>
+              
+                <!-- Recuadro gris con el nombre del usuario y el email -->
+                <div style="background-color: #f0f0f0; padding: 20px; margin: 20px 0; border-radius: 8px;">
+                  <ion-text color="dark">
+                    
+                    <p>Email: {{ user?.email || 'No disponible' }}</p>
+                  </ion-text>
+                </div>
+              
+                <!-- Botón rojo de Cerrar sesión -->
+                <ion-button expand="full" color="danger" (click)="logout()" style="margin-top: 20px;">
+                  Cerrar sesión
+                </ion-button>
+              </ion-content>

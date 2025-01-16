@@ -1,42 +1,43 @@
-
 <ion-content [fullscreen]="true" style="--background: #f7f7f7;">
-  <!-- Imagen del logo de Starbucks -->
+  <!-- Imagen del logo -->
   <div style="display: flex; justify-content: center; margin-top: 20px;">
     <img src="assets/starbucks.png" alt="Logo Starbucks" style="width: 300px; height: auto;">
   </div>
 
-  <!-- Contenedor principal para el formulario de login -->
+  <!-- Contenedor del formulario -->
   <div style="display: flex; justify-content: center; align-items: center; height: 50%; margin-top: 5px;">
     <div style="background-color: #ffffff; padding: 20px; border-radius: 10px; width: 90%; max-width: 400px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
 
       <!-- Campo de usuario -->
-      <ion-item>
-        <ion-label position="floating">Usuario</ion-label>
-        <ion-input type="text" placeholder="Ingresa tu usuario" required></ion-input>
-      </ion-item>
-      
-      <!-- Campo de contraseña -->
-      <ion-item>
-        <ion-label position="floating">Contraseña</ion-label>
-        <ion-input type="password" placeholder="Ingresa tu contraseña" required></ion-input>
-      </ion-item>
+      <form [formGroup]="form">
+        <ion-item>
+          <ion-label position="floating">Usuario</ion-label>
+          <ion-input formControlName="email" type="email" placeholder="Ingresa tu usuario"></ion-input>
+        </ion-item>
 
-      <!-- Olvido de contraseña -->
-      <div style="text-align: right; margin-top: 10px;">
-        <a routerLink="/adm-mesa" style="color: #00704a; font-weight: bold;">¿Olvidasta te contraseña ?</a>
-        <a routerLink="/adm-mesa" style="color: #00704a; font-weight: bold;">Admin</a>
-      </div>
+        <!-- Campo de contraseña -->
+        <ion-item>
+          <ion-label position="floating">Contraseña</ion-label>
+          <ion-input formControlName="password" type="password" placeholder="Ingresa tu contraseña"></ion-input>
+        </ion-item>
 
-      <!-- Botón de inicio de sesión -->
-      <ion-button expand="block" routerLink="/qr" style="background-color: #00704a; margin-top: 20px;">Iniciar sesión</ion-button>
+        <!-- Botón de inicio de sesión -->
+        <ion-button expand="block" (click)="onLogin()" style="background-color: #00704a; margin-top: 20px;">
+          Iniciar sesión
+        </ion-button>
+      </form>
 
-      <!-- Texto para crear cuenta -->
+      <!-- Crear cuenta -->
       <div style="text-align: center; margin-top: 20px;">
-        <span style="color: #1d1d1b;">¿No tienes cuenta? </span>
+        <span>¿No tienes cuenta?</span>
         <a routerLink="/create-user" style="color: #00704a; font-weight: bold;">Crear cuenta</a>
-
+      </div>
+      <div style="text-align: center; margin-top: 20px;">
+        <a routerLink="/adm-produc" style="color: #00704a; font-weight: bold;">admin</a>
+      </div>
+      <div style="text-align: center; margin-top: 20px;">
+        <a routerLink="/qr" style="color: #00704a; font-weight: bold;">inicio sesion</a>
       </div>
     </div>
   </div>
-
 </ion-content>
