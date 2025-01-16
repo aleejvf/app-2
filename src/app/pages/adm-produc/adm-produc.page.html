@@ -104,11 +104,21 @@
       <ion-label>
         <h2>{{ product.title }}</h2>
       </ion-label>
-      <ion-button slot="end" (click)="viewProductDetails(product)">
-        Detalles
-      </ion-button>
+  
+      <!-- Contenedor para los botones -->
+      <div class="button-container">
+        <ion-button class="custom-green" (click)="viewProductDetails(product)">
+          Detalles
+        </ion-button>
+        <ion-button class="custom-blue" (click)="editProduct(product)">
+          Editar
+        </ion-button>
+      </div>
     </ion-item>
   </ion-list>
+  
+  
+  
 
   <!-- Mensaje si no hay productos filtrados -->
   <ion-text *ngIf="filteredProducts.length === 0">

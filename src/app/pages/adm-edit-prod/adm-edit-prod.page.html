@@ -1,4 +1,3 @@
-<!-- ENCABEZADO -->
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -6,7 +5,7 @@
         <img src="assets/starbucks.png" alt="Starbucks Logo" style="height: 30px;">
       </ion-button>
     </ion-buttons>
-    <ion-title style="text-align: center;">Administracion</ion-title>
+    <ion-title style="text-align: center;">Administración</ion-title>
     <ion-buttons slot="end">
       <ion-menu-button menu="menu-adm-edit"></ion-menu-button>
     </ion-buttons>
@@ -39,11 +38,7 @@
 
 <ion-content>
   <ion-card style="background-color: #00704a; height: 150px; display: flex; align-items: center; padding: 0 20px;">
-    <ion-icon 
-      name="arrow-back" 
-      style="color: white; margin-right: 20px;" 
-      routerLink="/adm-produc">
-    </ion-icon>
+    <ion-icon name="arrow-back" style="color: white; margin-right: 20px;" routerLink="/adm-produc"></ion-icon>
     <ion-text color="light" text-center>
       <h1>Editar producto</h1>
     </ion-text>
@@ -53,33 +48,55 @@
     <form>
       <ion-item>
         <ion-label position="stacked">Nombre del producto</ion-label>
-        <ion-input placeholder="Expresso" required></ion-input>
+        <ion-input [(ngModel)]="product.title" name="title" placeholder="Expresso" required></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="stacked">Imagen del producto</ion-label>
-        <ion-input type="file"></ion-input>
-        <img src="assets/cafe caliente.png" alt="Producto" style="width: 150px; height: 150px; object-fit: cover; margin-top: 10px; border-radius: 10px;">
+        <ion-input type="file" (change)="onFileSelected($event)" required></ion-input>
+        <img [src]="product.image || 'assets/placeholder.png'" alt="Producto" style="width: 150px; height: 150px; object-fit: cover; margin-top: 10px; border-radius: 10px;">
       </ion-item>
 
       <ion-item>
         <ion-label position="stacked">Descripción</ion-label>
-        <ion-textarea placeholder="Descripción detallada del producto..." required></ion-textarea>
+        <ion-textarea [(ngModel)]="product.description" name="description" placeholder="Descripción detallada del producto..." required></ion-textarea>
       </ion-item>
 
       <ion-item>
         <ion-label position="stacked">Precio</ion-label>
-        <ion-input type="number" placeholder="7000" required></ion-input>
+        <ion-input [(ngModel)]="product.price" name="price" type="number" placeholder="7000" required></ion-input>
       </ion-item>
 
-      <div style="display: flex; justify-content: space-between; margin-top: 20px;">
-        <ion-button color="danger" expand="block" style="flex: 1; margin-right: 10px;" routerLink="/adm-produc">
-          Cancelar
-        </ion-button>
-        <ion-button color="success" expand="block" style="flex: 1;" (click)="guardarProducto()">
-          Guardar
-        </ion-button>
+      <ion-item>
+        <ion-label position="stacked">Categoría</ion-label>
+        <ion-select [(ngModel)]="product.category" name="category" (ionChange)="onCategoryChange()" required>
+          <ion-select-option value="bebida">Bebida</ion-select-option>
+          <ion-select-option value="comida">Comida</ion-select-option>
+          <ion-select-option value="otros">Otros</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Subcategoría</ion-label>
+        <ion-select [(ngModel)]="product.subCategory" name="subCategory" required>
+          <ion-select-option *ngFor="let option of subCategoryOptions" [value]="option">{{ option }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
+        <ion-item>
+          <ion-button color="success" expand="block" (click)="guardarProducto()">
+            Guardar
+          </ion-button>
+        </ion-item>
+        <ion-item>
+          <!-- Botón para eliminar el producto -->
+          <ion-button color="danger" expand="block" (click)="eliminarProducto()">
+            Eliminar Producto
+          </ion-button>
+        </ion-item>
       </div>
+      
     </form>
   </ion-card>
 </ion-content>

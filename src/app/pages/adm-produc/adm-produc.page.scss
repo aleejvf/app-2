@@ -1,0 +1,23 @@
+ion-button.custom-green {
+    --background: #28a745; /* Verde personalizado */
+    --background-activated: #218838;
+    --background-focused: #218838;
+    --color: #fff;
+  }
+  
+  ion-button.custom-blue {
+    --background: #007bff; /* Azul personalizado */
+    --background-activated: #0056b3;
+    --background-focused: #0056b3;
+    --color: #fff;
+  }
+  .button-container {
+    display: flex;
+    flex-direction: column; /* Esto hace que los botones se apilen verticalmente */
+    gap: 10px; /* Espacio entre los botones */
+  }
+  
+  ion-button {
+    width: 100%; /* Hace que los botones ocupen todo el ancho disponible */
+  }
+  

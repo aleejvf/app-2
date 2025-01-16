@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ProdDatosService {
   private collectionName = 'productos'; // Nombre de la colección en Firestore
+  private selectedProduct: any; // Producto temporalmente seleccionado
 
   constructor(private firestore: AngularFirestore) {}
 
@@ -25,8 +26,36 @@ export class ProdDatosService {
     return this.firestore.collection(this.collectionName).doc(productId).delete();
   }
 
-  // Método para actualizar un producto
   updateProduct(productId: string, product: any): Promise<void> {
-    return this.firestore.collection(this.collectionName).doc(productId).update(product);
+    const productRef = this.firestore.collection(this.collectionName).doc(productId);
+  
+    // Comprobar si el producto existe
+    return productRef.get().toPromise().then(docSnapshot => {
+      if (!docSnapshot.exists) {
+        throw new Error('Producto no encontrado');
+      }
+  
+      // Si el producto existe, actualizamos
+      return productRef.update(product);
+    }).catch(error => {
+      // Si ocurre un error (producto no encontrado o error en la actualización)
+      console.error('Error al actualizar el producto:', error);
+      throw error; // Lanza el error para que el componente pueda manejarlo
+    });
+  }
+
+  // Guardar el producto seleccionado temporalmente
+  setSelectedProduct(product: any): void {
+    this.selectedProduct = product;
+  }
+
+  // Obtener el producto seleccionado
+  getSelectedProduct(): any {
+    return this.selectedProduct;
+  }
+
+  // Método para obtener un producto específico por ID
+  getProductById(productId: string): Observable<any> {
+    return this.firestore.collection(this.collectionName).doc(productId).valueChanges();
   }
 }

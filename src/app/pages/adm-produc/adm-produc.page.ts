@@ -75,4 +75,10 @@ export class AdmProducPage implements OnInit {
     this.productService.setProduct(product); // Guardamos el producto seleccionado en el servicio
     this.router.navigate(['/adm-deta-prod']); // Navegamos a la página de detalles
   }
+
+  // Método para navegar a la página de edición de un producto
+  editProduct(product: any) {
+    this.productService.setProduct(product); // Guardamos el producto seleccionado en el servicio
+    this.router.navigate(['/adm-edit-prod']); // Navegamos a la página de edición
+  }
 }
