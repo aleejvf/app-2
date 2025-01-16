@@ -23,4 +23,8 @@ export class OrderService {
   removeProductFromOrder(index: number) {
     this.order.splice(index, 1);
   }
+  clearOrder() {
+    this.order = []; // Vacía la lista de productos
+    localStorage.setItem('order', JSON.stringify(this.order)); // Guarda la orden vacía en el almacenamiento local si es necesario
+  }
 }

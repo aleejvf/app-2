@@ -1,22 +1,22 @@
-
 <ion-content [fullscreen]="true" style="background-color: #f0f0f0; padding: 0;">
-  <!-- Contenedor principal con fondo verde -->
   <div style="height: 100%; display: flex; justify-content: center; align-items: center; padding: 20px;">
     <div style="background-color: #00704a; border-radius: 8px; padding: 20px; width: 100%; max-width: 500px; text-align: center;">
-      <!-- Mensaje arriba -->
       <ion-text color="light">
-        <h3 style="margin-bottom: 20px;">Se necesita escanear el código QR de la mesa para ver el menu</h3>
+        <h3 style="margin-bottom: 20px;">Selecciona una mesa para ver el menú</h3>
       </ion-text>
 
-      <!-- Imagen grande del escáner QR -->
-      <img src="assets/qr.png" alt="Escaner QR" style="width: 100%; max-width: 400px; height: auto; margin-bottom: 20px;">
+      <!-- Mostrar las mesas -->
+      <ion-list>
+        <ion-item *ngFor="let mesa of mesas" (click)="selectMesa(mesa)" [class.selected]="selectedMesa === mesa">
+          <ion-label>
+            Mesa número {{ mesa.numero }}
+          </ion-label>
+        </ion-item>
+      </ion-list>
 
-      <!-- Botón rojo para cancelar -->
-      <ion-button expand="full" color="danger" routerLink="/login" style="margin-top: 20px;">
-        Cancelar
-      </ion-button>
-      <ion-button  routerLink="/menu" style="margin-top: 20px;">
-        seguir
+      <!-- Botón de acción -->
+      <ion-button expand="full" color="success" (click)="continuar()" [disabled]="!selectedMesa" style="margin-top: 20px;">
+        Seguir
       </ion-button>
     </div>
   </div>

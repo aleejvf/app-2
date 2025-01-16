@@ -74,7 +74,7 @@
     <div style="border-top: 1px solid #ccc; margin-top: 5px;"></div>
   </div>
 <!-- Categorías de Bebidas -->
-<ion-list style="margin: 20px;">
+<ion-list >
   <!-- Cafés Calientes -->
   <ion-item style="display: flex; align-items: center; justify-content: space-between;">
     <div style="display: flex; align-items: center; color: black;">
@@ -127,7 +127,7 @@
   </div>
 
 <!-- Categorías de Comida -->
-<ion-list style="margin: 20px;">
+<ion-list >
   <!-- Dulces -->
   <ion-item style="display: flex; align-items: center; justify-content: space-between;">
     <div style="display: flex; align-items: center; color: black;">
@@ -138,7 +138,7 @@
     <div style="flex: 1; text-align: center;">
       <h5 style="margin: 8px 0 0 0; font-size: 12px; color: black;">Dulces</h5>
     </div>
-    <ion-button fill="solid" color="success" [routerLink]="['/productos']" [queryParams]="{ subCategory: 'dulce', category: 'comida' }" style="border-radius: 8px;">Ver más</ion-button>
+    <ion-button fill="solid" color="success" [routerLink]="['/productos']" [queryParams]="{ subCategory: 'dulce', category: 'bebidas' }" style="border-radius: 8px;">Ver más</ion-button>
   </ion-item>
 
   <!-- Preparados -->
