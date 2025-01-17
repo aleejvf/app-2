@@ -8,7 +8,7 @@ import { AlertController } from '@ionic/angular';
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
-  standalone : false
+  standalone: false,
 })
 export class LoginPage implements OnInit {
   form = new FormGroup({
@@ -39,9 +39,19 @@ export class LoginPage implements OnInit {
       // Intentar iniciar sesión con Firebase Authentication
       const userCredential = await this.afAuth.signInWithEmailAndPassword(email!, password!);
 
-      // Redirigir a la página QR si la autenticación es exitosa
-      console.log('Usuario autenticado:', userCredential.user);
-      this.router.navigate(['/qr']);
+      // Obtener información del usuario
+      const user = userCredential.user;
+      if (user) {
+        // Guardar los datos del usuario en localStorage
+        const userInfo = {
+          email: user.email, // Correo electrónico
+        };
+        localStorage.setItem('informe', JSON.stringify(userInfo));
+
+        // Redirigir a la página QR si la autenticación es exitosa
+        console.log('Usuario autenticado y datos guardados en localStorage:', userInfo);
+        this.router.navigate(['/qr']);
+      }
     } catch (error) {
       // Mostrar alerta si ocurre un error (email o contraseña incorrectos)
       console.error('Error de autenticación:', error);

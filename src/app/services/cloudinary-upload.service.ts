@@ -1,25 +1,33 @@
-// cloudinary-upload.service.ts
-
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root', // Hace que el servicio esté disponible en toda la aplicación
 })
 export class CloudinaryUploadService {
-
-  private cloudinaryUrl = 'https://api.cloudinary.com/v1_1/<tu-cloud-name>/upload'; // Reemplaza <tu-cloud-name> por tu Cloud name
-  private cloudinaryUploadPreset = '<tu-upload-preset>';  // Reemplaza con el upload preset que creaste en Cloudinary
+  // URL base para subir imágenes a Cloudinary
+  private cloudinaryUrl = 'https://api.cloudinary.com/v1_1/dbq614kcp/image/upload'; 
+  // Upload Preset configurado en tu cuenta de Cloudinary
+  private cloudinaryUploadPreset = 'tu-upload-preset'; 
 
   constructor(private http: HttpClient) {}
 
+  /**
+   * Sube una imagen a Cloudinary
+   * @param image Archivo de imagen seleccionado por el usuario
+   * @returns Observable con la respuesta de Cloudinary
+   */
   uploadImage(image: File): Observable<any> {
     const formData = new FormData();
-    formData.append('file', image);
-    formData.append('upload_preset', this.cloudinaryUploadPreset);  // El upload preset
-    formData.append('cloud_name', '<tu-cloud-name>');  // El cloud name
 
+    // Agrega el archivo de imagen al FormData
+    formData.append('file', image);
+
+    // Agrega el Upload Preset para autenticar la carga
+    formData.append('upload_preset', this.cloudinaryUploadPreset);
+
+    // Realiza la petición POST al endpoint de Cloudinary
     return this.http.post<any>(this.cloudinaryUrl, formData);
   }
 }

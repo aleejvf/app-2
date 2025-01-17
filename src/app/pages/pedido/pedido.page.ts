@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { OrderService } from '../../services/order.service'; // Importa el servicio OrderService
+import { SolicitudService } from '../../services/solicitud.service';
 
 @Component({
   selector: 'app-pedido',
@@ -10,12 +11,14 @@ import { OrderService } from '../../services/order.service'; // Importa el servi
   standalone: false,
 })
 export class PedidoPage implements OnInit {
+  isAlertOpen = false;
   order: any[] = []; // Almacena los productos del pedido
 
   constructor(
     private alertController: AlertController,
     private router: Router,
-    private orderService: OrderService // Inyecta OrderService
+    private orderService: OrderService, // Inyecta OrderService
+    private SolicitudService: SolicitudService 
   ) {}
 
   ngOnInit() {
@@ -24,14 +27,40 @@ export class PedidoPage implements OnInit {
   }
 
   // Muestra una alerta para solicitar un mesero
-  async setOpen(isOpen: boolean) {
-    const alert = await this.alertController.create({
-      header: 'Solicitud enviada',
-      message: 'El mesero le atenderá en unos instantes.',
-      buttons: ['OK'],
-      backdropDismiss: false,
-    });
-    await alert.present();
+  setOpen(isOpen: boolean): void {
+    this.isAlertOpen = isOpen;
+  
+    if (isOpen) {
+      // Obtén la mesa desde el localStorage
+      const userInfoString = localStorage.getItem('informe'); // Extrae la información almacenada
+      if (!userInfoString) {
+        console.error('No se encontró información del usuario en localStorage.');
+        return;
+      }
+  
+      const userInfo = JSON.parse(userInfoString); // Convierte el string en objeto
+      const mesa = userInfo.selectedMesa; // Obtén el valor de la mesa
+  
+      if (!mesa) {
+        console.error('No se encontró la mesa seleccionada en la información del usuario.');
+        return;
+      }
+  
+      // Obtén la hora y el minuto actuales
+      const now = new Date();
+      const hora = now.getHours().toString().padStart(2, '0');
+      const minuto = now.getMinutes().toString().padStart(2, '0');
+  
+      // Crea la solicitud en Firebase
+      this.SolicitudService
+        .createSolicitud(hora, minuto, mesa)
+        .then(() => {
+          console.log('Solicitud creada con éxito:', { hora, minuto, mesa });
+        })
+        .catch((error) => {
+          console.error('Error al crear la solicitud:', error);
+        });
+    }
   }
 
   // Muestra un modal para confirmar la eliminación

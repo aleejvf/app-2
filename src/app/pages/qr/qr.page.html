@@ -7,17 +7,24 @@
 
       <!-- Mostrar las mesas -->
       <ion-list>
-        <ion-item *ngFor="let mesa of mesas" (click)="selectMesa(mesa)" [class.selected]="selectedMesa === mesa">
+        <ion-item 
+          *ngFor="let mesa of mesas" 
+          [class.selected]="selectedMesa === mesa" 
+          (click)="selectMesa(mesa)">
           <ion-label>
-            Mesa número {{ mesa.numero }}
+            {{ mesa }}
           </ion-label>
         </ion-item>
       </ion-list>
 
-      <!-- Botón de acción -->
-      <ion-button expand="full" color="success" (click)="continuar()" [disabled]="!selectedMesa" style="margin-top: 20px;">
-        Seguir
-      </ion-button>
+      <ion-button 
+      expand="full" 
+      color="danger" 
+      style="margin-top: 20px;" 
+      (click)="goBack()">
+      Volver
+    </ion-button>
+    
     </div>
   </div>
 </ion-content>

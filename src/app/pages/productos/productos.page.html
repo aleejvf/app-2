@@ -1,24 +1,18 @@
-<!-- ENCABEZADO -->
 <ion-header>
   <ion-toolbar>
-    <!-- Botón de inicio con logo -->
     <ion-buttons slot="start">
       <ion-button routerLink="/index">
         <img src="assets/starbucks.png" alt="Starbucks Logo" style="height: 30px;">
       </ion-button>
     </ion-buttons>
-
-    <!-- Botón del menú -->
     <ion-buttons slot="end">
       <ion-menu-button menu="menu-productos"></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<!-- CONTENEDOR PRINCIPAL -->
 <ion-router-outlet id="main-content"></ion-router-outlet>
 
-<!-- MENÚ BOLETA -->
 <ion-menu contentId="main-content" menuId="menu-productos">
   <ion-content class="ion-padding" style="background-color: #00704a;">
     <ion-list>
@@ -48,29 +42,26 @@
   </ion-content>
 </ion-menu>
 
-<!-- CONTENIDO DE LA PÁGINA -->
 <ion-content>
   <ion-card style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
     <ion-icon 
-  name="arrow-back" 
-  style="background-color: #00704a; color: white; margin-right: 20px;" 
-  routerLink="/menu">
-</ion-icon>
+      name="arrow-back" 
+      style="background-color: #00704a; color: white; margin-right: 20px;" 
+      routerLink="/menu">
+    </ion-icon>
     <ion-text color="light" text-center>
       <h1>Productos</h1>
     </ion-text>
   </ion-card>
+  
   <ion-text color="black" text-center>
     <div style="margin: 10px 0; text-align: center;">
       <div style="border-top: 1px solid #ccc; margin-bottom: 5px;"></div>
       <!-- Título dinámico con subcategoría -->
-      <h1 style="margin: 0;">{{ selectedSubCategory | uppercase }}</h1>
+      <h1 style="margin: 0;">{{ getSubCategoryTitle() | uppercase }}</h1>
       <div style="border-top: 1px solid #ccc; margin-top: 5px;"></div>
     </div>
   </ion-text>
-  
-  
-  
 
   <!-- Lista de Productos -->
   <ion-list>

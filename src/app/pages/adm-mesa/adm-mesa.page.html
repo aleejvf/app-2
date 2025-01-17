@@ -50,36 +50,31 @@
 <!--  contenido -->
 <ion-content [fullscreen]="true">
   <!-- Encabezado de la sección -->
-  <ion-card style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
+  <ion-card
+    style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
     <ion-text color="light" text-center>
-      <h1>Solicitud de mesero</h1>
+      <h1>Administrar Solicitudes</h1>
     </ion-text>
   </ion-card>
 
   <!-- Lista de solicitudes -->
-  <ion-list>
-    <!-- Solicitud de mesero para la mesa 1 -->
-    <ion-item style="margin-bottom: 20px;">
+  <ion-list *ngIf="solicitudes.length > 0; else noSolicitudes">
+    <ion-item *ngFor="let solicitud of solicitudes" style="margin-bottom: 20px;">
       <ion-label>
-        <h2>Mesa N° 1</h2>
-        <p><strong>Hora de la solicitud:</strong> 14:30</p>
+        <h2>{{ solicitud.mesa }}</h2>
+        <p><strong>Hora de la solicitud:</strong> {{ solicitud.hora }}:{{ solicitud.minuto }}</p>
       </ion-label>
       <!-- Botón para eliminar la solicitud -->
-      <ion-button fill="outline" color="danger" slot="end">
-        Eliminar Solicitud
-      </ion-button>
-    </ion-item>
-
-    <!-- Solicitud de mesero para la mesa 2 -->
-    <ion-item style="margin-bottom: 20px;">
-      <ion-label>
-        <h2>Mesa N° 2</h2>
-        <p><strong>Hora de la solicitud:</strong> 15:00</p>
-      </ion-label>
-      <!-- Botón para eliminar la solicitud -->
-      <ion-button fill="outline" color="danger" slot="end">
+      <ion-button fill="outline" color="danger" slot="end" (click)="eliminarSolicitud(solicitud.id)">
         Eliminar Solicitud
       </ion-button>
     </ion-item>
   </ion-list>
+
+  <!-- Mensaje cuando no hay solicitudes -->
+  <ng-template #noSolicitudes>
+    <ion-text color="medium" text-center>
+      <p>No hay solicitudes pendientes.</p>
+    </ion-text>
+  </ng-template>
 </ion-content>

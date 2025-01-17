@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MesaService } from '../../services/mesa.service';
-import { BoletaService } from '../../services/boleta.service'; // Importa BoletaService
 import { Router } from '@angular/router';
-import { AngularFireAuth } from '@angular/fire/compat/auth'; // Importa AngularFireAuth para obtener el usuario
-import { OrderService } from '../../services/order.service'; // Importa OrderService para obtener los productos del pedido
+
 
 @Component({
   selector: 'app-qr',
@@ -12,64 +9,44 @@ import { OrderService } from '../../services/order.service'; // Importa OrderSer
   standalone: false,
 })
 export class QrPage implements OnInit {
-  mesas: any[] = [];
-  selectedMesa: number | null = null;
-  user: any = null; // Para almacenar los datos del usuario
-  order: any[] = []; // Para almacenar los productos del pedido
+  mesas: string[] = ['Mesa 1', 'Mesa 2', 'Mesa 3']; // Opciones de mesas
+  selectedMesa: string | null = null; // Mesa seleccionada
 
   constructor(
-    private mesaService: MesaService, 
-    private boletaService: BoletaService, // Inyecta BoletaService
     private router: Router,
-    private afAuth: AngularFireAuth, // Inyecta AngularFireAuth para obtener el usuario autenticado
-    private orderService: OrderService // Inyecta OrderService para obtener los productos
+
   ) {}
 
-  ngOnInit() {
-    // Obtén todas las mesas al cargar la página
-    this.mesaService.getMesas().subscribe((data) => {
-      this.mesas = data;
-      console.log('Mesas: ', this.mesas);
-    });
+  ngOnInit() {}
 
-    // Obtén los datos del usuario autenticado
-    this.afAuth.authState.subscribe((user) => {
-      if (user) {
-        this.user = user;
-        console.log('Usuario autenticado: ', this.user);
-      }
-    });
+  // Método para seleccionar una mesa y guardar la información en localStorage
+  selectMesa(mesa: string): void {
+    this.selectedMesa = mesa;
 
-    // Obtén los productos del pedido (si es necesario)
-    this.order = this.orderService.getOrder();
-  }
+    // Obtener el usuario actual desde el localStorage
+    const userInfoString = localStorage.getItem('informe');
+    if (userInfoString) {
+      const userInfo = JSON.parse(userInfoString);
 
-  // Función para seleccionar una mesa
-  selectMesa(mesa: any) {
-    this.selectedMesa = mesa.numero;
-    console.log('Mesa seleccionada: ', this.selectedMesa);
-  }
+      // Agregar la mesa seleccionada al objeto del usuario
+      userInfo.selectedMesa = mesa;
 
-  // Función para continuar al menú, solo si se ha seleccionado una mesa
-  continuar() {
-    if (this.selectedMesa !== null && this.user) {
-      // Crear objeto de boleta con todos los datos necesarios, pero con los productos en null
-      const boleta = {
-        usuarioId: this.user.uid, // ID del usuario
-        email: this.user.email,    // Email del usuario
-        numeroMesa: this.selectedMesa, // Número de mesa seleccionado
-        productos: null,  // Establece los productos en null
-      };
+      // Guardar nuevamente el objeto actualizado en localStorage
+      localStorage.setItem('informe', JSON.stringify(userInfo));
 
-      // Llamar al servicio para agregar la boleta
-      this.boletaService.addBoleta(boleta).then(() => {
-        console.log('Boleta agregada con éxito', boleta);
-        this.router.navigate(['/menu']);
-      }).catch((error) => {
-        console.error('Error al agregar la boleta: ', error);
-      });
+      console.log('Información actualizada en localStorage:', userInfo);
+
+      // Redirigir al menú
+      this.router.navigate(['/menu']);
     } else {
-      alert('Por favor, selecciona una mesa y asegúrate de estar autenticado.');
+      console.error('No se encontró información del usuario en localStorage.');
     }
+  }
+
+  // Método para borrar el localStorage y redirigir al login
+  goBack(): void {
+    localStorage.clear(); // Borra todos los datos del localStorage
+    console.log('Datos borrados del localStorage.');
+    this.router.navigate(['/login']); // Redirige a la página de inicio de sesión
   }
 }
