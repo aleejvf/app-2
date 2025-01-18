@@ -71,8 +71,8 @@ const routes: Routes = [
     loadChildren: () => import('./pages/adm-deta-vent/adm-deta-vent.module').then( m => m.AdmDetaVentPageModule)
   },
   {
-    path: 'adm-deta-pedido',
-    loadChildren: () => import('./pages/adm-deta-pedido/adm-deta-pedido.module').then( m => m.AdmDetaPedidoPageModule)
+    path: 'adm-deta-pedido/:id',
+    loadChildren: () => import('./pages/adm-deta-pedido/adm-deta-pedido.module').then(m => m.AdmDetaPedidoPageModule)
   },
   {
     path: 'adm-agregar-prod',

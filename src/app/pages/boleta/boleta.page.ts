@@ -5,7 +5,7 @@ import { SolicitudService } from '../../services/solicitud.service'; // Asegúra
   selector: 'app-boleta',
   templateUrl: './boleta.page.html',
   styleUrls: ['./boleta.page.scss'],
-  standalone: false,
+    standalone: false,
 })
 export class BoletaPage implements OnInit {
   isAlertOpen = false;  // Variable para controlar la apertura de la alerta

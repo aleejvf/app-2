@@ -1,32 +1,22 @@
-<!-- ENCABEZADO -->
 <ion-header>
   <ion-toolbar>
-    <!-- Botón de inicio con logo -->
     <ion-buttons slot="start">
-      <ion-button >
+      <ion-button>
         <img src="assets/starbucks.png" alt="Starbucks Logo" style="height: 30px;">
       </ion-button>
     </ion-buttons>
-       <!-- Título centrado -->
-       <ion-title style="text-align: center;">Administracion</ion-title>
-    
-    <!-- Botón del menú -->
+    <ion-title style="text-align: center;">Administración</ion-title>
     <ion-buttons slot="end">
-      <!-- Vincula este botón al menú específico "menu-boleta" -->
       <ion-menu-button menu="menu-adm-deta-pedido"></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<!-- CONTENEDOR PRINCIPAL -->
-<!-- Este contenedor es el área que el menú controla -->
 <ion-router-outlet id="main-content"></ion-router-outlet>
 
-<!-- MENÚ BOLETA -->
-<ion-menu contentId="main-content" menuId="menu-adm-deta-pedido"> <!-- Identificador único del menú -->
-  <ion-content class="ion-padding" style="background-color: #00704a;"> <!-- Fondo verde Starbucks -->
+<ion-menu contentId="main-content" menuId="menu-adm-deta-pedido">
+  <ion-content class="ion-padding" style="background-color: #00704a;">
     <ion-list>
-      <!-- Opciones del menú -->
       <ion-item button routerLink="/adm-histo">
         <ion-label>Historial pedidos</ion-label>
       </ion-item>
@@ -42,62 +32,40 @@
       <ion-item button routerLink="/login" style="--ion-item-background: #ff4d4d; color: white; border-radius: 8px; margin-top: 20px;">
         <ion-label style="text-align: center; font-weight: bold;">Cerrar sesión</ion-label>
       </ion-item>
-      
     </ion-list>
   </ion-content>
 </ion-menu>
 
-<!--  contenido -->
 <ion-content>
-  
   <ion-card style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
-    <ion-icon 
-  name="arrow-back" 
-  style="background-color: #00704a; color: white; margin-right: 20px;" 
-  routerLink="/adm-pedidos">
-</ion-icon>
+    <ion-icon
+      name="arrow-back"
+      style="color: white; margin-right: 20px;"
+      routerLink="/adm-pedidos">
+    </ion-icon>
     <ion-text color="light" text-center>
-      <h1>Pedidos</h1>
+      <h1>Detalles del Pedido</h1>
     </ion-text>
   </ion-card>
-  <!-- Encabezado de la boleta -->
+  <div *ngIf="!productos || productos.length === 0">
+    <p>No hay productos en este pedido.</p>
+  </div>
   <div style="text-align: center; margin-bottom: 20px;">
-    <p><strong>Mesa:</strong> 1</p>
-    <p><strong>Hora:</strong> 14:30</p>
-  </div>
-  
-  <!-- Pedido 1 -->
-  <div style="margin-bottom: 20px;">
-    <ion-item>
-      <ion-avatar slot="start">
-        <img src="assets/cafe caliente.png" alt="Producto 1" />
-      </ion-avatar>
-      <ion-label>
-        <h2>Latte caliente</h2>
-        <p>Precio: $10.00</p>
-        <p>Nota: Que no sea caliente</p>
-        <p>Cantidad: 1</p>
-      </ion-label>
-      <!-- Checkbox -->
-      <ion-checkbox slot="end"></ion-checkbox>
-    </ion-item>
+    <h2>{{ order?.mesa }}</h2>
+    <p><strong>Hora:</strong> {{ order?.fechaHora }}</p>
   </div>
 
-  <!-- Pedido 2 -->
-  <div style="margin-bottom: 20px;">
+  <div *ngFor="let producto of productos" style="margin-bottom: 20px;">
     <ion-item>
       <ion-avatar slot="start">
-        <img src="assets/dulce.png" alt="Producto 2" />
+        <img [src]="producto.image" alt="Producto" />
       </ion-avatar>
       <ion-label>
-        <h2>Estrudel</h2>
-        <p>Precio: $15.00</p>
-        <p>Nota: --</p>
-        <p>Cantidad: 2</p>
+        <h2>{{ producto.title }}</h2>
+        <p>Descripción: {{ producto.description }}</p>
+        <p><strong>Precio:</strong> ${{ producto.price }}</p>
       </ion-label>
-      <!-- Checkbox -->
-      <ion-checkbox slot="end"></ion-checkbox>
+      <ion-checkbox slot="end" [(ngModel)]="producto.selected"></ion-checkbox>
     </ion-item>
   </div>
-
 </ion-content>

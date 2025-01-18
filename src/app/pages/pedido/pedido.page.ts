@@ -1,4 +1,3 @@
-// src/app/pages/pedido/pedido.page.ts
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -108,7 +107,7 @@ export class PedidoPage implements OnInit {
       productos: [], // Este campo se llenará con los productos en la subcolección
     };
 
-    // Guarda el pedido en Firebase
+    // Guarda el pedido en Firebase con un ID único
     const pedidoRef = await this.orderService.saveOrderToFirebase(orderData);
 
     // Ahora, agrega los productos a la subcolección 'producto' de este pedido

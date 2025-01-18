@@ -1,32 +1,22 @@
-<!-- ENCABEZADO -->
 <ion-header>
   <ion-toolbar>
-    <!-- Botón de inicio con logo -->
     <ion-buttons slot="start">
-      <ion-button >
+      <ion-button>
         <img src="assets/starbucks.png" alt="Starbucks Logo" style="height: 30px;">
       </ion-button>
     </ion-buttons>
-       <!-- Título centrado -->
-       <ion-title style="text-align: center;">Administracion</ion-title>
-    
-    <!-- Botón del menú -->
+    <ion-title style="text-align: center;">Administración</ion-title>
     <ion-buttons slot="end">
-      <!-- Vincula este botón al menú específico "menu-boleta" -->
       <ion-menu-button menu="menu-adm-pedidos"></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<!-- CONTENEDOR PRINCIPAL -->
-<!-- Este contenedor es el área que el menú controla -->
 <ion-router-outlet id="main-content"></ion-router-outlet>
 
-<!-- MENÚ BOLETA -->
-<ion-menu contentId="main-content" menuId="menu-adm-pedidos"> <!-- Identificador único del menú -->
-  <ion-content class="ion-padding" style="background-color: #00704a;"> <!-- Fondo verde Starbucks -->
+<ion-menu contentId="main-content" menuId="menu-adm-pedidos">
+  <ion-content class="ion-padding" style="background-color: #00704a;">
     <ion-list>
-      <!-- Opciones del menú -->
       <ion-item button routerLink="/adm-histo">
         <ion-label>Historial pedidos</ion-label>
       </ion-item>
@@ -42,41 +32,33 @@
       <ion-item button routerLink="/login" style="--ion-item-background: #ff4d4d; color: white; border-radius: 8px; margin-top: 20px;">
         <ion-label style="text-align: center; font-weight: bold;">Cerrar sesión</ion-label>
       </ion-item>
-      
     </ion-list>
   </ion-content>
 </ion-menu>
 
-              <!--  contenido                         s -->
-              <!--  contenido                         s -->
-              <!--  contenido                         s -->
-              <ion-content [fullscreen]="true">
-                <ion-card style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
-                  <ion-text color="light" text-center>
-                    <h1>Pedidos</h1>
-                  </ion-text>
-                </ion-card>
-              
-                <ion-list>
-                  <ion-item *ngFor="let order of orders; let i = index" style="margin-bottom: 20px;">
-                    <ion-label>
-                      <h2>Mesa N° {{ order.mesa }}</h2>
-                      <p><strong>Hora del pedido:</strong> {{ order.fechaHora }}</p>
-                    </ion-label>
-                    <ion-select value="espera" placeholder="Cambiar estado" slot="end">
-                      <ion-select-option value="espera">Espera</ion-select-option>
-                      <ion-select-option value="preparacion">Preparación</ion-select-option>
-                      <ion-select-option value="entregando">Entregando</ion-select-option>
-                      <ion-select-option value="finalizado">Finalizado</ion-select-option>
-                    </ion-select>
-                    <ion-button fill="outline" color="success" slot="end" [routerLink]="['/adm-deta-pedido']">
-                      Ver Detalles
-                    </ion-button>
-                  </ion-item>
-                </ion-list>
-              </ion-content>
-              
+<ion-content [fullscreen]="true">
+  <ion-card style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
+    <ion-text color="light" text-center>
+      <h1>Pedidos</h1>
+    </ion-text>
+  </ion-card>
 
+  <ion-list>
+    <ion-item *ngFor="let order of orders; let i = index" style="margin-bottom: 20px;">
+      <ion-label>
+        <h2>{{ order.mesa }}</h2>
+        <p><strong>Hora del pedido:</strong> {{ order.fechaHora }}</p>
+      </ion-label>
 
-
-              
+      <!-- Contenedor para colocar los botones uno debajo del otro -->
+      <div slot="end" style="display: flex; flex-direction: column; gap: 10px;">
+        <ion-button fill="outline" color="danger" (click)="deleteOrder(order.id)">
+          Eliminar Pedido
+        </ion-button>
+        <ion-button fill="outline" color="primary" [routerLink]="['/adm-deta-pedido', order.id]">
+          Ver Detalle
+        </ion-button>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>
