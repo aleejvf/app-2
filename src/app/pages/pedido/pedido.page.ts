@@ -1,3 +1,4 @@
+// src/app/pages/pedido/pedido.page.ts
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -18,7 +19,7 @@ export class PedidoPage implements OnInit {
     private alertController: AlertController,
     private router: Router,
     private orderService: OrderService, // Inyecta OrderService
-    private SolicitudService: SolicitudService 
+    private solicitudService: SolicitudService
   ) {}
 
   ngOnInit() {
@@ -29,30 +30,27 @@ export class PedidoPage implements OnInit {
   // Muestra una alerta para solicitar un mesero
   setOpen(isOpen: boolean): void {
     this.isAlertOpen = isOpen;
-  
+
     if (isOpen) {
-      // Obtén la mesa desde el localStorage
-      const userInfoString = localStorage.getItem('informe'); // Extrae la información almacenada
+      const userInfoString = localStorage.getItem('informe');
       if (!userInfoString) {
         console.error('No se encontró información del usuario en localStorage.');
         return;
       }
-  
-      const userInfo = JSON.parse(userInfoString); // Convierte el string en objeto
-      const mesa = userInfo.selectedMesa; // Obtén el valor de la mesa
-  
+
+      const userInfo = JSON.parse(userInfoString);
+      const mesa = userInfo.selectedMesa;
+
       if (!mesa) {
         console.error('No se encontró la mesa seleccionada en la información del usuario.');
         return;
       }
-  
-      // Obtén la hora y el minuto actuales
+
       const now = new Date();
       const hora = now.getHours().toString().padStart(2, '0');
       const minuto = now.getMinutes().toString().padStart(2, '0');
-  
-      // Crea la solicitud en Firebase
-      this.SolicitudService
+
+      this.solicitudService
         .createSolicitud(hora, minuto, mesa)
         .then(() => {
           console.log('Solicitud creada con éxito:', { hora, minuto, mesa });
@@ -63,7 +61,7 @@ export class PedidoPage implements OnInit {
     }
   }
 
-  // Muestra un modal para confirmar la eliminación
+  // Muestra un modal para confirmar la eliminación de un producto
   async presentDeleteModal(index: number) {
     const alert = await this.alertController.create({
       header: '¿Eliminar producto?',
@@ -76,8 +74,8 @@ export class PedidoPage implements OnInit {
         {
           text: 'Aceptar',
           handler: () => {
-            this.orderService.removeProductFromOrder(index); // Elimina el producto
-            this.order = this.orderService.getOrder(); // Actualiza la lista de productos
+            this.orderService.removeProductFromOrder(index);
+            this.order = this.orderService.getOrder();
           },
         },
       ],
@@ -93,18 +91,30 @@ export class PedidoPage implements OnInit {
       return;
     }
 
-    // Obtén la fecha y hora actuales
+    // Obtiene la fecha y hora actuales
     const currentDate = new Date();
     const hour = currentDate.getHours();
     const minute = currentDate.getMinutes();
 
-    // Guarda los productos con la hora en la que se realizó el pedido
+    // Obtén la mesa del localStorage
+    const userInfoString = localStorage.getItem('informe');
+    const userInfo = JSON.parse(userInfoString || '{}');
+    const mesa = userInfo.selectedMesa;
+
+    // Crea el objeto del pedido
     const orderData = {
-      productos: this.order,
-      fechaHora: `${currentDate.toLocaleDateString()} ${hour}:${minute}`, // Fecha y hora en formato legible
+      mesa: mesa,
+      fechaHora: `${hour}:${minute}`, // Fecha y hora en formato legible
+      productos: [], // Este campo se llenará con los productos en la subcolección
     };
 
-    console.log('Datos del pedido guardado:', orderData); // Incluye la hora y la fecha en la consola
+    // Guarda el pedido en Firebase
+    const pedidoRef = await this.orderService.saveOrderToFirebase(orderData);
+
+    // Ahora, agrega los productos a la subcolección 'producto' de este pedido
+    for (const product of this.order) {
+      await this.orderService.addProductToPedido(pedidoRef.id, product);
+    }
 
     const alert = await this.alertController.create({
       header: 'Pedido confirmado',
@@ -113,8 +123,7 @@ export class PedidoPage implements OnInit {
         {
           text: 'OK',
           handler: () => {
-            // Elimina todos los productos de la orden
-            this.orderService.clearOrder();
+            this.orderService.clearOrder(); // Elimina todos los productos de la orden
             this.order = this.orderService.getOrder(); // Actualiza la lista de productos
             this.router.navigateByUrl('/menu'); // Redirige al menú
           },
