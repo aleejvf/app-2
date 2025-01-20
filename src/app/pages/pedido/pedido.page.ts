@@ -89,32 +89,48 @@ export class PedidoPage implements OnInit {
       window.alert('No hay productos en la orden');
       return;
     }
-
+  
     // Obtiene la fecha y hora actuales
     const currentDate = new Date();
     const hour = currentDate.getHours();
     const minute = currentDate.getMinutes();
-
+  
     // Obtén la mesa del localStorage
     const userInfoString = localStorage.getItem('informe');
     const userInfo = JSON.parse(userInfoString || '{}');
     const mesa = userInfo.selectedMesa;
-
+  
     // Crea el objeto del pedido
     const orderData = {
       mesa: mesa,
       fechaHora: `${hour}:${minute}`, // Fecha y hora en formato legible
       productos: [], // Este campo se llenará con los productos en la subcolección
     };
-
+  
     // Guarda el pedido en Firebase con un ID único
     const pedidoRef = await this.orderService.saveOrderToFirebase(orderData);
-
+  
+    // Prepara los datos para localStorage
+    const boletaData = [];
+  
+    // Recupera la boleta existente desde localStorage (si existe)
+    const existingBoletaData = JSON.parse(localStorage.getItem('boleta') || '[]');
+  
     // Ahora, agrega los productos a la subcolección 'producto' de este pedido
     for (const product of this.order) {
       await this.orderService.addProductToPedido(pedidoRef.id, product);
+  
+      // Agrega el producto completo a la boleta (sin filtrar propiedades)
+      boletaData.push(product);
     }
-
+  
+    // Actualiza la boleta con los nuevos productos
+    const updatedBoletaData = [...existingBoletaData, ...boletaData];
+  
+    // Guarda la boleta actualizada en localStorage
+    localStorage.setItem('boleta', JSON.stringify(updatedBoletaData));
+  
+    // Crea la alerta de confirmación
     const alert = await this.alertController.create({
       header: 'Pedido confirmado',
       message: 'Tus pedidos se llevaron a la cocina. Gracias por tu paciencia.',
@@ -130,6 +146,8 @@ export class PedidoPage implements OnInit {
       ],
       backdropDismiss: false,
     });
+  
     await alert.present();
   }
+  
 }

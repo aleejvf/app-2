@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';  // Importación correcta
+import { AngularFireAuth } from '@angular/fire/compat/auth'; // Importación correcta
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { from } from 'rxjs';
@@ -10,7 +10,7 @@ import { from } from 'rxjs';
 export class AuthService {
 
   constructor(
-    private afAuth: AngularFireAuth,  // Servicio de autenticación
+    private afAuth: AngularFireAuth, // Servicio de autenticación
     private router: Router,
     private alertController: AlertController
   ) { }
@@ -19,10 +19,6 @@ export class AuthService {
   crearUsuario(email: string, password: string) {
     return from(this.afAuth.createUserWithEmailAndPassword(email, password)
       .then(async (userCredential) => {
-        // Aquí puedes agregar información adicional como nombre, etc.
-        const user = userCredential.user;
-
-        // Al crear el usuario, puedes mostrar una alerta
         const alert = await this.alertController.create({
           header: 'Éxito',
           message: 'Se ha creado tu cuenta correctamente.',
@@ -55,11 +51,7 @@ export class AuthService {
   login(email: string, password: string) {
     return from(this.afAuth.signInWithEmailAndPassword(email, password)
       .then(async (userCredential) => {
-        // Al iniciar sesión exitosamente, puedes redirigir a la página principal
-        const user = userCredential.user;
-
-        // Redirige al usuario a la página de inicio
-        this.router.navigate(['/home']);  // Cambia '/home' por la ruta deseada
+        this.router.navigate(['/home']); // Cambia '/home' por la ruta deseada
       })
       .catch(async (error) => {
         const alert = await this.alertController.create({
@@ -77,7 +69,6 @@ export class AuthService {
   logout() {
     return from(this.afAuth.signOut()
       .then(() => {
-        // Redirige a la página de login después de cerrar sesión
         this.router.navigate(['/login']);
       })
       .catch(async (error) => {
@@ -91,4 +82,38 @@ export class AuthService {
       })
     );
   }
+
+  // Nuevo método para restablecer la contraseña
+  resetPassword(email: string) {
+    return from(this.afAuth.sendPasswordResetEmail(email)
+      .then(async () => {
+        const alert = await this.alertController.create({
+          header: 'Éxito',
+          message: 'Se ha enviado un enlace para restablecer la contraseña a tu correo.',
+          buttons: [
+            {
+              text: 'OK',
+              handler: () => {
+                // Redirige al usuario a la página de inicio de sesión
+                this.router.navigate(['/login']);
+              }
+            }
+          ]
+        });
+  
+        await alert.present();
+      })
+      .catch(async (error) => {
+        const alert = await this.alertController.create({
+          header: 'Error',
+          message: error.message,
+          buttons: ['OK']
+        });
+  
+        await alert.present();
+      })
+    );
+  }
+  
+  
 }

@@ -20,6 +20,10 @@
           <ion-label position="floating">Contraseña</ion-label>
           <ion-input formControlName="password" type="password" placeholder="Ingresa tu contraseña"></ion-input>
         </ion-item>
+        <div style="text-align: center; margin-top: 20px;">
+          <span>¿No recuerdas tu contraseña?</span>
+          <a routerLink="/reset-password" style="color: #00704a; font-weight: bold;">Recuperar</a>
+        </div>
 
         <!-- Botón de inicio de sesión -->
         <ion-button expand="block" (click)="onLogin()" style="background-color: #00704a; margin-top: 20px;">

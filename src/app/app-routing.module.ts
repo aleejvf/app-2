@@ -90,6 +90,10 @@ const routes: Routes = [
     path: 'pago',
     loadChildren: () => import('./pages/pago/pago.module').then( m => m.PagoPageModule)
   },
+  {
+    path: 'reset-password',
+    loadChildren: () => import('./pages/reset-password/reset-password.module').then( m => m.ResetPasswordPageModule)
+  },
  
  
 ];
