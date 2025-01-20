@@ -6,10 +6,16 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class BoletaService {
+
   constructor(private firestore: AngularFirestore) {}
 
-  // Método para obtener la colección de boletas
-  getBoleta(): Observable<any[]> {
-    return this.firestore.collection('boleta').valueChanges({ idField: 'id' });
+  // Método para guardar la boleta en Firebase
+  guardarBoleta(boleta: any): Promise<any> {
+    return this.firestore.collection('boleta').add(boleta);
+  }
+
+  // Método para obtener las boletas de Firebase
+  obtenerBoletas(): Observable<any[]> {
+    return this.firestore.collection('boleta').valueChanges();
   }
 }

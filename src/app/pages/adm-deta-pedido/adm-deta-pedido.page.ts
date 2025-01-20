@@ -38,6 +38,7 @@ export class AdmDetaPedidoPage implements OnInit {
         // Obtiene los productos de la subcolección 'producto' > 'product'
         this.orderService.getProductosFromOrder(id).subscribe(
           (productos) => {
+            console.log(productos);
             this.productos = productos; // Lista de productos
             console.log('Productos obtenidos:', this.productos); // Muestra los productos obtenidos en consola
           },

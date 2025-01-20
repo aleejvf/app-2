@@ -34,15 +34,15 @@
       <ion-item button routerLink="/boleta">
         <ion-label>Pagar</ion-label>
       </ion-item>
-      <ion-item >
+      <ion-item>
         <ion-label (click)="setOpen(true)">Solicitar mesero</ion-label>
 
+        <!-- Alerta para solicitud al mesero -->
         <ion-alert
-          [isOpen]="isAlertOpen"
-          header="Se a solicitado al mesero"
-      
-          message="Dentro de unos instantes se le atendera ."
-          [buttons]="alertButtons"
+          [isOpen]="isAlertOpenSolicitud"
+          header="Se ha solicitado al mesero"
+          message="Dentro de unos instantes se le atenderá."
+          [buttons]="alertButtonsSolicitud"
           (didDismiss)="setOpen(false)"
         ></ion-alert>
       </ion-item>
@@ -53,55 +53,51 @@
   </ion-content>
 </ion-menu>
 
-              <!--  contenido                         s -->
-              <!--  contenido                         s -->
-              <!--  contenido                         s -->
-  <ion-content>
-    <ion-card style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
-      <ion-text color="light" text-center>
-        <h1>Boleta de Compra</h1>
-      </ion-text>
-    </ion-card>
-    <!-- Encabezado de la boleta -->
-    <div style="text-align: center; margin-bottom: 20px;">
-      <p><strong>Número de Boleta:</strong> #12345</p>
-      <p><strong>Fecha:</strong> 09/01/2025</p>
-    </div>
+<!-- CONTENIDO PRINCIPAL -->
+<ion-content>
+  <!-- Encabezado principal -->
+  <ion-card style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
+    <ion-text color="light" text-center>
+      <h1>Boleta de Compra</h1>
+    </ion-text>
+  </ion-card>
 
-    <!-- Detalles de los productos -->
-    <ion-card style="margin-bottom: 20px;">
-      <ion-card-header>
-        <ion-card-title>Detalles del Pedido</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <!-- Producto 1 -->
-        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-          <span>Producto 1</span>
-          <span>$10.00</span>
-        </div>
-        <!-- Producto 2 -->
-        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-          <span>Producto 2</span>
-          <span>$15.00</span>
-        </div>
-        <!-- Producto 3 -->
-        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-          <span>Producto 3</span>
-          <span>$20.00</span>
-        </div>
+  <!-- Encabezado de la boleta -->
+  <div style="text-align: center; margin-bottom: 20px;">
+    <p><strong>Número de Boleta:</strong> #{{ numeroBoleta }}</p>
+    <p><strong>Fecha:</strong> {{ fechaBoleta }}</p>
+  </div>
 
-        <!-- Total -->
-        <div style="display: flex; justify-content: space-between; font-weight: bold; margin-top: 10px;">
-          <span>Total</span>
-          <span>$45.00</span>
-        </div>
-      </ion-card-content>
-    </ion-card>
+  <!-- Detalles de los productos -->
+  <ion-card style="margin-bottom: 20px;">
+    <ion-card-header>
+      <ion-card-title>Detalles del Pedido</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <!-- Lista de productos -->
+      <div *ngFor="let item of boleta" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+        <span>{{ item.product?.title }}</span> <!-- Mostrando el título del producto -->
+        <span>${{ item.product?.price.toFixed(2) }}</span> <!-- Mostrando el precio con formato -->
+      </div>
+    </ion-card-content>
+  </ion-card>
 
-    <!-- Botón de Pagar -->
-    <ion-button expand="full" color="primary" style="margin-top: 20px;"routerLink="/pago">
-      Pagar
-    </ion-button>
+  <!-- Total -->
+  <div style="text-align: center; margin-bottom: 20px;">
+    <strong>Total:</strong> ${{ calcularTotal().toFixed(2) }} <!-- Calculando y mostrando el total -->
+  </div>
 
-  </ion-content>
+  <!-- Botón de Pagar -->
+  <ion-button expand="full" color="primary" style="margin-top: 20px;" (click)="guardarBoleta()">
+    Pagar
+  </ion-button>
 
+  <!-- Alerta para pago con éxito -->
+  <ion-alert
+    [isOpen]="isAlertOpenPago"
+    header="Pago con éxito"
+    message="Tu pago ha sido procesado correctamente."
+    [buttons]="alertButtonsPago"
+    (didDismiss)="setOpen(false)"
+  ></ion-alert>
+</ion-content>
