@@ -82,7 +82,9 @@
       </p>
 
       <!-- Precio del producto -->
-      <h3 style="color: #00704a; margin-bottom: 20px;">Precio: {{ product.price | currency }}</h3>
+      <h3 style="color: #00704a; margin-bottom: 20px;">
+        Precio: {{ product.price }}
+      </h3>
 
       <!-- Botones -->
       <div style="display: flex; flex-direction: column; gap: 20px; align-items: center;">
@@ -108,6 +110,12 @@
           style="background-color: #871111; width: 100%; max-width: 300px;">
           Volver al menú
         </ion-button>
+        <ion-button 
+        expand="block" 
+        routerLink="/pedido"
+        style="background-color: #871111; width: 100%; max-width: 300px;">
+        Tus pedidos
+      </ion-button>
       </div>
     </div>
   </ion-card>
