@@ -77,14 +77,14 @@
       <!-- Lista de productos -->
       <div *ngFor="let item of boleta" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
         <span>{{ item.product?.title }}</span> <!-- Mostrando el título del producto -->
-        <span>${{ item.product?.price.toFixed(2) }}</span> <!-- Mostrando el precio con formato -->
+        <span>${{ item.product?.price }}</span> <!-- Mostrando el precio con formato -->
       </div>
     </ion-card-content>
   </ion-card>
 
   <!-- Total -->
   <div style="text-align: center; margin-bottom: 20px;">
-    <strong>Total:</strong> ${{ calcularTotal().toFixed(2) }} <!-- Calculando y mostrando el total -->
+    <strong>Total:</strong> ${{ calcularTotal()}} <!-- Calculando y mostrando el total -->
   </div>
 
   <!-- Botón de Pagar -->

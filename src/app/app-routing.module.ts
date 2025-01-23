@@ -49,10 +49,12 @@ const routes: Routes = [
     path: 'adm-produc',
     loadChildren: () => import('./pages/adm-produc/adm-produc.module').then( m => m.AdmProducPageModule)
   },
-  {
-    path: 'adm-histo',
-    loadChildren: () => import('./pages/adm-histo/adm-histo.module').then( m => m.AdmHistoPageModule)
+  
+  {    
+    path: 'adm-histo',    
+    loadChildren: () => import('./pages/adm-histo/adm-histo.module').then(m => m.AdmHistoPageModule)  
   },
+  
   {
     path: 'adm-pedidos',
     loadChildren: () => import('./pages/adm-pedidos/adm-pedidos.module').then( m => m.AdmPedidosPageModule)
@@ -66,9 +68,9 @@ const routes: Routes = [
     loadChildren: () => import('./pages/detalle-prod/detalle-prod.module').then( m => m.DetalleProdPageModule)
   },
 
-  {
-    path: 'adm-deta-vent',
-    loadChildren: () => import('./pages/adm-deta-vent/adm-deta-vent.module').then( m => m.AdmDetaVentPageModule)
+  {    
+    path: 'adm-deta-vent/:numeroBoleta', 
+    loadChildren: () => import('./pages/adm-deta-vent/adm-deta-vent.module').then(m => m.AdmDetaVentPageModule) 
   },
   {
     path: 'adm-deta-pedido/:id',

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { BoletaService } from '../../services/boleta.service'; // Asegúrate de importar el servicio
-import { Observable } from 'rxjs';
+import { BoletaService } from '../../services/boleta.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-adm-histo',
@@ -9,46 +9,28 @@ import { Observable } from 'rxjs';
   standalone: false,
 })
 export class AdmHistoPage implements OnInit {
+  historialVentas: any[] = [];
+  mesaSeleccionada: string = '';
 
-  historialVentas: any[] = [];  // Aquí almacenaremos las boletas
-  mesaSeleccionada: string = ''; // Para el filtro de mesa
-  fechaSeleccionada: string = ''; // Para el filtro de fecha
-
-  constructor(private boletaService: BoletaService) { }
+  constructor(private boletaService: BoletaService, private router: Router) {}
 
   ngOnInit() {
-    this.cargarHistorial();  // Cargamos el historial de ventas al inicializar la página
+    this.cargarHistorial();
   }
 
   cargarHistorial() {
-    // Obtenemos las boletas de Firebase
-    this.boletaService.obtenerBoletas().subscribe(data => {
-      this.historialVentas = data;
+    this.boletaService.obtenerBoletas().subscribe((data) => {
+      this.historialVentas = data.map((doc: any) => ({ ...doc }));
     });
   }
 
-  // Aquí puedes agregar cualquier filtro si es necesario
-  aplicarFiltros() {
-    let ventasFiltradas = this.historialVentas;
 
-    // Filtro por mesa
-    if (this.mesaSeleccionada) {
-      ventasFiltradas = ventasFiltradas.filter(venta => venta.mesa === this.mesaSeleccionada);
+
+  verDetallesBoleta(numeroBoleta: string) {
+    if (numeroBoleta) {
+      this.router.navigate(['/adm-deta-vent', numeroBoleta]);
+    } else {
+      console.error('El número de boleta no está definido');
     }
-
-    // Filtro por fecha
-    if (this.fechaSeleccionada) {
-      ventasFiltradas = ventasFiltradas.filter(venta => venta.fechaBoleta === this.fechaSeleccionada);
-    }
-
-    // Actualiza el historial con las ventas filtradas
-    this.historialVentas = ventasFiltradas;
-  }
-
-  // Método para resetear los filtros
-  resetearFiltros() {
-    this.mesaSeleccionada = '';
-    this.fechaSeleccionada = '';
-    this.cargarHistorial(); // Recargar todos los registros sin filtros
   }
 }

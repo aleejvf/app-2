@@ -47,59 +47,39 @@
   </ion-content>
 </ion-menu>
 
-              <!--  contenido                         s -->
-              <!--  contenido                         s -->
-              <!--  contenido                         s -->
-  <ion-content>
-    <ion-card style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
-      <ion-icon 
-        name="arrow-back" 
-        style="background-color: #00704a; color: white; margin-right: 20px;" 
-        routerLink="/adm-histo">
-      </ion-icon>
-      <ion-text color="light" text-center>
-        <h1>Boleta de Compra</h1>
-      </ion-text>
-    </ion-card>
-    <!-- Encabezado de la boleta -->
-    <div style="text-align: center; margin-bottom: 20px;">
-      <p><strong>Número de Boleta:</strong> #12345</p>
-      <p><strong>Fecha:</strong> 09/01/2025</p>
-      <p><strong>Mesa:</strong> Mesa 1</p>
-    </div>
+<!--  contenido                         s -->
+<!--  contenido                         s -->
+<!--  contenido                         s -->
+<ion-content>
+  <ion-card style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
+    <ion-icon 
+    name="arrow-back" 
+    style="background-color: #00704a; color: white; margin-right: 20px;" 
+    routerLink="/adm-histo">
+  </ion-icon>
+    <ion-text color="light" text-center>
+      <h1>Detalle de boleta</h1>
+    </ion-text>
+  </ion-card>
+  <div style="text-align: center; margin-bottom: 20px;" *ngIf="boleta">
+    <p><strong>Número de Boleta:</strong> {{ boleta.numeroBoleta }}</p>
+    <p><strong>Fecha:</strong> {{ boleta.fechaBoleta }}</p>
+    <p><strong>Mesa:</strong> {{ boleta.mesa }}</p>
+  </div>
 
-    <!-- Detalles de los productos -->
-    <ion-card style="margin-bottom: 20px;">
-      <ion-card-header>
-        <ion-card-title>Detalles del Pedido</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <!-- Producto 1 -->
-        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-          <span>Producto 1 / cantidad=3</span>
-          <span>$10.00</span>
-        </div>
-        <!-- Producto 2 -->
-        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-          <span>Producto 2 / cantidad=3</span>
-          <span>$15.00</span>
-        </div>
-        <!-- Producto 3 -->
-        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-          <span>Producto 3 / cantidad=3</span>
-          <span>$20.00</span>
-        </div>
-
-        <!-- Total -->
-        <div style="display: flex; justify-content: space-between; font-weight: bold; margin-top: 10px;">
-          <span>Total</span>
-          <span>$45.00</span>
-        </div>
-      </ion-card-content>
-    </ion-card>
-
-    <!-- Botón de Pagar -->
-
-
-  </ion-content>
-            
+  <ion-card *ngIf="boleta">
+    <ion-card-header>
+      <ion-card-title>Detalles del Pedido</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div *ngFor="let producto of boleta.productos" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+        <span>{{ producto.title }} </span>
+        <span>${{ producto.price }}</span>
+      </div>
+      <div style="display: flex; justify-content: space-between; font-weight: bold; margin-top: 10px;">
+        <span>Total</span>
+        <span>${{ boleta.total }}</span>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

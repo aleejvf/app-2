@@ -8,8 +8,7 @@
       </ion-button>
     </ion-buttons>
     <!-- Título centrado -->
-    <ion-title style="text-align: center;">Administracion</ion-title>
-    
+    <ion-title style="text-align: center;">Administración</ion-title>
     <!-- Botón del menú -->
     <ion-buttons slot="end">
       <ion-menu-button menu="menu-adm-histo"></ion-menu-button>
@@ -18,12 +17,11 @@
 </ion-header>
 
 <!-- CONTENEDOR PRINCIPAL -->
-<!-- Este contenedor es el área que el menú controla -->
 <ion-router-outlet id="main-content"></ion-router-outlet>
 
 <!-- MENÚ BOLETA -->
-<ion-menu contentId="main-content" menuId="menu-adm-histo"> <!-- Identificador único del menú -->
-  <ion-content class="ion-padding" style="background-color: #00704a;"> <!-- Fondo verde Starbucks -->
+<ion-menu contentId="main-content" menuId="menu-adm-histo">
+  <ion-content class="ion-padding" style="background-color: #00704a;">
     <ion-list>
       <!-- Opciones del menú -->
       <ion-item button routerLink="/adm-histo">
@@ -47,46 +45,30 @@
 
 <!-- CONTENIDO PRINCIPAL -->
 <ion-content [fullscreen]="true">
-  <!-- Filtros por mesa y fecha -->
   <ion-card style="background-color: #00704a; height: 150px; display: flex; justify-content: center; align-items: center;">
     <ion-text color="light" text-center>
       <h1>Historial de ventas</h1>
     </ion-text>
   </ion-card>
 
-  <!-- Filtros -->
-  <ion-item>
-    <ion-label position="stacked">Filtrar por mesa</ion-label>
-    <ion-select [(ngModel)]="mesaSeleccionada" placeholder="Seleccione una mesa">
-      <ion-select-option value="1">Mesa 1</ion-select-option>
-      <ion-select-option value="2">Mesa 2</ion-select-option>
-      <ion-select-option value="3">Mesa 3</ion-select-option>
-    </ion-select>
-  </ion-item>
+  <!-- Filtro por mesa -->
 
-  <ion-item>
-    <ion-label position="stacked">Filtrar por fecha</ion-label>
-    <ion-datetime [(ngModel)]="fechaSeleccionada" placeholder="Seleccione una fecha" display-format="DD/MM/YYYY"></ion-datetime>
-  </ion-item>
-
-  <!-- Lista del historial -->
+  <!-- Lista de boletas -->
   <ion-list>
     <ion-item *ngFor="let item of historialVentas">
       <ion-label>
         <h2>N° de Mesa: {{ item.mesa }}</h2>
-        <p>Fecha: {{ item.fechaBoleta | date: 'dd/MM/yyyy' }}</p>
+        <p>Fecha: {{ item.fechaBoleta }}</p>
         <p>Número de Boleta: {{ item.numeroBoleta }}</p>
         <p>Total: ${{ item.total.toFixed(2) }}</p>
       </ion-label>
-      <!-- Botón Ver más -->
-      <ion-button fill="outline" color="primary" slot="end" [routerLink]="['/adm-deta-vent', item.id]">
+      <ion-button fill="outline" color="primary" slot="end" (click)="verDetallesBoleta(item.numeroBoleta)">
         Ver más
       </ion-button>
     </ion-item>
-
-    <!-- Mensaje cuando no hay boletas -->
     <ion-item *ngIf="historialVentas.length === 0">
       <ion-label text-center>No hay boletas realizadas</ion-label>
     </ion-item>
   </ion-list>
+  
 </ion-content>
