@@ -53,8 +53,8 @@
   </ion-card>
 
   <ion-item>
-    <ion-label position="stacked">Imagen del Producto</ion-label>
-    <ion-input type="file" [(ngModel)]="productImage"></ion-input>
+    <ion-label>Imagen del producto</ion-label>
+    <input type="file" (change)="onImageSelected($event)" />
   </ion-item>
 
   <ion-item>

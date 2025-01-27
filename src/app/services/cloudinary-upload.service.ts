@@ -7,25 +7,28 @@ import { Observable } from 'rxjs';
 })
 export class CloudinaryUploadService {
   // URL base para subir imágenes a Cloudinary
-  private cloudinaryUrl = 'https://api.cloudinary.com/v1_1/dbq614kcp/image/upload'; 
-  // Upload Preset configurado en tu cuenta de Cloudinary
-  private cloudinaryUploadPreset = 'tu-upload-preset'; 
+  private cloudinaryUrl = 'https://api.cloudinary.com/v1_1/dbhobtfhs/image/upload'; 
+
+  // Configuración de Cloudinary
+  private uploadPreset = 'images'; // Upload Preset configurado en Cloudinary
+  private apiKey = '824135419896176'; // API Key de Cloudinary
 
   constructor(private http: HttpClient) {}
 
   /**
    * Sube una imagen a Cloudinary
-   * @param image Archivo de imagen seleccionado por el usuario
+   * @param file Archivo de imagen seleccionado por el usuario
    * @returns Observable con la respuesta de Cloudinary
    */
-  uploadImage(image: File): Observable<any> {
+  uploadImage(file: File): Observable<any> {
     const formData = new FormData();
 
-    // Agrega el archivo de imagen al FormData
-    formData.append('file', image);
+    // Agrega el archivo al FormData
+    formData.append('file', file);
 
-    // Agrega el Upload Preset para autenticar la carga
-    formData.append('upload_preset', this.cloudinaryUploadPreset);
+    // Agrega los datos necesarios para la carga
+    formData.append('upload_preset', this.uploadPreset); // Preset de carga
+    formData.append('api_key', this.apiKey); // API Key
 
     // Realiza la petición POST al endpoint de Cloudinary
     return this.http.post<any>(this.cloudinaryUrl, formData);
